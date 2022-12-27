@@ -1,24 +1,21 @@
 .header{
-
-}
-
-.content{
-
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    min-height: 88px;
+    margin: 40px;
+    background-color: #1C1C21;
 }
 
 .navigation{
-
-}
-
-.profile{
-
+    display: flex;
+    min-width: 1280px;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .link{
+    display: inline-flex;
     text-decoration: none;
     color: inherit;
-}
-
-.logo{
-
 }

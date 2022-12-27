@@ -1,8 +1,13 @@
-.App {
-  text-align: center;
+.main{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 40px;
+  max-width: 1920px;
 }
 
-.App-logo {
+
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -24,10 +29,6 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,4 +36,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */

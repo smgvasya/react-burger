@@ -8,9 +8,9 @@ class App extends React.Component {
     return (
       <div className="App">
         <AppHeader />
-          <div className={styles.main} >
-          <BurgerIngredients />
-          </div>
+          <main className={styles.main} >
+            <BurgerIngredients />
+          </main>
           {/* <img src={} className="" alt="" />
           <p></p>
           <a></a> */}

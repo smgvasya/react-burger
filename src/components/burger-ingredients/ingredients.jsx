@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styles from './burger-ingredients.module.css';
 import {
     CurrencyIcon,
@@ -8,19 +8,18 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
   import data from '../../utils/data';
+  import PropTypes from "prop-types";
+  import ingredientsPropTypes from '../../utils/propTypes';
 
 const Ingredients = ({title, type}) => {
-   
+    const content = useMemo(() => data.filter((item) => item.type === type)) ;
 
-    const buns = data.filter((item) => item.type === type);
-    // const sauces = data.filter((item) => item.type === 'sauce');
-    // const mains = data.filter((item) => item.type === 'main');
         return (
            <div className={ styles.grid }>
             <h2 className='text text_type_main-medium pb-6' >{title}</h2>
                 <ul className={ styles.list } >
-                    {buns.map ((item) => (
-                        <li className='pr-4 pl-4'  key={item._id}>
+                    {content.map ((item) => (
+                        <li className='pr-4 pl-4' type={type} key={item._id}>
                         <Counter count={1} size="default" extraClass="m-1" />
                         <img className='pt-6 pb-10' src={item.image} alt={item.name} />
                         <div>
@@ -33,7 +32,11 @@ const Ingredients = ({title, type}) => {
                 </ul>
            </div>
         )
-    
+}
+
+Ingredients.propTypes = {
+    data: ingredientsPropTypes,
+    title: PropTypes.string.isRequired,
 }
 
 export default Ingredients

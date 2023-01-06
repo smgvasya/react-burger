@@ -11,10 +11,10 @@ import data from '../../utils/data';
         <Tab value={'bun'} active={current === 'bun'} onClick={setCurrent}>
           Булки
         </Tab>
-        <Tab value={'sause'} active={current === 'sauses'} onClick={setCurrent}>
+        <Tab value={'sause'} active={current === 'sause'} onClick={setCurrent}>
           Соусы
         </Tab>
-        <Tab value={'main'} active={current === 'mains'} onClick={setCurrent}>
+        <Tab value={'main'} active={current === 'main'} onClick={setCurrent}>
           Начинки
         </Tab>
       </div>

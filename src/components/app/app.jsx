@@ -8,7 +8,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <AppHeader />
-          <main className={styles.main} >
+          <main className={ styles.main } >
             <BurgerIngredients />
           </main>
           {/* <img src={} className="" alt="" />

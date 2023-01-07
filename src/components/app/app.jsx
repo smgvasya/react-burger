@@ -11,9 +11,6 @@ class App extends React.Component {
           <main className={ styles.main } >
             <BurgerIngredients />
           </main>
-          {/* <img src={} className="" alt="" />
-          <p></p>
-          <a></a> */}
       </div>
     );
   }

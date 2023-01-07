@@ -15,22 +15,22 @@ const Ingredients = ({title, type}) => {
     const content = useMemo(() => data.filter((item) => item.type === type)) ;
 
         return (
-           <div className={ styles.grid }>
-            <h2 className='text text_type_main-medium pb-6' >{title}</h2>
-                <ul className={ styles.list } >
+            <>
+            <h2 className='text text_type_main-medium pb-6 pt-10' >{title}</h2>
+                <ul className={ styles.list }  >
                     {content.map ((item) => (
-                        <li className='pr-4 pl-4' type={type} key={item._id}>
+                        <li type={type} key={item._id}>
                         <Counter count={1} size="default" extraClass="m-1" />
-                        <img className='pt-6 pb-10' src={item.image} alt={item.name} />
-                        <div>
+                        <img className='pr-4 pb-1 pl-4' src={item.image} alt={item.name} />
+                        <div className={ styles.price } >
                         <span className="pt-1 pb-1 text text_type_digits-default">{item.price}</span>
                         <CurrencyIcon type="primary" />
                         </div>
-                        <p className="pt-1 pb-1 text text_type_digits-default">{item.name}</p>
+                        <p className={`pt-1 pb-1 text text text_type_main-small ${ styles.name }`}>{item.name}</p>
                     </li>
                     ))}
                 </ul>
-           </div>
+            </>
         )
 }
 

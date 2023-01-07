@@ -18,7 +18,7 @@ const Ingredients = ({title, type}) => {
             <h2 className='text text_type_main-medium pb-6 pt-10' >{title}</h2>
                 <ul className={ styles.list }  >
                     {content.map ((item) => (  
-                        <li className={ styles.item } type={type} key={item._id}>
+                        <li className={`mr-1 ${ styles.item }`} type={type} key={item._id}>
                             <Counter count={1} size="default" extraClass="m-1" />
                             <img className='pr-4 pb-1 pl-4' src={item.image} alt={item.name} />
                             <div className={ styles.price } >

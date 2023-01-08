@@ -1,0 +1,58 @@
+.section {
+    max-width: 600px;
+    box-sizing: border-box;
+   }
+.ingredient {
+    height: 464px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    list-style: none;
+    margin:  0;
+    padding: 0;
+}
+
+.ingredient::-webkit-scrollbar {
+    width: 8px;
+    height: 464px;
+}
+.ingredient::-webkit-scrollbar-track {
+    background: #2F2F37;
+    margin-top: 16px;
+}
+
+.ingredient::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+    height: 292px;
+}
+
+.list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.order {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-bottom: 52px;
+
+}
+
+.price {
+    display: flex;
+    gap: 9px;
+}
+
+.icon  {
+    display: flex;
+    align-items: center;
+}
+
+.icon svg {
+    height: 33px;
+    width: 33px;
+}
+
+

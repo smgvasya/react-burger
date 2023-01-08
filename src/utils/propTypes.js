@@ -15,8 +15,22 @@ export const ingredientsPropTypes = PropTypes.shape({
     __v: PropTypes.number.isRequired,
   });
 
+  export const constructorPropTypes = PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    isLocked: PropTypes.bool.isRequired,
+    text: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    index: PropTypes.number.isRequired,
+  });
 
-  export default ingredientsPropTypes
+
+// type="top"
+// isLocked={true}
+// text={burgerBun.name + '(верх)'}
+// price={burgerBun.price}
+// thumbnail={burgerBun.image}
+// index={burgerBun._id}
 
 //   "_id":"60666c42cc7b410027a1a9b1",
 //   "name":"Краторная булка N-200i",
@@ -30,3 +44,5 @@ export const ingredientsPropTypes = PropTypes.shape({
 //   "image_mobile":"https://code.s3.yandex.net/react/code/bun-02-mobile.png",
 //   "image_large":"https://code.s3.yandex.net/react/code/bun-02-large.png",
 //   "__v":0
+
+

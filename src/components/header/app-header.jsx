@@ -4,11 +4,7 @@ import {
     BurgerIcon,
     ListIcon,
     ProfileIcon,
-    Typography,
-    Tab,
     Logo,
-    Box,
-
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
@@ -17,11 +13,9 @@ class AppHeader extends React.Component {
     render() {
       return (
          <header className={ styles.header } > 
-            <div className={ styles.logo } >
-               <Logo />
-            </div>
+           
             <nav className={ styles.navigation }>
-               <div>
+               <div className={ styles.info } >
                   <a href="#" className={`pt-4 pr-5 pb-4 pl-5 mr-2 ${styles.link}`} >
                      <BurgerIcon type="primary"/>
                      <span className="pl-2 text text_type_main-default " >Конструктор</span>
@@ -33,8 +27,12 @@ class AppHeader extends React.Component {
                   </a>
                </div>
 
-               <div>
-                  <a href="#" className={`pt-4 pr-5 pb-4 pl-5 ${styles.link}`} >
+               <div className={ styles.logo } >
+                  <Logo />
+               </div>
+
+               <div className={ styles.account } >
+                  <a href="#" className={`pt-4 pr-5 pb-4 pl-5  ${styles.link}`} >
                      <ProfileIcon type="secondary"/>
                      <span className="pl-2 text text_type_main-default text_color_inactive" >Личный кабинет</span>
                   </a>
@@ -46,3 +44,4 @@ class AppHeader extends React.Component {
 }
 
 export default AppHeader
+

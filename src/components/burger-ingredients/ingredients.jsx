@@ -9,15 +9,15 @@ import {
 
   import data from '../../utils/data';
   import PropTypes from "prop-types";
-  import ingredientsPropTypes from '../../utils/propTypes';
+  import {ingredientsPropTypes} from '../../utils/propTypes';
 
 const Ingredients = ({title, type}) => {
-    const content = useMemo(() => data.filter((item) => item.type === type)) ;
+    const content = useMemo(() => data.filter(item => item.type === type)) ;
         return (
           <>
             <h2 className='text text_type_main-medium pb-6 pt-10' >{title}</h2>
                 <ul className={ styles.list }  >
-                    {content.map ((item) => (  
+                    {content.map (item => (  
                         <li className={`mr-1 ${ styles.item }`} type={type} key={item._id}>
                             <Counter count={1} size="default" extraClass="m-1" />
                             <img className='pr-4 pb-1 pl-4' src={item.image} alt={item.name} />

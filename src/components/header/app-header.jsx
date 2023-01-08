@@ -8,9 +8,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
-class AppHeader extends React.Component {
-
-    render() {
+const AppHeader = () => {
       return (
          <header className={ styles.header } > 
            
@@ -40,7 +38,6 @@ class AppHeader extends React.Component {
             </nav>
          </header>
       );
-   }
 }
 
 export default AppHeader

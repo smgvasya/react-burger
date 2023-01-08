@@ -5,13 +5,12 @@ import {
     ConstructorElement
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-  import PropTypes from "prop-types";
   import {constructorPropTypes} from '../../utils/propTypes';
   import data from '../../utils/data';
 
 
 const IngredientsConstructor = () => {
-  const burgerBun = useMemo(() => data.find(item => item.type === 'bun'));
+  const burgerBun = data.find(item => item.type === 'bun');
   const constituent = useMemo(() => data.filter(item => item.type !=='bun')) ;
     return (
       <>
@@ -40,7 +39,7 @@ const IngredientsConstructor = () => {
               </li>
             ))}
         </ul>
-        <div className='ml-8 mr-2 '>
+        <div className='ml-8 mr-2 mt-4'>
           <ConstructorElement
             type="bottom"
             isLocked={true}

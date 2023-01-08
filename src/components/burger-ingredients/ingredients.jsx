@@ -1,9 +1,7 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import styles from './burger-ingredients.module.css';
 import {
     CurrencyIcon,
-    Typography,
-    Box,
     Counter,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 

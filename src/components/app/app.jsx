@@ -4,8 +4,7 @@ import AppHeader from '../header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients'
 import BurgerConstructor from '../burger-constructor/burger-constructor'
 
-class App extends React.Component {
-  render (){
+const App = () => {
     return (
       <div className="App">
         <AppHeader />
@@ -15,7 +14,6 @@ class App extends React.Component {
           </main>
       </div>
     );
-  }
 }
 
 export default App;

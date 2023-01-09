@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import styles from './burger-constructor.module.css';
 import {
     DragIcon,
@@ -15,14 +15,14 @@ const IngredientsConstructor = () => {
     return (
       <>
         <div className= 'ml-8 mr-2' > 
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={burgerBun.name + ' (верх)'}
-            price={burgerBun.price}
-            thumbnail={burgerBun.image}
-            index={burgerBun._id}
-          />
+            <ConstructorElement
+              type="top"
+              isLocked={true}
+              text={burgerBun.name + ' (верх)'}
+              price={burgerBun.price}
+              thumbnail={burgerBun.image}
+              index={burgerBun._id}
+            />
         </div>
         
         <ul className={styles.ingredient}>
@@ -40,14 +40,14 @@ const IngredientsConstructor = () => {
             ))}
         </ul>
         <div className='ml-8 mr-2 mt-4'>
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={burgerBun.name+ ' (низ)'}
-            price={burgerBun.price}
-            thumbnail={burgerBun.image}
-            index={burgerBun._id}
-          />
+            <ConstructorElement
+              type="bottom"
+              isLocked={true}
+              text={burgerBun.name+ ' (низ)'}
+              price={burgerBun.price}
+              thumbnail={burgerBun.image}
+              index={burgerBun._id}
+            />
         </div>
       </>
   )

@@ -5,24 +5,24 @@ import {
     ConstructorElement
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-  import {constructorPropTypes} from '../../utils/propTypes';
-  import data from '../../utils/data';
-
-
-const IngredientsConstructor = () => {
-  const burgerBun = data.find(item => item.type === 'bun');
-  const constituent = useMemo(() => data.filter(item => item.type !=='bun')) ;
+import {constructorPropTypes} from '../../utils/propTypes';
+  
+const IngredientsConstructor = ({data}) => {
+  const burgerBun = data.filter(item => item.name === 'Краторная булка N-200i');
+  const constituent = useMemo(() => data.filter(item => item.type !=='bun'), [data]) ;
     return (
       <>
         <div className= 'ml-8 mr-2' > 
+        {burgerBun.map(item => (
             <ConstructorElement
               type="top"
               isLocked={true}
-              text={burgerBun.name + ' (верх)'}
-              price={burgerBun.price}
-              thumbnail={burgerBun.image}
-              index={burgerBun._id}
+              text={item.name + ' (верх)'}
+              price={item.price}
+              thumbnail={item.image}
+              key={item._id}
             />
+            ))}
         </div>
         
         <ul className={styles.ingredient}>
@@ -34,27 +34,30 @@ const IngredientsConstructor = () => {
                   text={item.name}
                   price={item.price}
                   thumbnail={item.image}
-                  index={item._id}
+                  key={item._id}
                 />
               </li>
             ))}
         </ul>
         <div className='ml-8 mr-2 mt-4'>
+        {burgerBun.map(item => (
             <ConstructorElement
               type="bottom"
               isLocked={true}
-              text={burgerBun.name+ ' (низ)'}
-              price={burgerBun.price}
-              thumbnail={burgerBun.image}
-              index={burgerBun._id}
+              text={item.name + ' (низ)'}
+              price={item.price}
+              thumbnail={item.image}
+              key={item._id}
             />
+            ))}
         </div>
       </>
   )
 }
 
 IngredientsConstructor.propTypes = {
-  data: constructorPropTypes,
+  ConstructorElement: constructorPropTypes,
+  
 }
 
 export default IngredientsConstructor

@@ -6,11 +6,11 @@ import {
 import IngredientsConstructor from './ingredients-constructor';
 
 
-const BurgerConstructor = () => {
+const BurgerConstructor = ({data}) => {
   return (
     <section className={`${styles.section} mt-25 `}>
       <div className='pl-4 mb-10 ' >
-        <IngredientsConstructor  />
+        <IngredientsConstructor data = {data} />
       </div>
       <div className={`${styles.order} mr-4`}>
         <div className={`${styles.price} mr-10`} >

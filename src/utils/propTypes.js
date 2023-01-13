@@ -22,6 +22,7 @@ export const ingredientsPropTypes = PropTypes.shape({
     price: PropTypes.number.isRequired,
     thumbnail: PropTypes.string.isRequired,
     index: PropTypes.number.isRequired,
+    
   });
 
 

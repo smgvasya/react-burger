@@ -5,12 +5,11 @@ import {
     Counter,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-  import data from '../../utils/data';
   import PropTypes from "prop-types";
   import {ingredientsPropTypes} from '../../utils/propTypes';
 
-const Ingredients = ({title, type}) => {
-    const content = useMemo(() => data.filter(item => item.type === type)) ;
+const Ingredients = ({title, type, data}) => {
+    const content = useMemo(() => data.filter(item => item.type === type),[data, type]) ;
         return (
           <>
             <h2 className='text text_type_main-medium pb-6 pt-10' >{title}</h2>
@@ -32,7 +31,7 @@ const Ingredients = ({title, type}) => {
 }
 
 Ingredients.propTypes = {
-    data: ingredientsPropTypes,
+    data:  PropTypes.arrayOf(ingredientsPropTypes).isRequired,
     title: PropTypes.string.isRequired,
 }
 

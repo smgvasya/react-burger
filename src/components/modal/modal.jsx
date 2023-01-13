@@ -5,14 +5,16 @@ import ModalOverlay from './modal-overlay';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from "prop-types";
 
- const Modal = ({ children }) => {
+ const Modal = ({ children, OnClose, setVisible }) => {
 
   const modalRoot = document.getElementById('react-modals');
 
+
+
   return  ReactDOM.createPortal(
-    <ModalOverlay>
+    <ModalOverlay onClick={OnClose} >
         <div className={styles.content}>
-          <div className={styles.closeButton} >
+          <div className={styles.closeButton} onClick={OnClose} >
             <CloseIcon type="primary" />
           </div>
           {children}

@@ -19,9 +19,9 @@ const BurgerIngredients = ({data}) => {
                 <Ingredients type='sauce' title='Соусы' data = {data} />
                 <Ingredients type='main' title='Начинки' data = {data} />
             </div>
-            {/* <Modal>
+            <Modal>
                <IngredientDetails data = {data}/>
-            </Modal> */}
+            </Modal>
         </section>
         )
 

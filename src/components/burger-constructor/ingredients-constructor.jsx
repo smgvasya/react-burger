@@ -6,13 +6,13 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import {constructorPropTypes} from '../../utils/propTypes';
-  
+
 const IngredientsConstructor = ({data}) => {
   const burgerBun = data.filter(item => item.name === 'Краторная булка N-200i');
   const constituent = useMemo(() => data.filter(item => item.type !=='bun'), [data]) ;
     return (
       <>
-        <div className= 'ml-8 mr-2' > 
+        <div className = 'ml-8 mr-2' >
         {burgerBun.map(item => (
             <ConstructorElement
               type="top"
@@ -24,7 +24,7 @@ const IngredientsConstructor = ({data}) => {
             />
             ))}
         </div>
-        
+
         <ul className={styles.ingredient}>
             {constituent.map(item => (
               <li className={`${styles.list} mt-4 mr-2`} key={item._id}>
@@ -57,7 +57,7 @@ const IngredientsConstructor = ({data}) => {
 
 IngredientsConstructor.propTypes = {
   ConstructorElement: constructorPropTypes,
-  
+
 }
 
 export default IngredientsConstructor

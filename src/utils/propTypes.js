@@ -25,6 +25,12 @@ export const ingredientsPropTypes = PropTypes.shape({
     
   });
 
+  export const modalPropTypes = PropTypes.shape({
+    onClose: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired,
+  });
+
 
 // type="top"
 // isLocked={true}

@@ -6,7 +6,7 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients'
 import BurgerConstructor from '../burger-constructor/burger-constructor'
 
 const App = () => {
-  const baseUrl = 'https://norma.nomoreparties.space/api/ingredients' 
+  const baseUrl = 'https://norma.nomoreparties.space/api/ingredients'
 
   const [data, setData] = useState([]);
 
@@ -15,7 +15,7 @@ const App = () => {
       .then (res => setData(res.data))
       .catch (err => console.log(`Ошибка: ${err}`));
   }, []);
-  
+
 
   return (
       <>
@@ -24,7 +24,7 @@ const App = () => {
           <BurgerIngredients data={data}/>
           <BurgerConstructor data={data}/>
           </main>
-      
+
       </>
 
     );

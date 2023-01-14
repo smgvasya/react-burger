@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './app-header.module.css';
 import {
     BurgerIcon,
@@ -10,8 +9,8 @@ import {
 
 const AppHeader = () => {
       return (
-         <header className={ styles.header } > 
-           
+         <header className={ styles.header } >
+
             <nav className={ styles.navigation }>
                <div className={ styles.info } >
                   <a href="#" className={`pt-4 pr-5 pb-4 pl-5 mr-2 ${styles.link}`} >

@@ -2,23 +2,21 @@ import React from 'react';
 import styles from './modal.module.css';
 import {modalPropTypes} from '../../utils/propTypes';
 
-const ModalOverlay = ({children, setVisible, visible }) => {
+const ModalOverlay = ({children, visible }) => {
 
-  const defaultClasses = [styles.overlay]
-    visible && defaultClasses.push(styles.active);
+  const rootClasses = [styles.overlay]
+    visible && rootClasses.push(styles.active);
 
 
   return (
-    <div className={defaultClasses.join(' ')} onClick={() => visible(false)} >
+    <div className={rootClasses.join(' ')} onClick={() => visible(false)} >
       {children}
     </div>
   )
 }
 
-// ModalOverlay.propTypes = {
+ModalOverlay.propTypes = {
+  props: modalPropTypes,
+}
 
-
-
-// }
-
-  export default ModalOverlay
+export default ModalOverlay

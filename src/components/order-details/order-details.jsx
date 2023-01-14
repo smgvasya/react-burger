@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './order-details.module.css';
 import logo from '../../images/id-order.svg';
 

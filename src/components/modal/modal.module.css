@@ -10,7 +10,7 @@
 
   .closeButton {
     position: absolute;
-    top: 60px;
+    top: 52px;
     right: 40px;
     cursor: pointer;
   }
@@ -22,8 +22,6 @@
 
   .overlay {
     position: fixed;
-    /* height: 100%;
-    width: 100%; */
     top: 0;
     right: 0;
     bottom: 0;

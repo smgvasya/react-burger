@@ -13,7 +13,15 @@ import OrderDetails from '../order-details/order-details';
 
 const BurgerConstructor = ({data}) => {
 
+  const [modal, setModal] = useState(false);
 
+  const handleOpenModal = () => {
+    setModal(true);
+  }
+
+  const handleCloseModal = () => {
+    setModal(false);
+  }
 
   return (
     <section className={`${styles.section} mt-25 `}>
@@ -27,31 +35,14 @@ const BurgerConstructor = ({data}) => {
             <CurrencyIcon type="primary" />
           </div>
         </div>
-        <Button type="primary" size="large" htmlType="button" >Оформить заказ</Button>
+        <Button type="primary" size="large" htmlType="button" onClick={handleOpenModal}>Оформить заказ</Button>
       </div>
-        {/* <Modal>
-          <OrderDetails data = {data}/>
-        </Modal> */}
+      {modal &&
+      <Modal visible = {handleCloseModal} >
+        <OrderDetails data = {data}/>
+      </Modal>}
     </section>
   )
 }
 
 export default BurgerConstructor
-
-
-// const [isOpened, setIsOpened] = useState(false);
-
-// const modalClose = () => {
-//   setIsOpened(false);
-// }
-
-// const getModalData = () => {
-//   setIsOpened(true);
-// }
-
-// onClickCapture={getModalData}
-
-// {isOpened &&
-//   <Modal close={modalClose}>
-//     <OrderDetails />
-//   </Modal>}

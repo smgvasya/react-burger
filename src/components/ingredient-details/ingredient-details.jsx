@@ -6,10 +6,10 @@ import {ingredientsPropTypes} from '../../utils/propTypes'
  const IngredientDetails = ({ data }) => {
     return (
       <>
-        <h1 className={`text text_type_main-large pl-10 pt-10 ${styles.header}`}>Детали ингредиента</h1>
+        <h1 className='text text_type_main-large pl-10 pt-10'>Детали ингредиента</h1>
         <div className={styles.container}>
-          <img className={`${styles.img} pb-4`} src={data.image_large} alt={data.name} />
-          <p className={`${styles.title} text text_type_main-default pb-8`} >{data.name}</p>
+          <img className='pb-4' src={data.image_large} alt={data.name} />
+          <p className='text text_type_main-default pb-8' >{data.name}</p>
           <ul className={styles.list}>
 
             <li className={styles.item}>

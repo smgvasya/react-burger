@@ -24,7 +24,6 @@ const App = () => {
           <BurgerIngredients data={data}/>
           <BurgerConstructor data={data}/>
           </main>
-
       </>
 
     );

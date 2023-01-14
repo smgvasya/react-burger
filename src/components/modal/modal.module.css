@@ -28,9 +28,6 @@
     left: 0;
     display: none;
     background-color: rgba(0, 0, 0, .6);
-  }
-
-  .active {
     display: flex;
     justify-content: center;
     align-items: center;

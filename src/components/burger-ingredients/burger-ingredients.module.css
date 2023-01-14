@@ -20,7 +20,8 @@
 
 .item {
     position: relative;
-    
+    cursor: help;
+
 }
 
 .price {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ingredientsPropTypes} from "../../utils/propTypes";
+import { ingredientsPropTypes } from "../../utils/propTypes";
 import PropTypes from "prop-types";
 
 import styles from "./burger-constructor.module.css";

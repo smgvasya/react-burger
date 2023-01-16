@@ -6,7 +6,7 @@ import {
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { ingredientsPropTypes} from "../../utils/propTypes";
+import { ingredientsPropTypes } from "../../utils/propTypes";
 
 const IngredientsConstructor = ({ data }) => {
   const burgerBun = data.filter(

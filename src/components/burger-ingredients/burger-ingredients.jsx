@@ -1,14 +1,13 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-import { ingredientsPropTypes} from "../../utils/propTypes";
+import { ingredientsPropTypes } from "../../utils/propTypes";
 import styles from "./burger-ingredients.module.css";
 import IngredientsTabs from "./ingredients-tabs";
 import Ingredients from "./ingredients";
 
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-
 
 const BurgerIngredients = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);

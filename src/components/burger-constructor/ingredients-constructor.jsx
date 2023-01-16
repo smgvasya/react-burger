@@ -1,11 +1,12 @@
 import { useMemo } from "react";
+import PropTypes from "prop-types";
 import styles from "./burger-constructor.module.css";
 import {
   DragIcon,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { constructorPropTypes } from "../../utils/propTypes";
+import { ingredientsPropTypes} from "../../utils/propTypes";
 
 const IngredientsConstructor = ({ data }) => {
   const burgerBun = data.filter(
@@ -61,7 +62,7 @@ const IngredientsConstructor = ({ data }) => {
 };
 
 IngredientsConstructor.propTypes = {
-  ConstructorElement: constructorPropTypes,
+  data: PropTypes.arrayOf(ingredientsPropTypes).isRequired,
 };
 
 export default IngredientsConstructor;

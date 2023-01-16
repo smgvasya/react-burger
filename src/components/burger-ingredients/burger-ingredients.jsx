@@ -1,5 +1,7 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
+import { ingredientsPropTypes} from "../../utils/propTypes";
 import styles from "./burger-ingredients.module.css";
 import IngredientsTabs from "./ingredients-tabs";
 import Ingredients from "./ingredients";
@@ -7,17 +9,18 @@ import Ingredients from "./ingredients";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
+
 const BurgerIngredients = ({ data }) => {
-  const [modal, setModal] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [ingredients, setIngredients] = useState(null);
 
   const handleOpenModal = (item) => {
-    setModal(true);
+    setIsOpen(true);
     setIngredients(item);
   };
 
   const handleCloseModal = () => {
-    setModal(false);
+    setIsOpen(false);
   };
 
   return (
@@ -44,13 +47,17 @@ const BurgerIngredients = ({ data }) => {
           getData={handleOpenModal}
         />
       </div>
-      {modal && (
-        <Modal visible={handleCloseModal}>
+      {isOpen && (
+        <Modal onClose={handleCloseModal}>
           <IngredientDetails data={ingredients} />
         </Modal>
       )}
     </section>
   );
+};
+
+BurgerIngredients.propTypes = {
+  data: PropTypes.arrayOf(ingredientsPropTypes).isRequired,
 };
 
 export default BurgerIngredients;

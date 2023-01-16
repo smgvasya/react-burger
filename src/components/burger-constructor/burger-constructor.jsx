@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { ingredientsPropTypes} from "../../utils/propTypes";
+import PropTypes from "prop-types";
 
 import styles from "./burger-constructor.module.css";
 import {
@@ -6,19 +8,18 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientsConstructor from "./ingredients-constructor";
-
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 
 const BurgerConstructor = ({ data }) => {
-  const [modal, setModal] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleOpenModal = () => {
-    setModal(true);
+    setIsOpen(true);
   };
 
   const handleCloseModal = () => {
-    setModal(false);
+    setIsOpen(false);
   };
 
   return (
@@ -42,13 +43,17 @@ const BurgerConstructor = ({ data }) => {
           Оформить заказ
         </Button>
       </div>
-      {modal && (
-        <Modal visible={handleCloseModal}>
+      {isOpen && (
+        <Modal onClose={handleCloseModal}>
           <OrderDetails data={data} />
         </Modal>
       )}
     </section>
   );
+};
+
+BurgerConstructor.propTypes = {
+  data: PropTypes.arrayOf(ingredientsPropTypes).isRequired,
 };
 
 export default BurgerConstructor;

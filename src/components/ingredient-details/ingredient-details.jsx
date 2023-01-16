@@ -53,7 +53,7 @@ const IngredientDetails = ({ data }) => {
 };
 
 IngredientDetails.propTypes = {
-  data: ingredientsPropTypes,
+  data: ingredientsPropTypes.isRequired,
 };
 
 export default IngredientDetails;

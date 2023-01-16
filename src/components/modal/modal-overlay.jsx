@@ -1,17 +1,16 @@
-import styles from './modal.module.css';
-import {modalPropTypes} from '../../utils/propTypes';
+import styles from "./modal.module.css";
+import { modalPropTypes } from "../../utils/propTypes";
 
-const ModalOverlay = ({children, visible }) => {
-
+const ModalOverlay = ({ children, visible }) => {
   return (
-    <div className={styles.overlay} onClick={() => visible(false)} >
+    <div className={styles.overlay} onClick={() => visible(false)}>
       {children}
     </div>
-  )
-}
+  );
+};
 
 ModalOverlay.propTypes = {
   props: modalPropTypes,
-}
+};
 
-export default ModalOverlay
+export default ModalOverlay;

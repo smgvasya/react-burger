@@ -23,7 +23,7 @@ const App = () => {
     <>
       <AppHeader />
       {isLoading ? (
-        <h1 className={`${styles.loading}text text_type_digits-large`}>
+        <h1 className={`${styles.loading} text text_type_digits-large`}>
           Загрузка..
         </h1>
       ) : (

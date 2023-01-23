@@ -18,7 +18,7 @@ const IngredientsConstructor = ({ data }) => {
   );
   return (
     <>
-      <div className="ml-8 mr-2">
+      <div className="ml-8 mr-2 mb-4">
         {burgerBun.map((item) => (
           <ConstructorElement
             type="top"
@@ -31,9 +31,9 @@ const IngredientsConstructor = ({ data }) => {
         ))}
       </div>
 
-      <ul className={styles.ingredient}>
+      <ul className={styles.ingredients}>
         {constituent.map((item) => (
-          <li className={`${styles.list} mt-4 mr-2`} key={item._id}>
+          <li className={`${styles.list} mb-4 mr-2`} key={item._id}>
             <DragIcon type="primary" />
             <ConstructorElement
               isLocked={false}
@@ -45,7 +45,7 @@ const IngredientsConstructor = ({ data }) => {
           </li>
         ))}
       </ul>
-      <div className="ml-8 mr-2 mt-4">
+      <div className="ml-8 mr-2">
         {burgerBun.map((item) => (
           <ConstructorElement
             type="bottom"

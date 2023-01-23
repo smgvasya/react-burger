@@ -2,8 +2,7 @@ import React from "react";
 import styles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const IngredientsTabs = () => {
-  const [current, setCurrent] = React.useState("bun");
+const IngredientsTabs = ({current, setCurrent}) => {
   return (
     <div className={styles.tabs}>
       <Tab value={"bun"} active={current === "bun"} onClick={setCurrent}>

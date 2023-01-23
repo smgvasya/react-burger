@@ -2,25 +2,22 @@
   max-width: 600px;
   box-sizing: border-box;
 }
-.ingredient {
+.ingredients {
   height: 464px;
   overflow-y: scroll;
   overflow-x: hidden;
   list-style: none;
-  margin: 0;
   padding: 0;
 }
 
-.ingredient::-webkit-scrollbar {
+.ingredients::-webkit-scrollbar {
   width: 8px;
-  height: 464px;
 }
-.ingredient::-webkit-scrollbar-track {
+.ingredients::-webkit-scrollbar-track {
   background: #2f2f37;
-  margin-top: 16px;
 }
 
-.ingredient::-webkit-scrollbar-thumb {
+.ingredients::-webkit-scrollbar-thumb {
   background-color: #8585ad;
   height: 292px;
 }
@@ -30,6 +27,10 @@
   align-items: center;
   justify-content: center;
   gap: 7px;
+}
+
+.list:last-child {
+  margin-bottom: 0;
 }
 
 .order {

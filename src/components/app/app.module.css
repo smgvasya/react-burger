@@ -5,3 +5,16 @@
   max-width: 1920px;
   margin-bottom: 40px;
 }
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+}
+
+.loading:hover {
+  text-shadow: 0px 0px 35px rgb(76 76 255);
+  filter: drop-shadow(15px 16px 58px rgba(76, 76, 255, 0.5));
+  cursor: wait;
+}

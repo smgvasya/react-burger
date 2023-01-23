@@ -15,7 +15,7 @@ const App = () => {
   useEffect(() => {
     getApi(baseUrl)
       .then((res) => setData(res.data))
-      .catch((err) => alert(`При загрузке произошла ошибка: ${err}`))
+      .catch((err) => console.log(`При загрузке произошла ошибка: ${err}`))
       .finally(() => setIsLoading(false));
   }, []);
 
@@ -23,8 +23,8 @@ const App = () => {
     <>
       <AppHeader />
       {isLoading ? (
-        <h1 className="text text_type_digits-medium">
-          Телепортируем ингредиенты
+        <h1 className={`${styles.loading}text text_type_digits-large`}>
+          Загрузка..
         </h1>
       ) : (
         <main className={styles.main}>
@@ -37,17 +37,3 @@ const App = () => {
 };
 
 export default App;
-
-{
-  /* <AppHeader />
-{isLoading ? (
-  <h1 className="text text_type_digits-medium">
-    Телепортируем ингредиенты
-  </h1>
-) : (
-  <main className={styles.main}>
-    <BurgerIngredients data={data} />
-    <BurgerConstructor data={data} />
-  </main>
-)} */
-}

@@ -15,17 +15,21 @@ const Ingredients = ({ title, type, data, getData, id }) => {
   );
   return (
     <>
-      <h2 className="text text_type_main-medium pb-6 pt-10" id={id}>{title}</h2>
+      <h2 className="text text_type_main-medium pb-6 pt-10" id={id}>
+        {title}
+      </h2>
       <ul className={styles.list}>
         {content.map((item) => (
-          <li
-            className={`mr-1 ${styles.item}`}
-            type={type}
-            key={item._id}
-            onClick={() => {getData(item);}}
-          >
+          <li className={`mr-1 ${styles.item}`} type={type} key={item._id}>
             <Counter count={1} size="default" extraClass="m-1" />
-            <img className="pr-4 pb-1 pl-4" src={item.image} alt={item.name} />
+            <img
+              className={`${styles.image} pr-4 pb-1 pl-4`}
+              src={item.image}
+              alt={item.name}
+              onClick={() => {
+                getData(item);
+              }}
+            />
             <div className={styles.price}>
               <span className="pt-1 pb-1 text text_type_digits-default">
                 {item.price}

@@ -1,15 +1,17 @@
 import { useState, useEffect, useReducer } from "react";
 import styles from "./app.module.css";
-import getApi from "../../utils/api";
+import { getIngredients } from "../../utils/api";
 import AppHeader from "../header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import {
   IngredientsContext,
   TotalPriceContext,
-} from "../../utils/ingredientsContext";
+} from "../../utils/ingredients-context";
 
-const totalPriceInitialState = { count: 0 };
+import { DataContext } from "../../utils/data-context";
+
+// const totalPriceInitialState = { count: 0 };
 
 // функция-редьюсер
 // изменяет состояния в зависимости от типа переданного action
@@ -25,9 +27,7 @@ const totalPriceInitialState = { count: 0 };
 // }
 
 const App = () => {
-  const baseUrl = "https://norma.nomoreparties.space/api/ingredients";
-
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([null]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [totalPrice, setTotalPrice] = useState(0);
@@ -42,7 +42,7 @@ const App = () => {
   // };
 
   useEffect(() => {
-    getApi(baseUrl)
+    getIngredients()
       .then((res) => setData(res.data))
       .catch((err) => console.log(`При загрузке произошла ошибка: ${err}`))
       .finally(() => setIsLoading(false));
@@ -57,12 +57,12 @@ const App = () => {
         </h1>
       ) : (
         <main className={styles.main}>
-          <TotalPriceContext.Provider
-            value={{ totalPrice, setTotalPrice }}
-          >
-            <BurgerIngredients data={data} />
-            <BurgerConstructor data={data} />
-          </TotalPriceContext.Provider>
+          <DataContext.Provider value={{ data, setData }}>
+            <BurgerIngredients />
+            <TotalPriceContext.Provider value={{ totalPrice, setTotalPrice }}>
+              <BurgerConstructor />
+            </TotalPriceContext.Provider>
+          </DataContext.Provider>
         </main>
       )}
     </>

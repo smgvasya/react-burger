@@ -10,14 +10,16 @@ import { ingredientsPropTypes } from "../../utils/propTypes";
 import {
   IngredientsContext,
   TotalPriceContext,
-} from "../../utils/ingredientsContext";
+} from "../../utils/ingredients-context";
 
-const IngredientsConstructor = ({ data, price }) => {
+import { DataContext } from "../../utils/data-context";
+
+const IngredientsConstructor = () => {
   const { setTotalPrice } = useContext(TotalPriceContext);
+  const { data, setData } = useContext(DataContext);
 
-  const burgerBun = data.filter(
-    (item) => item.name === "Краторная булка N-200i"
-  );
+  const burgerBun = data.find((item) => item.type === "bun");
+
   const constituent = useMemo(
     () => data.filter((item) => item.type !== "bun"),
     [data]
@@ -26,8 +28,8 @@ const IngredientsConstructor = ({ data, price }) => {
   useEffect(() => {
     let total = 0;
     constituent.map((item) => (total += item.price));
-    setTotalPrice(total + data[0].price *2);
-  }, [constituent, data, setTotalPrice]);
+    setTotalPrice(total + burgerBun.price * 2);
+  }, [burgerBun.price, constituent, data, setTotalPrice]);
 
   // const increase = () => {
   //   setTotalPrice(totalPrice + price);
@@ -40,16 +42,14 @@ const IngredientsConstructor = ({ data, price }) => {
   return (
     <>
       <div className="ml-8 mr-2 mb-4">
-        {burgerBun.map((item) => (
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={item.name + " (верх)"}
-            price={item.price}
-            thumbnail={item.image}
-            key={item._id}
-          />
-        ))}
+        <ConstructorElement
+          type="top"
+          isLocked={true}
+          text={burgerBun.name + " (верх)"}
+          price={burgerBun.price}
+          thumbnail={burgerBun.image}
+          key={burgerBun._id}
+        />
       </div>
 
       <ul className={styles.ingredients}>
@@ -67,16 +67,14 @@ const IngredientsConstructor = ({ data, price }) => {
         ))}
       </ul>
       <div className="ml-8 mr-2">
-        {burgerBun.map((item) => (
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={item.name + " (низ)"}
-            price={item.price}
-            thumbnail={item.image}
-            key={item._id}
-          />
-        ))}
+        <ConstructorElement
+          type="bottom"
+          isLocked={true}
+          text={burgerBun.name + " (низ)"}
+          price={burgerBun.price}
+          thumbnail={burgerBun.image}
+          key={burgerBun._id}
+        />
       </div>
     </>
   );

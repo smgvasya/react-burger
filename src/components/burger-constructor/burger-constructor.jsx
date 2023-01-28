@@ -14,11 +14,16 @@ import OrderDetails from "../order-details/order-details";
 import {
   IngredientsContext,
   TotalPriceContext,
-} from "../../utils/ingredientsContext";
+} from "../../utils/ingredients-context";
 
-const BurgerConstructor = ({ data }) => {
+import { DataContext } from "../../utils/data-context";
+
+const BurgerConstructor = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { totalPrice } = useContext(TotalPriceContext);
+  const [orderNumber, setOrderNumber] = useState(0);
+
+  const { data, setData } = useContext(DataContext);
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -31,7 +36,7 @@ const BurgerConstructor = ({ data }) => {
   return (
     <section className={`${styles.section} mt-25 `}>
       <div className="pl-4 mb-10 ">
-        <IngredientsConstructor data={data} />
+        <IngredientsConstructor />
       </div>
       <div className={`${styles.order} mr-4`}>
         <div className={`${styles.price} mr-10`}>
@@ -51,7 +56,7 @@ const BurgerConstructor = ({ data }) => {
       </div>
       {isOpen && (
         <Modal onClose={handleCloseModal}>
-          <OrderDetails data={data} />
+          <OrderDetails orderNumber={orderNumber} />
         </Modal>
       )}
     </section>

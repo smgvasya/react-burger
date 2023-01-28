@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useContext } from "react";
 import styles from "./burger-ingredients.module.css";
 import {
   CurrencyIcon,
@@ -7,8 +7,11 @@ import {
 
 import PropTypes from "prop-types";
 import { ingredientsPropTypes } from "../../utils/propTypes";
+import { DataContext } from "../../utils/data-context";
 
-const Ingredients = ({ title, type, data, getData, id }) => {
+const Ingredients = ({ title, type, getData, id }) => {
+  const { data, setData } = useContext(DataContext);
+
   const content = useMemo(
     () => data.filter((item) => item.type === type),
     [data, type]

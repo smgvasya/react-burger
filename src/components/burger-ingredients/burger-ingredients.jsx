@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import PropTypes from "prop-types";
 
 import { ingredientsPropTypes } from "../../utils/propTypes";
@@ -9,10 +9,13 @@ import Ingredients from "./ingredients";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
-const BurgerIngredients = ({ data }) => {
+import { DataContext } from "../../utils/data-context";
+
+const BurgerIngredients = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [ingredients, setIngredients] = useState(null);
   const [currentTab, setCurrentTab] = useState("bun");
+  const { data, setData } = useContext(DataContext);
 
   const handleOpenModal = (item) => {
     setIsOpen(true);

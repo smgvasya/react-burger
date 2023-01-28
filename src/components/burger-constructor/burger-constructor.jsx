@@ -1,7 +1,5 @@
 import { useState, useContext } from "react";
-import { ingredientsPropTypes } from "../../utils/propTypes";
-import PropTypes from "prop-types";
-
+import { postOrder } from "../../utils/api";
 import styles from "./burger-constructor.module.css";
 import {
   CurrencyIcon,
@@ -11,10 +9,7 @@ import IngredientsConstructor from "./ingredients-constructor";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 
-import {
-  IngredientsContext,
-  TotalPriceContext,
-} from "../../utils/ingredients-context";
+import { TotalPriceContext } from "../../utils/ingredients-context";
 
 import { DataContext } from "../../utils/data-context";
 
@@ -23,7 +18,7 @@ const BurgerConstructor = () => {
   const { totalPrice } = useContext(TotalPriceContext);
   const [orderNumber, setOrderNumber] = useState(0);
 
-  const { data, setData } = useContext(DataContext);
+  const { data } = useContext(DataContext);
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -31,6 +26,16 @@ const BurgerConstructor = () => {
 
   const handleCloseModal = () => {
     setIsOpen(false);
+  };
+
+  const handleMakeOrder = () => {
+    const arrayId = data.map((item) => item._id.toString());
+    handleOpenModal();
+    postOrder(arrayId)
+      .then((res) => {
+        setOrderNumber(res.order.number);
+      })
+      .catch((err) => console.log(err.message));
   };
 
   return (
@@ -49,7 +54,7 @@ const BurgerConstructor = () => {
           type="primary"
           size="large"
           htmlType="button"
-          onClick={handleOpenModal}
+          onClick={handleMakeOrder}
         >
           Оформить заказ
         </Button>
@@ -61,10 +66,6 @@ const BurgerConstructor = () => {
       )}
     </section>
   );
-};
-
-BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(ingredientsPropTypes).isRequired,
 };
 
 export default BurgerConstructor;

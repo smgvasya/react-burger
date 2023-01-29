@@ -9,9 +9,9 @@ import IngredientsConstructor from "./ingredients-constructor";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 
-import { TotalPriceContext } from "../../utils/ingredients-context";
+import { TotalPriceContext } from "../../contexts/ingredients-context";
 
-import { DataContext } from "../../utils/data-context";
+import { DataContext } from "../../contexts/data-context";
 
 const BurgerConstructor = () => {
   const [isOpen, setIsOpen] = useState(false);

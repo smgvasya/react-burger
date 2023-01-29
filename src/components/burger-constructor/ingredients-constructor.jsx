@@ -5,9 +5,9 @@ import {
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { TotalPriceContext } from "../../utils/ingredients-context";
+import { TotalPriceContext } from "../../contexts/ingredients-context";
 
-import { DataContext } from "../../utils/data-context";
+import { DataContext } from "../../contexts/data-context";
 
 const IngredientsConstructor = () => {
   const { setTotalPrice } = useContext(TotalPriceContext);

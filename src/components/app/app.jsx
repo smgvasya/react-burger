@@ -4,9 +4,9 @@ import { getIngredients } from "../../utils/api";
 import AppHeader from "../header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import { TotalPriceContext } from "../../utils/ingredients-context";
+import { TotalPriceContext } from "../../contexts/ingredients-context";
 
-import { DataContext } from "../../utils/data-context";
+import { DataContext } from "../../contexts/data-context";
 
 const App = () => {
   const [data, setData] = useState([null]);

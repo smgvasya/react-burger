@@ -6,7 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import PropTypes from "prop-types";
-import { DataContext } from "../../utils/data-context";
+import { DataContext } from "../../contexts/data-context";
 
 const Ingredients = ({ title, type, getData, id }) => {
   const { data } = useContext(DataContext);

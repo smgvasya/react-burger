@@ -35,7 +35,7 @@ const BurgerConstructor = () => {
       .then((res) => {
         setOrderNumber(res.order.number);
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => console.log(`При обработке заказа произошла ошибка: ${err}`));
   };
 
   return (

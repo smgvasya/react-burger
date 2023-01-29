@@ -21,10 +21,10 @@ const BurgerIngredients = () => {
     setIsOpen(false);
   };
 
-  const handleTabClick = (tab) => {
-    setCurrentTab(tab);
-    const item = document.getElementById(tab);
-    if (item) item.scrollIntoView({ behavior: "smooth" });
+  const handleTabClick = (id) => {
+    setCurrentTab(id);
+    const item = document.getElementById(id);
+    item.scrollIntoView({ behavior: "smooth"});
   };
   return (
     <section className={styles.section}>

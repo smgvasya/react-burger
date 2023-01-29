@@ -1,22 +1,18 @@
-import { useMemo, useContext, useEffect } from "react";
-import PropTypes from "prop-types";
+import { useMemo, useContext, useEffect, useState } from "react";
 import styles from "./burger-constructor.module.css";
 import {
   DragIcon,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ingredientsPropTypes } from "../../utils/propTypes";
 
-import {
-  IngredientsContext,
-  TotalPriceContext,
-} from "../../utils/ingredients-context";
+import { TotalPriceContext } from "../../utils/ingredients-context";
 
 import { DataContext } from "../../utils/data-context";
 
 const IngredientsConstructor = () => {
   const { setTotalPrice } = useContext(TotalPriceContext);
-  const { data, setData } = useContext(DataContext);
+  const { data } = useContext(DataContext);
+
 
   const burgerBun = data.find((item) => item.type === "bun");
 
@@ -30,14 +26,6 @@ const IngredientsConstructor = () => {
     constituent.map((item) => (total += item.price));
     setTotalPrice(total + burgerBun.price * 2);
   }, [burgerBun.price, constituent, data, setTotalPrice]);
-
-  // const increase = () => {
-  //   setTotalPrice(totalPrice + price);
-  // };
-
-  // const decrease = () => {
-  //   setTotalPrice(totalPrice - price);
-  // };
 
   return (
     <>
@@ -78,10 +66,6 @@ const IngredientsConstructor = () => {
       </div>
     </>
   );
-};
-
-IngredientsConstructor.propTypes = {
-  data: PropTypes.arrayOf(ingredientsPropTypes).isRequired,
 };
 
 export default IngredientsConstructor;

@@ -6,11 +6,10 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import PropTypes from "prop-types";
-import { ingredientsPropTypes } from "../../utils/propTypes";
 import { DataContext } from "../../utils/data-context";
 
 const Ingredients = ({ title, type, getData, id }) => {
-  const { data, setData } = useContext(DataContext);
+  const { data } = useContext(DataContext);
 
   const content = useMemo(
     () => data.filter((item) => item.type === type),

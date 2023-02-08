@@ -6,14 +6,14 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import PropTypes from "prop-types";
-import { DataContext } from "../../contexts/data-context";
+import { useDispatch, useSelector } from "react-redux";
 
-const Ingredients = ({ title, type, getData, id }) => {
-  const { data } = useContext(DataContext);
+const Ingredients = ({ title, type, getData, id, qty }) => {
+  const ingredients = useSelector((state) => state.ingredients.data);
 
   const content = useMemo(
-    () => data.filter((item) => item.type === type),
-    [data, type]
+    () => ingredients.filter((item) => item.type === type),
+    [ingredients, type]
   );
   return (
     <>
@@ -22,15 +22,19 @@ const Ingredients = ({ title, type, getData, id }) => {
       </h2>
       <ul className={styles.list}>
         {content.map((item) => (
-          <li className={`mr-1 ${styles.item}`} type={type} key={item._id}>
+          <li
+            className={`mr-1 ${styles.item}`}
+            type={type}
+            key={item._id}
+            onClick={() => {
+              getData(item);
+            }}
+          >
             <Counter count={1} size="default" extraClass="m-1" />
             <img
-              className={`${styles.image} pr-4 pb-1 pl-4`}
+              className='pr-4 pb-1 pl-4'
               src={item.image}
               alt={item.name}
-              onClick={() => {
-                getData(item);
-              }}
             />
             <div className={styles.price}>
               <span className="pt-1 pb-1 text text_type_digits-default">

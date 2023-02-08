@@ -9,7 +9,7 @@ const testRes = (res) => {
  return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 }
 
-export const getIngredients = async () => {
+export const getIngredientsList = async () => {
   const res = await fetch(`${config.baseUrl}/ingredients`, {
     headers: config.headers,
   });

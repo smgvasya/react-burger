@@ -1,41 +1,32 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import styles from "./app.module.css";
-import { getIngredients } from "../../utils/api";
+
+import { getIngredients } from "../services/actions/ingredients";
 import AppHeader from "../header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import { TotalPriceContext } from "../../contexts/ingredients-context";
 
-import { DataContext } from "../../contexts/data-context";
+import { useDispatch, useSelector } from "react-redux";
 
 const App = () => {
-  const [data, setData] = useState([null]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const [totalPrice, setTotalPrice] = useState(0);
+  const { dataRequest } = useSelector((state) => state.ingredients.data);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getIngredients()
-      .then((res) => setData(res.data))
-      .catch((err) => console.log(`При загрузке произошла ошибка: ${err}`))
-      .finally(() => setIsLoading(false));
-  }, []);
+    dispatch(getIngredients());
+  }, [dispatch]);
 
   return (
     <>
       <AppHeader />
-      {isLoading ? (
+      {dataRequest ? (
         <h1 className={`${styles.loading} text text_type_digits-large`}>
           Загрузка..
         </h1>
       ) : (
         <main className={styles.main}>
-          <DataContext.Provider value={{ data, setData }}>
-            <BurgerIngredients />
-            <TotalPriceContext.Provider value={{ totalPrice, setTotalPrice }}>
-              <BurgerConstructor />
-            </TotalPriceContext.Provider>
-          </DataContext.Provider>
+          <BurgerIngredients />
+          {/* <BurgerConstructor /> */}
         </main>
       )}
     </>

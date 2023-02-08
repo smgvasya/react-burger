@@ -20,10 +20,7 @@
 
 .item {
   position: relative;
-}
-
-.image {
-  cursor: help;
+  cursor: pointer;
 }
 
 .price {
@@ -36,7 +33,6 @@
 .name {
   text-align: center;
   height: 48px;
-  cursor: pointer;
 }
 
 .ingredient {

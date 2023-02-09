@@ -1,4 +1,5 @@
-import { useState, useContext } from "react";
+import { useState, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { postOrder } from "../../utils/api";
 import styles from "./burger-constructor.module.css";
 import {
@@ -6,46 +7,52 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientsConstructor from "./ingredients-constructor";
-import Modal from "../modal/modal";
-import OrderDetails from "../order-details/order-details";
-
-import { TotalPriceContext } from "../../contexts/ingredients-context";
-
-import { DataContext } from "../../contexts/data-context";
+// import Modal from "../modal/modal";
+// import OrderDetails from "../order-details/order-details";
 
 const BurgerConstructor = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { totalPrice } = useContext(TotalPriceContext);
-  const [orderNumber, setOrderNumber] = useState(0);
+  // const [isOpen, setIsOpen] = useState(false);
+  // const [orderNumber, setOrderNumber] = useState(0);
 
-  const { data } = useContext(DataContext);
+  const dispatch = useDispatch();
+  const constructorBurger = useSelector((state) => state.constructor);
+  const ingredients = useSelector((state) => state.ingredients.data);
 
-  const handleOpenModal = () => {
-    setIsOpen(true);
-  };
+  // const handleOpenModal = () => {
+  //   setIsOpen(true);
+  // };
 
-  const handleCloseModal = () => {
-    setIsOpen(false);
-  };
+  // const handleCloseModal = () => {
+  //   setIsOpen(false);
+  // };
 
-  const handleMakeOrder = () => {
-    const arrayId = data.map((item) => item._id.toString());
-    handleOpenModal();
-    postOrder(arrayId)
-      .then((res) => {
-        setOrderNumber(res.order.number);
-      })
-      .catch((err) => console.log(`При обработке заказа произошла ошибка: ${err}`));
-  };
+  // const handleMakeOrder = () => {
+  //   const arrayId = ingredients.map((item) => item._id.toString());
+  //   handleOpenModal();
+  //   postOrder(arrayId)
+  //     .then((res) => {
+  //       setOrderNumber(res.order.number);
+  //     })
+  //     .catch((err) =>
+  //       console.log(`При обработке заказа произошла ошибка: ${err}`)
+  //     );
+  // };
+
+  // const totalPrice = useMemo(
+  //   () =>
+  //     constructorBurger.ingredients.reduce((acc, item) => acc + item.price, 0) +
+  //     (constructorBurger.bun && constructorBurger.bun.price * 2),
+  //   [constructorBurger]
+  // );
 
   return (
     <section className={`${styles.section} mt-25 `}>
       <div className="pl-4 mb-10 ">
-        <IngredientsConstructor />
+        {/* <IngredientsConstructor /> */}
       </div>
       <div className={`${styles.order} mr-4`}>
         <div className={`${styles.price} mr-10`}>
-          <span className="text text_type_digits-medium">{totalPrice}</span>
+          <span className="text text_type_digits-medium">6</span>
           <div className={styles.icon}>
             <CurrencyIcon type="primary" />
           </div>
@@ -54,16 +61,16 @@ const BurgerConstructor = () => {
           type="primary"
           size="large"
           htmlType="button"
-          onClick={handleMakeOrder}
+          // onClick={handleMakeOrder}
         >
           Оформить заказ
         </Button>
       </div>
-      {isOpen && (
+      {/* {isOpen && (
         <Modal onClose={handleCloseModal}>
           <OrderDetails orderNumber={orderNumber} />
         </Modal>
-      )}
+      )} */}
     </section>
   );
 };

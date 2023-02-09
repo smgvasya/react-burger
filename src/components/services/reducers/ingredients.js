@@ -1,13 +1,8 @@
 import {
-  // INCREASE_INGREDIENT,
-  // DECREASE_INGREDIENT,
-  // DELETE_INGREDIENT,
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
-  GET_INGREDIENTS_FAILED,
+  GET_INGREDIENTS_ERROR,
 } from "../actions/ingredients.js";
-
-// import { TAB_SWITCH } from "../actions/index.js";
 
 const initialState = {
   data: [],
@@ -32,7 +27,7 @@ export const ingredientReducer = (state = initialState, action) => {
         dataError: null,
       };
     }
-    case GET_INGREDIENTS_FAILED: {
+    case GET_INGREDIENTS_ERROR: {
       return {
         ...state,
         dataRequest: false,

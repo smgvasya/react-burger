@@ -4,17 +4,22 @@ import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { openIngredientDetails } from '../../components/services/actions/ingredient-details';
 
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 
 const Ingredients = ({ title, type, getData, id, qty }) => {
+
+  const dispatch = useDispatch();
+
   const ingredients = useSelector((state) => state.ingredients.data);
 
   const content = useMemo(
     () => ingredients.filter((item) => item.type === type),
     [ingredients, type]
   );
+
   return (
     <>
       <h2 className="text text_type_main-medium pb-6 pt-10" id={id}>

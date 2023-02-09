@@ -1,30 +1,35 @@
 import { useState } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./burger-ingredients.module.css";
 import IngredientsTabs from "./ingredients-tabs";
 import Ingredients from "./ingredients";
-
+import {
+  INGREDIENT_DETAILS_CLOSE,
+  INGREDIENT_DETAILS_OPEN,
+} from "../../components/services/actions/ingredient-details";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
 const BurgerIngredients = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [ingredients, setIngredients] = useState(null);
   const [currentTab, setCurrentTab] = useState("bun");
 
-  const handleOpenModal = (item) => {
-    setIsOpen(true);
-    setIngredients(item);
-  };
+  const dispatch = useDispatch();
+
+  // const ingredients = useSelector((state) => state.ingredients.data);
+  const ingredientsModal = useSelector((state) => state.ingredientDetails.data);
 
   const handleCloseModal = () => {
-    setIsOpen(false);
+    dispatch({ type: INGREDIENT_DETAILS_CLOSE });
+  };
+
+  const handleOpenModal = (ingredient) => {
+    dispatch({ type: INGREDIENT_DETAILS_OPEN, payload: ingredient });
   };
 
   const handleTabClick = (id) => {
     setCurrentTab(id);
     const item = document.getElementById(id);
-    item.scrollIntoView({ behavior: "smooth"});
+    item.scrollIntoView({ behavior: "smooth" });
   };
   return (
     <section className={styles.section}>
@@ -34,25 +39,25 @@ const BurgerIngredients = () => {
         <Ingredients
           type="bun"
           title="Булки"
-          getData={handleOpenModal}
           id={"bun"}
+          getData={handleOpenModal}
         />
         <Ingredients
           type="sauce"
           title="Соусы"
-          getData={handleOpenModal}
           id={"sause"}
+          getData={handleOpenModal}
         />
         <Ingredients
           type="main"
           title="Начинки"
-          getData={handleOpenModal}
           id={"main"}
+          getData={handleOpenModal}
         />
       </div>
-      {isOpen && (
+      {ingredientsModal && (
         <Modal onClose={handleCloseModal}>
-          <IngredientDetails data={ingredients} />
+          <IngredientDetails data={ingredientsModal} />
         </Modal>
       )}
     </section>

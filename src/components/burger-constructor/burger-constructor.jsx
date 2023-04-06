@@ -15,7 +15,8 @@ const BurgerConstructor = () => {
   // const [orderNumber, setOrderNumber] = useState(0);
 
   const dispatch = useDispatch();
-  const constructorBurger = useSelector((state) => state.constructor);
+  const bun = useSelector((state) => state.constructor.bun);
+  const filling  = useSelector((state) => state.constructor.filling);
   const ingredients = useSelector((state) => state.ingredients.data);
 
   // const handleOpenModal = () => {
@@ -48,7 +49,7 @@ const BurgerConstructor = () => {
   return (
     <section className={`${styles.section} mt-25 `}>
       <div className="pl-4 mb-10 ">
-        {/* <IngredientsConstructor /> */}
+        <IngredientsConstructor />
       </div>
       <div className={`${styles.order} mr-4`}>
         <div className={`${styles.price} mr-10`}>

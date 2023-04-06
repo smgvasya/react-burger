@@ -17,13 +17,12 @@ export const getIngredientsList = async () => {
 };
 
 export const postOrder = async (arrayId) => {
-   const res = await fetch(`${config.baseUrl}/orders`, {
-    method: "POST",
-    headers: config.headers,
-    body: JSON.stringify({
-      ingredients: arrayId
-    }),
-  });
-  return testRes(res);
+  const res = await fetch(`${config.baseUrl}/orders`, {
+   method: "POST",
+   headers: config.headers,
+   body: JSON.stringify({
+     ingredients: arrayId
+   }),
+ });
+ return testRes(res);
 };
-

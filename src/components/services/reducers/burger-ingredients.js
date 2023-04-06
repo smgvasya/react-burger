@@ -2,12 +2,12 @@ import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_ERROR,
-} from "../actions/ingredients.js";
+} from "../actions/burger-ingredients.js";
 
 const initialState = {
   data: [],
-  dataRequest: false,
-  dataError: null,
+  loaded: false,
+  error: null,
 };
 
 export const ingredientReducer = (state = initialState, action) => {
@@ -15,23 +15,23 @@ export const ingredientReducer = (state = initialState, action) => {
     case GET_INGREDIENTS_REQUEST: {
       return {
         ...state,
-        dataRequest: true,
-        dataError: null,
+        loaded: true,
+        error: null,
       };
     }
     case GET_INGREDIENTS_SUCCESS: {
       return {
         ...state,
         data: action.payload,
-        dataRequest: false,
-        dataError: null,
+        loaded: false,
+        error: null,
       };
     }
     case GET_INGREDIENTS_ERROR: {
       return {
         ...state,
-        dataRequest: false,
-        dataError: true,
+        loaded: false,
+        error: true,
       };
     }
     default: {

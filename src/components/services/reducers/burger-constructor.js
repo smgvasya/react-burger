@@ -1,8 +1,7 @@
 import {
   INGREDIENT_CONSTRUCTOR_ADD,
   INGREDIENT_CONSTRUCTOR_DELETE,
-  addIngredientConstructor,
-} from "../actions/constructor";
+} from "../actions/burger-constructor";
 
 const initialState = {
   bun: null,
@@ -17,16 +16,13 @@ export const constructorReducer = (state = initialState, action) => {
       else
         return {
           ...state,
-          filling: [ ...(state.filling + action.payload) ],
+          filling: [ ...state.filling ] + action.payload,
         };
     }
     case INGREDIENT_CONSTRUCTOR_DELETE: {
       return {
         ...state,
-        filling: [
-          ...state.filling.slice(0, action.payload),
-          ...state.filling.slice(action.payload ++),
-        ]
+        filling: [ ...state.filling ].filter(item => item.id !== action.payload)
       };
     }
     default: {

@@ -5,16 +5,21 @@ import {
   DragIcon,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { INGREDIENT_CONSTRUCTOR_DELETE } from "../services/actions/constructor";
+import { INGREDIENT_CONSTRUCTOR_DELETE } from "../services/actions/burger-constructor";
 
 import { useDispatch, useSelector } from "react-redux";
 
 const IngredientsConstructor = () => {
   // const { setTotalPrice } = useContext(TotalPriceContext);
   // const { data } = useContext(DataContext);
-
-  const constructorBurger = useSelector((state) => state.constructor);
   const dispatch = useDispatch();
+
+  const bun = useSelector((state) => state.constructor.bun);
+  const filling  = useSelector((state) => state.constructor.filling);
+  //const ingredients = useSelector((state) => state.ingredients.data);
+
+  //const constructorBurger = useSelector((state) => state.constructor);
+
   // const ingredients = useSelector((state) => state.ingredients.data);
 
   // const bun = constructorBurger.find((item) => item.type === "bun");
@@ -33,27 +38,27 @@ const IngredientsConstructor = () => {
 
   return (
     <>
-      { constructorBurger.ingredients.length === 0 && (
+      { bun === 0 && (
         <h3 className="text text_type_main-medium text_color_inactive">
-          Перетащите булку и начинки
+          Перетащите булку
         </h3>
       )}
-      {constructorBurger.bun && (
+      {bun && (
         <div className="ml-8 mr-2 mb-4">
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={constructorBurger.bun.name + " (верх)"}
-            price={constructorBurger.bun.price}
-            thumbnail={constructorBurger.bun.image}
-            key={constructorBurger.bun.id}
+            text={bun.name + " (верх)"}
+            price={bun.price}
+            thumbnail={bun.image}
+            key={bun.id}
           />
         </div>
       )}
 
       <ul className={styles.ingredients}>
-        {constructorBurger.ingredients.length > 0 &&
-          constructorBurger.ingredients.map((item) => (
+        {filling &&
+          filling.map((item) => (
             <li className={`${styles.list} mb-4 mr-2`} key={item._id}>
               <DragIcon type="primary" />
               <ConstructorElement
@@ -69,15 +74,15 @@ const IngredientsConstructor = () => {
           ))}
       </ul>
 
-      {constructorBurger.bun && (
+      {bun && (
         <div className="ml-8 mr-2">
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={constructorBurger.bun.name + " (низ)"}
-            price={constructorBurger.bun.price}
-            thumbnail={constructorBurger.bun.image}
-            key={uuidv4()}
+            text={bun.name + " (низ)"}
+            price={bun.price}
+            thumbnail={bun.image}
+            key={bun.id}
           />
         </div>
       )}

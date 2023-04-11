@@ -1,4 +1,4 @@
-import { useMemo, useContext, useEffect, useState } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./burger-constructor.module.css";
 import {
@@ -15,18 +15,23 @@ const IngredientsConstructor = () => {
   const dispatch = useDispatch();
 
   const bun = useSelector((state) => state.constructor.bun);
-  const filling  = useSelector((state) => state.constructor.filling);
+  const filling = useSelector((state) => state.constructor.filling);
   //const ingredients = useSelector((state) => state.ingredients.data);
 
   //const constructorBurger = useSelector((state) => state.constructor);
 
   // const ingredients = useSelector((state) => state.ingredients.data);
 
-  // const bun = constructorBurger.find((item) => item.type === "bun");
+  // const bun = buns.find((item) => item.type === "bun");
 
   // const filling = useMemo(
-  //   () => constructorBurger.filter((item) => item.type !== "bun"),
-  //   [constructorBurger]
+  //   () => fillings.filter((item) => item.type !== "bun"),
+  //   [fillings]
+  // );
+
+  // const content = useMemo(
+  //   () => ingredients.filter((item) => item.type === type),
+  //   [ingredients, type]
   // );
 
   const onDelete = (id) => {
@@ -38,7 +43,7 @@ const IngredientsConstructor = () => {
 
   return (
     <>
-      { bun === 0 && (
+      {bun === 0 && (
         <h3 className="text text_type_main-medium text_color_inactive">
           Перетащите булку
         </h3>
@@ -66,7 +71,7 @@ const IngredientsConstructor = () => {
                 text={item.name}
                 price={item.price}
                 thumbnail={item.image}
-                index = {item.index}
+                index={item.index}
                 key={item.id}
                 handleClose={onDelete}
               />

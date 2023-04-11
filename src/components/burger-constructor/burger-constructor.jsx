@@ -7,37 +7,27 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientsConstructor from "./ingredients-constructor";
-// import Modal from "../modal/modal";
-// import OrderDetails from "../order-details/order-details";
+import {
+  getOrder,
+  OrderSuccess,
+  OrderClose,
+} from "../../services/actions/order-details";
+
+import Modal from "../modal/modal";
+import OrderDetails from "../order-details/order-details";
 
 const BurgerConstructor = () => {
-  // const [isOpen, setIsOpen] = useState(false);
-  // const [orderNumber, setOrderNumber] = useState(0);
-
   const dispatch = useDispatch();
   const bun = useSelector((state) => state.constructor.bun);
-  const filling  = useSelector((state) => state.constructor.filling);
+  const filling = useSelector((state) => state.constructor.filling);
   const ingredients = useSelector((state) => state.ingredients.data);
+  const orderOpen = useSelector((state) => state.order.openModal);
+  const orderNumber = useSelector((state) => state.order.data)
 
-  // const handleOpenModal = () => {
-  //   setIsOpen(true);
-  // };
 
-  // const handleCloseModal = () => {
-  //   setIsOpen(false);
-  // };
-
-  // const handleMakeOrder = () => {
-  //   const arrayId = ingredients.map((item) => item._id.toString());
-  //   handleOpenModal();
-  //   postOrder(arrayId)
-  //     .then((res) => {
-  //       setOrderNumber(res.order.number);
-  //     })
-  //     .catch((err) =>
-  //       console.log(`При обработке заказа произошла ошибка: ${err}`)
-  //     );
-  // };
+  const handleCloseModal = () => {
+    dispatch(OrderClose());
+  };
 
   // const totalPrice = useMemo(
   //   () =>
@@ -45,6 +35,11 @@ const BurgerConstructor = () => {
   //     (constructorBurger.bun && constructorBurger.bun.price * 2),
   //   [constructorBurger]
   // );
+
+  const handleMakeOrder = () => {
+    const arrayId = ingredients.map((item) => item._id.toString());
+    dispatch(getOrder(arrayId));
+  };
 
   return (
     <section className={`${styles.section} mt-25 `}>
@@ -62,16 +57,16 @@ const BurgerConstructor = () => {
           type="primary"
           size="large"
           htmlType="button"
-          // onClick={handleMakeOrder}
+          onClick={handleMakeOrder}
         >
           Оформить заказ
         </Button>
       </div>
-      {/* {isOpen && (
+      {orderOpen && (
         <Modal onClose={handleCloseModal}>
           <OrderDetails orderNumber={orderNumber} />
         </Modal>
-      )} */}
+      )}
     </section>
   );
 };

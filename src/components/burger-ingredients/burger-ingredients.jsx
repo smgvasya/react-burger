@@ -4,8 +4,8 @@ import styles from "./burger-ingredients.module.css";
 import IngredientsTabs from "./ingredients-tabs";
 import Ingredients from "./ingredients";
 import {
-  INGREDIENT_DETAILS_CLOSE,
-  INGREDIENT_DETAILS_OPEN,
+  detailsClose,
+  detailsOpen,
 } from "../../services/actions/ingredient-details";
 import { activeTab } from "../../services/actions/tabs-ingredients";
 
@@ -18,23 +18,23 @@ const BurgerIngredients = () => {
   const ingredientsModal = useSelector((state) => state.ingredientDetails.data);
 
   const handleCloseModal = () => {
-    dispatch({ type: INGREDIENT_DETAILS_CLOSE });
+    dispatch(detailsClose());
   };
 
   const handleOpenModal = (ingredient) => {
-    dispatch({ type: INGREDIENT_DETAILS_OPEN, payload: ingredient });
+    dispatch(detailsOpen(ingredient));
   };
 
   useEffect(() => {
-    const callback = (entries) => {
-        dispatch(activeTab(entries[0].target.id));
-    };
     const options = {
       root: document.querySelector("#scrollArea"),
       rootMargin: "0px 0px 150% 0px",
       threshold: [0, 0.25, 0.5, 0.75, 1],
     };
-    const observer = new IntersectionObserver(callback, options);
+
+    const observer = new IntersectionObserver((entries) => {
+      dispatch(activeTab(entries[0].target.id));
+    }, options);
 
     const buns = document.getElementById("bun");
     const sauces = document.getElementById("sause");
@@ -43,6 +43,7 @@ const BurgerIngredients = () => {
     observer.observe(buns);
     observer.observe(sauces);
     observer.observe(main);
+
   }, [dispatch]);
 
   return (

@@ -15,7 +15,6 @@ export const getIngredients = () => (dispatch) => {
   .catch(()=> dispatch(ingredientError()))
 }
 
-
 export const ingredientRequest = () => ({
   type: GET_INGREDIENTS_REQUEST
 });

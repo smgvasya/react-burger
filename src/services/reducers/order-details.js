@@ -9,6 +9,7 @@ const initialState = {
   data: [],
   loaded: false,
   error: null,
+  openModal: false,
 };
 
 export const orderReducer = (state = initialState, action) => {
@@ -26,6 +27,7 @@ export const orderReducer = (state = initialState, action) => {
         data: action.payload,
         loaded: false,
         error: null,
+        openModal: true,
       };
     }
     case ORDER_DETAILS_ERROR: {
@@ -36,7 +38,10 @@ export const orderReducer = (state = initialState, action) => {
       };
     }
     case ORDER_DETAILS_CLOSE: {
-      return state;
+      return {
+        ...state,
+        openModal: false
+      };
     }
     default: {
       return state;

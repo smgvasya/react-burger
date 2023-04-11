@@ -1,18 +1,15 @@
-import { useMemo, useContext } from "react";
+import { useMemo, forwardRef, useEffect } from "react";
 import styles from "./burger-ingredients.module.css";
 import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { openIngredientDetails } from '../../components/services/actions/ingredient-details';
+import { openIngredientDetails } from "../../services/actions/ingredient-details";
 
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 
-const Ingredients = ({ title, type, getData, id, qty }) => {
-
-  const dispatch = useDispatch();
-
+const Ingredients = ({ title, type, getData, id }) => {
   const ingredients = useSelector((state) => state.ingredients.data);
 
   const content = useMemo(
@@ -36,11 +33,7 @@ const Ingredients = ({ title, type, getData, id, qty }) => {
             }}
           >
             <Counter count={1} size="default" extraClass="m-1" />
-            <img
-              className='pr-4 pb-1 pl-4'
-              src={item.image}
-              alt={item.name}
-            />
+            <img className="pr-4 pb-1 pl-4" src={item.image} alt={item.name} />
             <div className={styles.price}>
               <span className="pt-1 pb-1 text text_type_digits-default">
                 {item.price}

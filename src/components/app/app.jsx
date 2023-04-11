@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import styles from "./app.module.css";
 
-import { getIngredients } from "../services/actions/burger-ingredients";
+import { getIngredients } from "../../services/actions/burger-ingredients";
 import AppHeader from "../header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";

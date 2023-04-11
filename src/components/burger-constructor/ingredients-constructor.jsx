@@ -5,7 +5,7 @@ import {
   DragIcon,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { INGREDIENT_CONSTRUCTOR_DELETE } from "../services/actions/burger-constructor";
+import { INGREDIENT_CONSTRUCTOR_DELETE } from "../../services/actions/burger-constructor";
 
 import { useDispatch, useSelector } from "react-redux";
 

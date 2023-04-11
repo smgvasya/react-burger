@@ -11,12 +11,12 @@ const initialState = {
 export const constructorReducer = (state = initialState, action) => {
   switch (action.type) {
     case INGREDIENT_CONSTRUCTOR_ADD: {
-      if (action.payload.type === "bun")
-        return { ...state, bun: action.payload }
-      else
+      if (action.payload.type === "bun") {
+        return { ...state, bun: action.payload };
+    } else
         return {
           ...state,
-          filling: [ ...state.filling ] + action.payload,
+          filling: [ ...state.filling, action.payload ],
         };
     }
     case INGREDIENT_CONSTRUCTOR_DELETE: {

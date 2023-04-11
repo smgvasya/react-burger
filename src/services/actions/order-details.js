@@ -1,4 +1,4 @@
-import { postOrder } from "../../../utils/api";
+import { postOrder } from "../../utils/api";
 
 export const ORDER_DETAILS_REQUEST = 'ORDER_DETAILS_REQUEST';
 export const ORDER_DETAILS_SUCCESS = 'ORDER_DETAILS_SUCCESS';

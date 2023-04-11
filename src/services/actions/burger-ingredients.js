@@ -1,4 +1,4 @@
-import { getIngredientsList } from "../../../utils/api";
+import { getIngredientsList } from "../../utils/api";
 
 // export const INCREASE_INGREDIENT = "INCREASE_INGREDIENT";
 // export const DECREASE_INGREDIENT = "DECREASE_INGREDIENT";

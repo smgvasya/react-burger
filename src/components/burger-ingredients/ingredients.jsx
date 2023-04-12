@@ -17,6 +17,20 @@ const Ingredients = ({ title, type, getData, id }) => {
     [ingredients, type]
   );
 
+  // const burger = useSelector((state) => state.constructor);
+
+  // const counter = useMemo(() => {
+  //   const {bun, filling} = burger
+  //   const counter = {};
+  //   filling.forEach((item) => {
+  //     if (!counter[item._id]) counter[item._id] = 0; переслушать как тут
+  //     counter[item._id]++;
+  //   });
+  //   if (bun) counter[bun._id] = 2;
+  //   return counter;
+  // }, [burger]);
+  // count={ingredientCount[item._id]}
+
   return (
     <>
       <h2 className="text text_type_main-medium pb-6 pt-10" id={id}>

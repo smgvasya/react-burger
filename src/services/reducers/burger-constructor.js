@@ -30,3 +30,30 @@ export const constructorReducer = (state = initialState, action) => {
     }
   }
 };
+
+
+// case INGREDIENT_CONSTRUCTOR_DELETE: {
+//   return {
+//     ...state,
+//     filling: [
+//       ...state.filling.slice(0,action.payload),
+//       ...state.filling.slice(action.payload + 1),
+//      ]
+//   };
+// }
+
+// case INGREDIENT_CONSTRUCTOR_REORDER: {
+//   const filling = [...state.filling];
+//   filling.splice(
+//     action.payload.to,
+//     0,
+//     filling.splice(action.payload.from, 1)[0]
+//   );
+//   return {
+//     ...state,
+//     filling,
+//   };
+// }
+// case INGREDIENT_CONSTRUCTOR_RESET: {
+//   return initialState
+// }

@@ -2,6 +2,7 @@
   max-width: 600px;
   box-sizing: border-box;
 }
+
 .ingredients {
   height: 464px;
   overflow-y: scroll;
@@ -53,4 +54,10 @@
 .icon svg {
   height: 33px;
   width: 33px;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  height: 83%;
 }

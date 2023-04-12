@@ -18,23 +18,29 @@ import OrderDetails from "../order-details/order-details";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
+
   const bun = useSelector((state) => state.constructor.bun);
   const filling = useSelector((state) => state.constructor.filling);
+  const totalStuff = useSelector((state) => state.constructor);
+
+
   const ingredients = useSelector((state) => state.ingredients.data);
   const orderOpen = useSelector((state) => state.order.openModal);
-  const orderNumber = useSelector((state) => state.order.data)
+  const orderNumber = useSelector((state) => state.order.data);
 
 
   const handleCloseModal = () => {
     dispatch(OrderClose());
   };
 
-  // const totalPrice = useMemo(
-  //   () =>
-  //     constructorBurger.ingredients.reduce((acc, item) => acc + item.price, 0) +
-  //     (constructorBurger.bun && constructorBurger.bun.price * 2),
-  //   [constructorBurger]
-  // );
+  // const totalPrice = useMemo(() => {
+  //   return (
+  //     filling.reduce((acc, item) => acc + item.price, 0) +
+  //     (bun ? bun.price * 2 : 0)
+  //   );
+  // }, [bun, filling]);
+
+
 
   const handleMakeOrder = () => {
     const arrayId = ingredients.map((item) => item._id.toString());
@@ -43,12 +49,12 @@ const BurgerConstructor = () => {
 
   return (
     <section className={`${styles.section} mt-25 `}>
-      <div className="pl-4 mb-10 ">
+      <div className={`${styles.empty} pl-4 mb-10 `}>
         <IngredientsConstructor />
       </div>
       <div className={`${styles.order} mr-4`}>
         <div className={`${styles.price} mr-10`}>
-          <span className="text text_type_digits-medium">6</span>
+          <span className="text text_type_digits-medium">{0}</span>
           <div className={styles.icon}>
             <CurrencyIcon type="primary" />
           </div>

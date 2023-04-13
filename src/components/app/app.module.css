@@ -10,11 +10,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   color: #ffffff;
-}
-
-.loading:hover {
   text-shadow: 0px 0px 35px rgb(76 76 255);
   filter: drop-shadow(15px 16px 58px rgba(76, 76, 255, 0.5));
-  cursor: wait;
+
 }
+

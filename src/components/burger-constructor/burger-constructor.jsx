@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useDrop } from "react-dnd";
 import { postOrder } from "../../utils/api";
 import styles from "./burger-constructor.module.css";
 import {
@@ -7,6 +8,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientsConstructor from "./ingredients-constructor";
+import { addIngredient } from "../../services/actions/burger-constructor";
 import {
   getOrder,
   OrderSuccess,
@@ -21,26 +23,30 @@ const BurgerConstructor = () => {
 
   const bun = useSelector((state) => state.constructor.bun);
   const filling = useSelector((state) => state.constructor.filling);
-  const totalStuff = useSelector((state) => state.constructor);
-
+  const { totalStuff } = useSelector((state) => state.constructor);
 
   const ingredients = useSelector((state) => state.ingredients.data);
   const orderOpen = useSelector((state) => state.order.openModal);
   const orderNumber = useSelector((state) => state.order.data);
 
-
   const handleCloseModal = () => {
     dispatch(OrderClose());
   };
 
-  // const totalPrice = useMemo(() => {
-  //   return (
+  // const totalPrice = useMemo(
+  //   () =>
   //     filling.reduce((acc, item) => acc + item.price, 0) +
-  //     (bun ? bun.price * 2 : 0)
-  //   );
-  // }, [bun, filling]);
+  //     bun ? bun.price * 2 : 0,
+  //   [bun, filling]
+  // );
 
-
+  const [, dropTarget] = useDrop(() => ({
+    accept: 'ITEM',
+    drop: (item) => dispatch(addIngredient(item)),
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+    }),
+  }));
 
   const handleMakeOrder = () => {
     const arrayId = ingredients.map((item) => item._id.toString());
@@ -49,7 +55,7 @@ const BurgerConstructor = () => {
 
   return (
     <section className={`${styles.section} mt-25 `}>
-      <div className={`${styles.empty} pl-4 mb-10 `}>
+      <div className={`${styles.empty} pl-4 mb-10 `} ref={dropTarget}>
         <IngredientsConstructor />
       </div>
       <div className={`${styles.order} mr-4`}>

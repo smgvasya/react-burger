@@ -1,4 +1,4 @@
-import { useMemo, forwardRef, useEffect } from "react";
+import { useMemo, forwardRef, useEffect, useRef } from "react";
 import styles from "./burger-ingredients.module.css";
 import {
   CurrencyIcon,
@@ -9,7 +9,8 @@ import { openIngredientDetails } from "../../services/actions/ingredient-details
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 
-const Ingredients = ({ title, type, getData, id }) => {
+const Ingredients = forwardRef(({ title, type, getData, id }, ref) => {
+  // const ref = useRef(null);
   const ingredients = useSelector((state) => state.ingredients.data);
 
   const content = useMemo(
@@ -30,21 +31,25 @@ const Ingredients = ({ title, type, getData, id }) => {
   //   return counter;
   // }, [burger]);
   // count={ingredientCount[item._id]}
+  // id = {titleId}
+
 
   return (
     <>
       <h2 className="text text_type_main-medium pb-6 pt-10" id={id}>
         {title}
       </h2>
-      <ul className={styles.list}>
+      <ul className={styles.list} >
         {content.map((item) => (
           <li
             className={`mr-1 ${styles.item}`}
             type={type}
+            ref = {ref}
             key={item._id}
             onClick={() => {
               getData(item);
             }}
+
           >
             <Counter count={1} size="default" extraClass="m-1" />
             <img className="pr-4 pb-1 pl-4" src={item.image} alt={item.name} />
@@ -64,7 +69,7 @@ const Ingredients = ({ title, type, getData, id }) => {
       </ul>
     </>
   );
-};
+});
 
 Ingredients.propTypes = {
   title: PropTypes.string.isRequired,

@@ -1,6 +1,5 @@
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { useDrag } from "react-dnd";
 import styles from "./burger-ingredients.module.css";
 import IngredientsTabs from "./ingredients-tabs";
 import Ingredients from "./ingredients";
@@ -17,7 +16,6 @@ const BurgerIngredients = () => {
   const dispatch = useDispatch();
 
   const ingredientsModal = useSelector((state) => state.ingredientDetails.data);
-  const ingredients = useSelector((state) => state.ingredients.data);
 
   const handleCloseModal = () => {
     dispatch(detailsClose());

@@ -23,11 +23,8 @@ import OrderDetails from "../order-details/order-details";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
-
-  const bun = useSelector((state) => state.constructor.bun);
-  const filling = useSelector((state) => state.constructor.filling);
-  const { totalStuff } = useSelector((state) => state.constructor);
-  const { burgerStuff } = useSelector((store) => store.constructor);
+  const { bun, fillings } = useSelector((state) => state.constructor);
+  // const { burgerStuff } = useSelector((store) => store.constructor);
 
   const ingredients = useSelector((state) => state.ingredients.data);
   const orderOpen = useSelector((state) => state.order.openModal);
@@ -38,15 +35,14 @@ const BurgerConstructor = () => {
   };
 
   // const totalPrice = useMemo(() => {
-  //   return filling.reduce((acc, item) => acc + item.price, 0) + bun
-  //     ? bun.price * 2
-  //     : 0;
-  // }, [bun, filling]);
-
+  //   return (
+  //   fillings.reduce((acc, item) => acc + item.price, 0) + bun
+  //     ? bun.price * 2 : 0);
+  // }, [bun, fillings]);
 
   const [, dropTarget] = useDrop(() => ({
     accept: "ITEM",
-    drop: (item) => dispatch(addIngredient(item)),
+    drop: item => dispatch(addIngredient(item)),
     collect: (monitor) => ({
       isHover: monitor.isOver(),
     }),
@@ -61,15 +57,10 @@ const BurgerConstructor = () => {
     dispatch(deleteIngredient(id));
   };
 
-  // const dragBuns = canDrop && dragItem && dragItem.type === "bun"; фильтр проверка,
-  // если массив булок меньше нуля, то выводим сообщение. 0:06:47
-  // const dragIngredients = canDrop && dragItem && dragItem.type !== "bun"; фильтр проверка,
-  // если массив соусов и начинок меньше нуля, то выводим сообщение. 0:06:47
-
   return (
     <section className={`${styles.section} mt-25 `}>
       <div className={`${styles.empty} pl-4 mb-10 `} ref={dropTarget}>
-        {bun && (
+        {bun ? (
           <div className="ml-8 mr-2">
             <ConstructorElement
               type="top"
@@ -80,18 +71,33 @@ const BurgerConstructor = () => {
               key={bun.id}
             />
           </div>
+        ) : (
+          <h2
+            className={`${styles.request} text text_type_main-medium text_color_inactive`}
+          >
+            → → перетащите булку
+          </h2>
         )}
-        <ul className={filling && styles.ingredients}>
-          {filling &&
-            filling.map((item, index) => (
+        {fillings? (
+          <ul className={styles.ingredients}>
+            {fillings.map((item, index) => (
               <IngredientsConstructor
                 item={item}
                 index={index}
-                key={item.id}
+                key={item._id}
                 handleClose={() => onDelete(item.id)}
               />
             ))}
-        </ul>
+          </ul>
+        ) : (
+          bun && (
+            <h2
+              className={`${styles.request} text text_type_main-medium text_color_inactive`}
+            >
+              → → подберите начинку
+            </h2>
+          )
+        )}
         {bun && (
           <div className="ml-8 mr-2">
             <ConstructorElement

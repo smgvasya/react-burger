@@ -61,3 +61,8 @@
   flex-direction: column;
   height: 83%;
 }
+
+.request {
+  text-align: center;
+  margin: auto;
+}

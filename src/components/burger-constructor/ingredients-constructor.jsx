@@ -14,10 +14,10 @@ const IngredientsConstructor = ({ item, index, handleClose }) => {
   const dispatch = useDispatch();
   const ref = useRef(null);
 
-  const { filling } = useSelector((state) => state.constructor.filling);
+  const { fillings } = useSelector((state) => state.constructor.fillings);
 
   const [{ handlerId }, drop] = useDrop({
-    accept: ["ingredient"],
+    accept: "ingredient",
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
@@ -38,7 +38,7 @@ const IngredientsConstructor = ({ item, index, handleClose }) => {
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return;
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) return;
 
-      dispatch(reorderIngredient(dragIndex, hoverIndex, filling));
+      dispatch(reorderIngredient(dragIndex, hoverIndex, fillings));
       item.index = hoverIndex;
     },
   });
@@ -64,7 +64,7 @@ const IngredientsConstructor = ({ item, index, handleClose }) => {
       >
         <DragIcon type="primary" />
         <ConstructorElement
-          isLocked={false}
+          // isLocked={false}
           text={item.name}
           price={item.price}
           thumbnail={item.image}

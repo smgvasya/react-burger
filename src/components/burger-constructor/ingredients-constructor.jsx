@@ -1,133 +1,78 @@
-import { useMemo, useEffect, useState } from "react";
+import { useRef } from "react";
+import { useDrag, useDrop } from "react-dnd";
+
 import styles from "./burger-constructor.module.css";
 import {
   DragIcon,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { deleteIngredient } from "../../services/actions/burger-constructor";
+import { reorderIngredient } from "../../services/actions/burger-constructor";
 
 import { useDispatch, useSelector } from "react-redux";
 
-const IngredientsConstructor = () => {
+const IngredientsConstructor = ({ item, index, handleClose }) => {
   const dispatch = useDispatch();
+  const ref = useRef(null);
 
-  const { bun, filling } = useSelector((store) => store.constructor);
-  const { burgerStuff } = useSelector((store) => store.constructor);
+  const { fillings } = useSelector((state) => state.constructor.fillings);
 
+  const [{ handlerId }, drop] = useDrop({
+    accept: "ingredient",
+    collect(monitor) {
+      return {
+        handlerId: monitor.getHandlerId(),
+      };
+    },
+    hover(item, monitor) {
+      const dragIndex = item.index;
+      const hoverIndex = index;
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      const hoverMiddleY =
+        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const clientOffset = monitor.getClientOffset();
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
-  // const ingredients = useSelector((state) => state.ingredients.data);
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return;
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) return;
 
-  // const bun = ingredients.find((item) => item.type === "bun");
-
-  // const filling = useMemo(
-  //   () => ingredients.filter((item) => item.type !== "bun"),
-  //   [ingredients]
-  // );
-
-  // const content = useMemo(
-  //   (type) => burgerStuff.filter((item) => item.type === type),
-  //   [burgerStuff]
-  // );
-
-  const onDelete = (id) => {
-    dispatch(deleteIngredient(id));
-  };
+      dispatch(reorderIngredient(dragIndex, hoverIndex, fillings));
+      item.index = hoverIndex;
+    },
+  });
+  const [{ isDragging }, drag] = useDrag({
+    type: "ingredient",
+    item: () => {
+      return { item, index };
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
+  const opacity = isDragging ? 0 : 1;
+  drag(drop(ref));
 
   return (
     <>
-      {bun && (
-        <div className="ml-8 mr-2">
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={bun.name + " (верх)"}
-            price={bun.price}
-            thumbnail={bun.image}
-            key={bun.id}
-          />
-        </div>
-      )}
-      <ul className={filling && styles.ingredients}>
-        {filling &&
-          filling.map((item) => (
-            <li className={`${styles.list} mb-4 mr-2`} key={item._id}>
-              <DragIcon type="primary" />
-              <ConstructorElement
-                isLocked={false}
-                text={item.name}
-                price={item.price}
-                thumbnail={item.image}
-                index={item.index}
-                key={item.id}
-                handleClose={onDelete}
-              />
-            </li>
-          ))}
-      </ul>
-      {bun && (
-        <div className="ml-8 mr-2">
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={bun.name + " (низ)"}
-            price={bun.price}
-            thumbnail={bun.image}
-            key={bun.id}
-          />
-        </div>
-      )}
+      <li
+        className={`${styles.list} mb-4 mr-2`}
+        style={{ opacity }}
+        data-handler-id={handlerId}
+        ref={ref}
+      >
+        <DragIcon type="primary" />
+        <ConstructorElement
+          // isLocked={false}
+          text={item.name}
+          price={item.price}
+          thumbnail={item.image}
+          handleClose={handleClose}
+        />
+      </li>
     </>
   );
 };
 
 export default IngredientsConstructor;
-
-// return (
-//   <>
-//     {!constructorBurger.length && (
-//       <h3 className={`${styles.empty} text text_type_main-large text_color_inactive `}>
-//         Перетащите булку и начинки
-//       </h3>
-//     )}
-
-//       <div className="ml-8 mr-2 mb-4">
-//         <ConstructorElement
-//           type="top"
-//           isLocked={true}
-//           text={bun.name + " (верх)"}
-//           price={bun.price}
-//           thumbnail={bun.image}
-//           key={uuidv4()}
-//         />
-//       </div>
-
-//       <ul className={styles.ingredients}>
-//         {filling.map((item) => (
-//           <li className={`${styles.list} mb-4 mr-2`} key={item._id}>
-//             <DragIcon type="primary" />
-//             <ConstructorElement
-//               isLocked={false}
-//               text={item.name}
-//               price={item.price}
-//               thumbnail={item.image}
-//               key={item._id}
-//               handleClose={onDelete}
-//             />
-//           </li>
-//         ))}
-//       </ul>
-
-//       <div className="ml-8 mr-2">
-//         <ConstructorElement
-//           type="bottom"
-//           isLocked={true}
-//           text={bun.name + " (низ)"}
-//           price={bun.price}
-//           thumbnail={bun.image}
-//           key={bun._id}
-//         />
-//       </div>
-
-//   </>
-// );
-// };

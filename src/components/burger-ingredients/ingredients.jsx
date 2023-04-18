@@ -1,15 +1,59 @@
-import { useMemo, forwardRef, useEffect } from "react";
+import { useMemo } from "react";
+import { useDrag } from "react-dnd";
+import { useSelector } from "react-redux";
 import styles from "./burger-ingredients.module.css";
 import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { openIngredientDetails } from "../../services/actions/ingredient-details";
 
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
 
-const Ingredients = ({ title, type, getData, id }) => {
+const IngredientBlock = ({ items, onClick, type, count }) => {
+  const [{ opacity }, dragRef] = useDrag({
+    type: "ITEM",
+    item: { ...items },
+    collect: (monitor) => ({
+      opacity: monitor.isDragging() ? 0 : 1,
+    }),
+  });
+
+  return (
+    <>
+      <li
+        className={`mr-1 ${styles.item}`}
+        type={type}
+        // ref={dragRef}
+        // style={{ opacity }}
+        key={items._id}
+        onClick={onClick}
+      >
+        {/* <Counter count={count} size="default" extraClass="m-1" /> */}
+
+        <img
+          className="pr-4 pb-1 pl-4"
+          src={items.image}
+          alt={items.name}
+          ref={dragRef}
+          style={{ opacity }}
+        />
+        <div className={styles.price}>
+          <span className="pt-1 pb-1 text text_type_digits-default">
+            {items.price}
+          </span>
+          <CurrencyIcon type="primary" />
+        </div>
+        <p
+          className={`pt-1 pb-1 text text text_type_main-small ${styles.name}`}
+        >
+          {items.name}
+        </p>
+      </li>
+    </>
+  );
+};
+
+const Ingredients = ({ title, getData, id, type }) => {
   const ingredients = useSelector((state) => state.ingredients.data);
 
   const content = useMemo(
@@ -17,19 +61,30 @@ const Ingredients = ({ title, type, getData, id }) => {
     [ingredients, type]
   );
 
-  // const burger = useSelector((state) => state.constructor);
+  const { fillings, bun } = useSelector((store) => store.constructor);
 
-  // const counter = useMemo(() => {
-  //   const {bun, filling} = burger
+  // const count = useMemo(() => {
+
   //   const counter = {};
-  //   filling.forEach((item) => {
-  //     if (!counter[item._id]) counter[item._id] = 0; переслушать как тут
-  //     counter[item._id]++;
-  //   });
+
+  //   fillings.forEach((item) => {
+  //    if(!counter[item._id]) counter[item._id] = 0:
+  //   counter[item._id]++;
+//});
+
   //   if (bun) counter[bun._id] = 2;
   //   return counter;
-  // }, [burger]);
-  // count={ingredientCount[item._id]}
+
+  // }, [bun, fillings]);
+
+  // count={counter[items._id]}
+
+  // const count =
+  //   type !== "bun"
+  //     ? fillings.reduce((acc, item) => (item._id === fillings._id ? acc + 1 : acc), 0)
+  //     : bun?._id === fillings._id
+  //     ? 1
+  //     : 0;
 
   return (
     <>
@@ -38,28 +93,15 @@ const Ingredients = ({ title, type, getData, id }) => {
       </h2>
       <ul className={styles.list}>
         {content.map((item) => (
-          <li
-            className={`mr-1 ${styles.item}`}
+          <IngredientBlock
             type={type}
+            items={item}
             key={item._id}
+            // count={count}
             onClick={() => {
               getData(item);
             }}
-          >
-            <Counter count={1} size="default" extraClass="m-1" />
-            <img className="pr-4 pb-1 pl-4" src={item.image} alt={item.name} />
-            <div className={styles.price}>
-              <span className="pt-1 pb-1 text text_type_digits-default">
-                {item.price}
-              </span>
-              <CurrencyIcon type="primary" />
-            </div>
-            <p
-              className={`pt-1 pb-1 text text text_type_main-small ${styles.name}`}
-            >
-              {item.name}
-            </p>
-          </li>
+          />
         ))}
       </ul>
     </>

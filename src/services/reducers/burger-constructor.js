@@ -1,28 +1,35 @@
 import {
   INGREDIENT_CONSTRUCTOR_ADD,
+  INGREDIENT_CONSTRUCTOR_REORDER,
   INGREDIENT_CONSTRUCTOR_DELETE,
 } from "../actions/burger-constructor";
 
 const initialState = {
+  fillings: [],
   bun: null,
-  filling: [],
 };
 
 export const constructorReducer = (state = initialState, action) => {
   switch (action.type) {
     case INGREDIENT_CONSTRUCTOR_ADD: {
-      if (action.payload.type === "bun") {
-        return { ...state, bun: action.payload };
-    } else
-        return {
-          ...state,
-          filling: [ ...state.filling, action.payload ],
-        };
+      if (action.payload.type !== "bun") {
+        return { ...state, fillings: [...state.fillings, action.payload] };
+      }
+      return { ...state, bun: action.payload };;
+    }
+
+    case INGREDIENT_CONSTRUCTOR_REORDER: {
+      return {
+        ...state,
+        fillings: action.payload,
+      };
     }
     case INGREDIENT_CONSTRUCTOR_DELETE: {
       return {
         ...state,
-        filling: [ ...state.filling ].filter(item => item.id !== action.payload)
+        fillings: [...state.fillings].filter(
+          (item) => item.id !== action.payload
+        ),
       };
     }
     default: {
@@ -31,29 +38,15 @@ export const constructorReducer = (state = initialState, action) => {
   }
 };
 
-
-// case INGREDIENT_CONSTRUCTOR_DELETE: {
-//   return {
-//     ...state,
-//     filling: [
-//       ...state.filling.slice(0,action.payload),
-//       ...state.filling.slice(action.payload + 1),
-//      ]
-//   };
-// }
-
 // case INGREDIENT_CONSTRUCTOR_REORDER: {
-//   const filling = [...state.filling];
-//   filling.splice(
+//   const fillings = [...state.fillings];
+//   fillings.splice(
 //     action.payload.to,
 //     0,
-//     filling.splice(action.payload.from, 1)[0]
+//     fillings.splice(action.payload.from, 1)[0]
 //   );
 //   return {
 //     ...state,
-//     filling,
+//     fillings,
 //   };
-// }
-// case INGREDIENT_CONSTRUCTOR_RESET: {
-//   return initialState
 // }

@@ -11,25 +11,18 @@ const initialState = {
 
 export const constructorReducer = (state = initialState, action) => {
   switch (action.type) {
-    case INGREDIENT_CONSTRUCTOR_ADD: {
-      if (action.payload.type === "bun") {
-        return { ...state, bun: action.payload };
-      } else
-        return {
-          ...state,
-          filling: [...state.filling, action.payload],
-        };
-    }
+    case INGREDIENT_CONSTRUCTOR_ADD:
+      return action.payload.type === "bun"
+        ? { ...state, bun: action.payload }
+        : {
+            ...state,
+            filling: [...state.filling, action.payload],
+          };
+
     case INGREDIENT_CONSTRUCTOR_REORDER: {
-      const filling = [...state.filling];
-      filling.splice(
-        action.payload.to,
-        0,
-        filling.splice(action.payload.from, 1)[0]
-      );
       return {
         ...state,
-        filling,
+        filling: action.payload,
       };
     }
     case INGREDIENT_CONSTRUCTOR_DELETE: {
@@ -58,4 +51,16 @@ export const constructorReducer = (state = initialState, action) => {
 
 // case INGREDIENT_CONSTRUCTOR_RESET: {
 //   return initialState
+// }
+// case INGREDIENT_CONSTRUCTOR_REORDER: {
+//   const filling = [...state.filling];
+//   filling.splice(
+//     action.payload.to,
+//     0,
+//     filling.splice(action.payload.from, 1)[0]
+//   );
+//   return {
+//     ...state,
+//     filling,
+//   };
 // }

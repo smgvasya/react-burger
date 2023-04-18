@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useDrag } from "react-dnd";
+// import { useDrag } from "react-dnd";
 import styles from "./burger-ingredients.module.css";
 import IngredientsTabs from "./ingredients-tabs";
 import Ingredients from "./ingredients";
@@ -45,17 +45,7 @@ const BurgerIngredients = () => {
     observer.observe(buns);
     observer.observe(sauces);
     observer.observe(main);
-
   }, [dispatch]);
-
-
-  const [{ opacity }, dragRef] = useDrag({
-    type: 'ITEM',
-    item: { ...ingredients },
-    collect: monitor => ({
-      opacity: monitor.isDragging() ? 0 : 1
-    })
-  });
 
   return (
     <section className={styles.section}>
@@ -63,27 +53,21 @@ const BurgerIngredients = () => {
       <IngredientsTabs />
       <div className={styles.ingredient} id="scrollArea">
         <Ingredients
-          type="bun"
           title="Булки"
           id={"bun"}
-          ref={dragRef}
-          style={{ opacity }}
+          type="bun"
           getData={handleOpenModal}
         />
         <Ingredients
-          type="sauce"
           title="Соусы"
+          type="sauce"
           id={"sause"}
-          ref={dragRef}
-          style={{ opacity }}
           getData={handleOpenModal}
         />
         <Ingredients
-          type="main"
           title="Начинки"
+          type="main"
           id={"main"}
-          ref={dragRef}
-          style={{ opacity }}
           getData={handleOpenModal}
         />
       </div>

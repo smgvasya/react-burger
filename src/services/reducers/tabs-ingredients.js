@@ -3,7 +3,7 @@ import {
 } from "../actions/tabs-ingredients";
 
 const initialState = {
-  currentTab: 'bun',
+  currentTab: '',
 };
 
 export const tabReducer = (state = initialState, action) => {

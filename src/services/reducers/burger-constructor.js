@@ -16,15 +16,21 @@ export const constructorReducer = (state = initialState, action) => {
         return { ...state, fillings: [...state.fillings, action.payload] };
       }
       return { ...state, bun: action.payload };
-
     }
 
     case INGREDIENT_CONSTRUCTOR_REORDER: {
+      const fillings = [...state.fillings];
+      fillings.splice(
+        action.payload.to,
+        0,
+        fillings.splice(action.payload.from, 1)[0]
+      );
       return {
         ...state,
-        fillings: action.payload,
+        fillings,
       };
     }
+
     case INGREDIENT_CONSTRUCTOR_DELETE: {
       return {
         ...state,
@@ -38,16 +44,3 @@ export const constructorReducer = (state = initialState, action) => {
     }
   }
 };
-
-// case INGREDIENT_CONSTRUCTOR_REORDER: {
-//   const fillings = [...state.fillings];
-//   fillings.splice(
-//     action.payload.to,
-//     0,
-//     fillings.splice(action.payload.from, 1)[0]
-//   );
-//   return {
-//     ...state,
-//     fillings,
-//   };
-// }

@@ -1,9 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
 
-export const INGREDIENT_CONSTRUCTOR_ADD = 'INGREDIENT_CONSTRUCTOR_ADD';
-export const INGREDIENT_CONSTRUCTOR_DELETE = 'INGREDIENT_CONSTRUCTOR_DELETE';
-export const INGREDIENT_CONSTRUCTOR_REORDER = 'INGREDIENT_CONSTRUCTOR_REORDER';
-
+export const INGREDIENT_CONSTRUCTOR_ADD = "INGREDIENT_CONSTRUCTOR_ADD";
+export const INGREDIENT_CONSTRUCTOR_DELETE = "INGREDIENT_CONSTRUCTOR_DELETE";
+export const INGREDIENT_CONSTRUCTOR_REORDER = "INGREDIENT_CONSTRUCTOR_REORDER";
 
 export const addIngredient = (item) => ({
   type: INGREDIENT_CONSTRUCTOR_ADD,
@@ -18,21 +17,12 @@ export const deleteIngredient = (id) => ({
   payload: id,
 });
 
-export const reorderIngredient = (dragIndex, dropIndex, arr) => {
-  [arr[dragIndex], arr[dropIndex]] = [arr[dropIndex], arr[dragIndex]];
-
+export const reorderIngredient = (dragIndex, dropIndex) => {
   return {
     type: INGREDIENT_CONSTRUCTOR_REORDER,
-    payload: [...arr],
-  }
+    payload: {
+      from: dragIndex,
+      to: dropIndex,
+    },
+  };
 };
-
-
-
-// export const deleteIngredient = (index) => ({
-//   type: INGREDIENT_CONSTRUCTOR_DELETE,
-//   payload: index,
-// });
-
-
-

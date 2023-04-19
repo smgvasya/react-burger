@@ -1,13 +1,13 @@
 const config = {
-  baseUrl: 'https://norma.nomoreparties.space/api',
+  baseUrl: "https://norma.nomoreparties.space/api",
   headers: {
-    'Content-Type': 'application/json'
-  }
-}
+    "Content-Type": "application/json",
+  },
+};
 
 const testRes = (res) => {
- return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
-}
+  return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+};
 
 export const getIngredientsList = async () => {
   const res = await fetch(`${config.baseUrl}/ingredients`, {
@@ -18,11 +18,11 @@ export const getIngredientsList = async () => {
 
 export const postOrder = async (arrayId) => {
   const res = await fetch(`${config.baseUrl}/orders`, {
-   method: "POST",
-   headers: config.headers,
-   body: JSON.stringify({
-     ingredients: arrayId
-   }),
- });
- return testRes(res);
+    method: "POST",
+    headers: config.headers,
+    body: JSON.stringify({
+      ingredients: arrayId,
+    }),
+  });
+  return testRes(res);
 };

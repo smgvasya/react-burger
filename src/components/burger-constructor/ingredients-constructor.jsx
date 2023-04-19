@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
+import { useDispatch } from "react-redux";
 
 import styles from "./burger-constructor.module.css";
 import {
@@ -8,13 +9,12 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { reorderIngredient } from "../../services/actions/burger-constructor";
 
-import { useDispatch, useSelector } from "react-redux";
+import { ingredientsPropTypes } from "../../utils/propTypes";
+import PropTypes from "prop-types";
 
 const IngredientsConstructor = ({ item, index, handleClose }) => {
   const dispatch = useDispatch();
   const ref = useRef(null);
-
-  const { fillings } = useSelector((state) => state.constructor.fillings);
 
   const [{ handlerId }, drop] = useDrop({
     accept: "ingredient",
@@ -38,7 +38,7 @@ const IngredientsConstructor = ({ item, index, handleClose }) => {
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return;
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) return;
 
-      dispatch(reorderIngredient(dragIndex, hoverIndex, fillings));
+      dispatch(reorderIngredient(dragIndex, hoverIndex));
       item.index = hoverIndex;
     },
   });
@@ -64,7 +64,7 @@ const IngredientsConstructor = ({ item, index, handleClose }) => {
       >
         <DragIcon type="primary" />
         <ConstructorElement
-          // isLocked={false}
+          isLocked={false}
           text={item.name}
           price={item.price}
           thumbnail={item.image}
@@ -73,6 +73,12 @@ const IngredientsConstructor = ({ item, index, handleClose }) => {
       </li>
     </>
   );
+};
+
+IngredientsConstructor.propTypes = {
+  index: PropTypes.number.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  item: ingredientsPropTypes.isRequired,
 };
 
 export default IngredientsConstructor;

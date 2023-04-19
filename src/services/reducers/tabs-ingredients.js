@@ -1,16 +1,14 @@
-import {
-  SET_TAB,
-} from "../actions/tabs-ingredients";
+import { SET_TAB } from "../actions/tabs-ingredients";
 
 const initialState = {
-  currentTab: '',
+  currentTab: "",
 };
 
 export const tabReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_TAB: {
       return {
-        currentTab: action.payload
+        currentTab: action.payload,
       };
     }
     default: {

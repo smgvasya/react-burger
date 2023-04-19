@@ -1,15 +1,19 @@
 import { useMemo } from "react";
 import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
+
 import styles from "./burger-ingredients.module.css";
 import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import { ingredientsPropTypes } from "../../utils/propTypes";
 import PropTypes from "prop-types";
 
-const IngredientBlock = ({ items, onClick, type, count }) => {
+const IngredientBlock = ({ items, onClick, type }) => {
+  const { bun, fillings } = useSelector((state) => state.burgerConstructor);
+
   const [{ opacity }, dragRef] = useDrag({
     type: "item",
     item: { ...items },
@@ -17,6 +21,16 @@ const IngredientBlock = ({ items, onClick, type, count }) => {
       opacity: monitor.isDragging() ? 0 : 1,
     }),
   });
+
+  const countIngredient =
+    items.type !== "bun"
+      ? fillings.reduce(
+          (sum, item) => (item._id === items._id ? sum + 1 : sum),
+          0
+        )
+      : bun?._id === items._id
+      ? 2
+      : 0;
 
   return (
     <>
@@ -26,7 +40,9 @@ const IngredientBlock = ({ items, onClick, type, count }) => {
         key={items._id}
         onClick={onClick}
       >
-        {/* <Counter count={count} size="default" extraClass="m-1" /> */}
+        {countIngredient !== 0 && (
+          <Counter count={countIngredient} size="default" extraClass="m-1" />
+        )}
 
         <img
           className="pr-4 pb-1 pl-4"
@@ -51,6 +67,12 @@ const IngredientBlock = ({ items, onClick, type, count }) => {
   );
 };
 
+IngredientBlock.propTypes = {
+  type: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  items: ingredientsPropTypes.isRequired,
+};
+
 const Ingredients = ({ title, getData, id, type }) => {
   const ingredients = useSelector((state) => state.ingredients.data);
 
@@ -58,31 +80,6 @@ const Ingredients = ({ title, getData, id, type }) => {
     () => ingredients.filter((item) => item.type === type),
     [ingredients, type]
   );
-
-  const { fillings, bun } = useSelector((store) => store.constructor);
-
-  // const count = useMemo(() => {
-
-  //   const counter = {};
-
-  //   fillings.forEach((item) => {
-  //    if(!counter[item._id]) counter[item._id] = 0:
-  //   counter[item._id]++;
-//});
-
-  //   if (bun) counter[bun._id] = 2;
-  //   return counter;
-
-  // }, [bun, fillings]);
-
-  // count={counter[items._id]}
-
-  // const count =
-  //   type !== "bun"
-  //     ? fillings.reduce((acc, item) => (item._id === fillings._id ? acc + 1 : acc), 0)
-  //     : bun?._id === fillings._id
-  //     ? 1
-  //     : 0;
 
   return (
     <>
@@ -95,7 +92,6 @@ const Ingredients = ({ title, getData, id, type }) => {
             type={type}
             items={item}
             key={item._id}
-            // count={count}
             onClick={() => {
               getData(item);
             }}
@@ -110,6 +106,7 @@ Ingredients.propTypes = {
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   getData: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default Ingredients;

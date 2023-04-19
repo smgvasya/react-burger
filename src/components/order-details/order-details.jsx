@@ -1,11 +1,12 @@
 import styles from "./order-details.module.css";
 import logo from "../../images/id-order.svg";
+import PropTypes from "prop-types";
 
-const OrderDetails = ({orderNumber}) => {
+const OrderDetails = ({ orderNumber }) => {
   return (
     <div className={`${styles.container} `}>
       <h1 className={`${styles.h1} text text_type_digits-large pt-30 pb-8`}>
-      {orderNumber}
+        {orderNumber}
       </h1>
       <span className="text text_type_main-medium">идентификатор заказа</span>
       <img src={logo} alt="Иконка" className={`${styles.img} pt-15 pb-15`} />
@@ -17,6 +18,10 @@ const OrderDetails = ({orderNumber}) => {
       </span>
     </div>
   );
+};
+
+OrderDetails.propTypes = {
+  orderNumber: PropTypes.number.isRequired,
 };
 
 export default OrderDetails;

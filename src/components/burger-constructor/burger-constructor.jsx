@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 import styles from "./burger-constructor.module.css";
@@ -12,18 +12,14 @@ import {
   addIngredient,
   deleteIngredient,
 } from "../../services/actions/burger-constructor";
-import {
-  getOrder,
-  OrderClose,
-} from "../../services/actions/order-details";
+import { getOrder, OrderClose } from "../../services/actions/order-details";
 
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
-  const { bun, fillings } = useSelector((state) => state.constructor);
-  // const { burgerStuff } = useSelector((store) => store.constructor);
+  const { bun, fillings } = useSelector((state) => state.burgerConstructor);
 
   const ingredients = useSelector((state) => state.ingredients.data);
   const orderOpen = useSelector((state) => state.order.openModal);
@@ -33,18 +29,18 @@ const BurgerConstructor = () => {
     dispatch(OrderClose());
   };
 
-  // const totalPrice = useMemo(() => {
-  //   return (
-  //   fillings.reduce((acc, item) => acc + item.price, 0) + bun
-  //     ? bun.price * 2 : 0);
-  // }, [bun, fillings]);
+  const totalPrice = useMemo(() => {
+    return (
+      fillings.reduce((acc, item) => acc + item.price, 0) +
+      (bun ? bun.price * 2 : 0)
+    );
+  }, [bun, fillings]);
 
   const [, dropTarget] = useDrop(() => ({
     accept: "item",
-    drop(item){dispatch(addIngredient(item))}
-    // collect: (monitor) => ({
-    //   isHover: monitor.isOver(),
-    // }),
+    drop: (item) => {
+      dispatch(addIngredient(item));
+    },
   }));
 
   const handleMakeOrder = () => {
@@ -77,13 +73,13 @@ const BurgerConstructor = () => {
             → → перетащите булку
           </h2>
         )}
-        {fillings? (
+        {fillings.length > 0 ? (
           <ul className={styles.ingredients}>
             {fillings.map((item, index) => (
               <IngredientsConstructor
                 item={item}
                 index={index}
-                key={item._id}
+                key={item.id}
                 handleClose={() => onDelete(item.id)}
               />
             ))}
@@ -112,7 +108,7 @@ const BurgerConstructor = () => {
       </div>
       <div className={`${styles.order} mr-4`}>
         <div className={`${styles.price} mr-10`}>
-          <span className="text text_type_digits-medium">{0}</span>
+          <span className="text text_type_digits-medium">{totalPrice}</span>
           <div className={styles.icon}>
             <CurrencyIcon type="primary" />
           </div>
@@ -122,6 +118,7 @@ const BurgerConstructor = () => {
           size="large"
           htmlType="button"
           onClick={handleMakeOrder}
+          disabled={!totalPrice}
         >
           Оформить заказ
         </Button>

@@ -3,9 +3,9 @@ export const INGREDIENT_DETAILS_CLOSE = "INGREDIENT_DETAILS_CLOSE";
 
 export const detailsOpen = (data) => ({
   type: INGREDIENT_DETAILS_OPEN,
-  payload: data
+  payload: data,
 });
 
 export const detailsClose = () => ({
-  type: INGREDIENT_DETAILS_CLOSE
+  type: INGREDIENT_DETAILS_CLOSE,
 });

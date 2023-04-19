@@ -40,7 +40,7 @@ export const orderReducer = (state = initialState, action) => {
     case ORDER_DETAILS_CLOSE: {
       return {
         ...state,
-        openModal: false
+        openModal: false,
       };
     }
     default: {

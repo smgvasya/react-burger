@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import styles from "./app.module.css";
 
 import { DndProvider } from "react-dnd";
@@ -29,8 +29,8 @@ const App = () => {
       ) : (
         <main className={styles.main}>
           <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          <BurgerConstructor />
+            <BurgerIngredients />
+            <BurgerConstructor />
           </DndProvider>
         </main>
       )}

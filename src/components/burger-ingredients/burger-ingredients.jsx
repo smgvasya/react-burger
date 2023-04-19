@@ -43,6 +43,10 @@ const BurgerIngredients = () => {
     observer.observe(buns);
     observer.observe(sauces);
     observer.observe(main);
+
+    return () => {
+      observer.unobserve(buns, sauces, main);
+    };
   }, [dispatch]);
 
   return (

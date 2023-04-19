@@ -22,14 +22,15 @@ const Modal = ({ children, onClose }) => {
   }, [onClose]);
 
   return ReactDOM.createPortal(
-    <ModalOverlay onClose={onClose}>
+    <section className={styles.modal}>
       <div className={styles.content} onClick={(e) => e.stopPropagation()}>
-        <div className={styles.closeButton} onClick={() => onClose()}>
+        <div className={styles.closeButton} onClick={onClose}>
           <CloseIcon type="primary" />
         </div>
         {children}
       </div>
-    </ModalOverlay>,
+      <ModalOverlay onClose={onClose} />,
+    </section>,
     modalRoot
   );
 };

@@ -12,7 +12,7 @@ import {
   addIngredient,
   deleteIngredient,
 } from "../../services/actions/burger-constructor";
-import { getOrder, OrderClose } from "../../services/actions/order-details";
+import { getOrder, orderClose } from "../../services/actions/order-details";
 
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
@@ -20,13 +20,11 @@ import OrderDetails from "../order-details/order-details";
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
   const { bun, fillings } = useSelector((state) => state.burgerConstructor);
-
-  const ingredients = useSelector((state) => state.ingredients.data);
   const orderOpen = useSelector((state) => state.order.openModal);
   const orderNumber = useSelector((state) => state.order.data);
 
   const handleCloseModal = () => {
-    dispatch(OrderClose());
+    dispatch(orderClose());
   };
 
   const totalPrice = useMemo(() => {
@@ -44,7 +42,7 @@ const BurgerConstructor = () => {
   }));
 
   const handleMakeOrder = () => {
-    const arrayId = ingredients.map((item) => item._id.toString());
+    const arrayId = [bun._id, ...fillings.map((item) => item._id), bun._id];
     dispatch(getOrder(arrayId));
   };
 
@@ -118,7 +116,7 @@ const BurgerConstructor = () => {
           size="large"
           htmlType="button"
           onClick={handleMakeOrder}
-          disabled={!totalPrice}
+          disabled={fillings <= 0 || !bun}
         >
           Оформить заказ
         </Button>

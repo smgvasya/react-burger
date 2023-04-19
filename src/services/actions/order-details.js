@@ -6,26 +6,26 @@ export const ORDER_DETAILS_ERROR = "ORDER_DETAILS_ERROR";
 export const ORDER_DETAILS_CLOSE = "ORDER_DETAILS_CLOSE";
 
 export const getOrder = (arrayId) => (dispatch) => {
-  dispatch(OrderRequest());
+  dispatch(orderRequest());
 
   postOrder(arrayId)
-    .then((res) => dispatch(OrderSuccess(res.order.number)))
-    .catch(() => dispatch(OrderError()));
+    .then((res) => dispatch(orderSuccess(res.order.number)))
+    .catch(() => dispatch(orderError()));
 };
 
-export const OrderRequest = () => ({
+export const orderRequest = () => ({
   type: ORDER_DETAILS_REQUEST,
 });
 
-export const OrderSuccess = (data) => ({
+export const orderSuccess = (data) => ({
   type: ORDER_DETAILS_SUCCESS,
   payload: data,
 });
 
-export const OrderError = () => ({
+export const orderError = () => ({
   type: ORDER_DETAILS_ERROR,
 });
 
-export const OrderClose = () => ({
+export const orderClose = () => ({
   type: ORDER_DETAILS_CLOSE,
 });

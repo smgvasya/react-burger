@@ -34,7 +34,7 @@ export const constructorReducer = (state = initialState, action) => {
     case INGREDIENT_CONSTRUCTOR_DELETE: {
       return {
         ...state,
-        fillings: [...state.fillings].filter(
+        fillings: state.fillings.filter(
           (item) => item.id !== action.payload
         ),
       };

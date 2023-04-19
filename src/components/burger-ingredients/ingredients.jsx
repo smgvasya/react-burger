@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 
 const IngredientBlock = ({ items, onClick, type, count }) => {
   const [{ opacity }, dragRef] = useDrag({
-    type: "ITEM",
+    type: "item",
     item: { ...items },
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0 : 1,
@@ -23,8 +23,6 @@ const IngredientBlock = ({ items, onClick, type, count }) => {
       <li
         className={`mr-1 ${styles.item}`}
         type={type}
-        // ref={dragRef}
-        // style={{ opacity }}
         key={items._id}
         onClick={onClick}
       >

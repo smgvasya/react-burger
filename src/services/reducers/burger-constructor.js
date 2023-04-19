@@ -15,7 +15,8 @@ export const constructorReducer = (state = initialState, action) => {
       if (action.payload.type !== "bun") {
         return { ...state, fillings: [...state.fillings, action.payload] };
       }
-      return { ...state, bun: action.payload };;
+      return { ...state, bun: action.payload };
+
     }
 
     case INGREDIENT_CONSTRUCTOR_REORDER: {

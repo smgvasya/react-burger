@@ -14,7 +14,6 @@ import {
 } from "../../services/actions/burger-constructor";
 import {
   getOrder,
-  OrderSuccess,
   OrderClose,
 } from "../../services/actions/order-details";
 
@@ -41,11 +40,11 @@ const BurgerConstructor = () => {
   // }, [bun, fillings]);
 
   const [, dropTarget] = useDrop(() => ({
-    accept: "ITEM",
-    drop: item => dispatch(addIngredient(item)),
-    collect: (monitor) => ({
-      isHover: monitor.isOver(),
-    }),
+    accept: "item",
+    drop(item){dispatch(addIngredient(item))}
+    // collect: (monitor) => ({
+    //   isHover: monitor.isOver(),
+    // }),
   }));
 
   const handleMakeOrder = () => {

@@ -37,7 +37,7 @@ const BurgerIngredients = () => {
     }, options);
 
     const buns = document.getElementById("bun");
-    const sauces = document.getElementById("sause");
+    const sauces = document.getElementById("sauce");
     const main = document.getElementById("main");
 
     observer.observe(buns);
@@ -45,7 +45,9 @@ const BurgerIngredients = () => {
     observer.observe(main);
 
     return () => {
-      observer.unobserve(buns, sauces, main);
+      observer.unobserve(buns)
+      observer.unobserve(sauces)
+      observer.unobserve(main);
     };
   }, [dispatch]);
 
@@ -63,7 +65,7 @@ const BurgerIngredients = () => {
         <Ingredients
           title="Соусы"
           type="sauce"
-          id={"sause"}
+          id={"sauce"}
           getData={handleOpenModal}
         />
         <Ingredients

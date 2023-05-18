@@ -21,8 +21,8 @@ const IngredientsTabs = () => {
         Булки
       </Tab>
       <Tab
-        value={"sause"}
-        active={currentTab === "sause"}
+        value={"sauce"}
+        active={currentTab === "sauce"}
         onClick={handleTabClick}
       >
         Соусы

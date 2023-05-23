@@ -14,7 +14,6 @@ const IngredientsTabs = () => {
     const item = document.getElementById(id);
     item.scrollIntoView({ behavior: "smooth" });
   };
-
   return (
     <div className={styles.tabs}>
       <Tab value={"bun"} active={currentTab === "bun"} onClick={handleTabClick}>

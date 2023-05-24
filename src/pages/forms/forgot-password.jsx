@@ -46,11 +46,12 @@ export const ForgotPasswordPage = () => {
         </Button>
         <p className="text text_type_main-default text_color_inactive pt-20">
           Вспомнили пароль?
-          <Link to="/login" className="text text_type_main-default pl-2">
+          <Link to="/login" className={`${styles.link} text text_type_main-default pl-2`}>
             Войти
           </Link>
         </p>
       </form>
     </>
   );
+
 };

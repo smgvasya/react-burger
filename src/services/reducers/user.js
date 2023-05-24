@@ -23,14 +23,13 @@ import {
   UPDATE_TOKEN_REQUEST,
   UPDATE_TOKEN_SUCCESS,
   UPDATE_TOKEN_FAILED,
-  //SET_PASSWORD
 } from '../actions/user';
 
 const initialState = {
   user: null,
   password: null,
-  authRequest: false, //request
-  authFailed: false, //error
+  request: false,
+  error: false,
   pwdResetRequested: false,
   pwdSubmitSuccess: false,
 };
@@ -40,178 +39,173 @@ export const authReducer = (state = initialState, action) => {
     case REGISTRATION_REQUEST: {
       return {
         ...state,
-        authRequest: true
+        request: true
       }
     }
     case REGISTRATION_SUCCESS: {
       return {
         ...state,
-        authRequest: false,
-        authFailed: false,
+        request: false,
+        error: false,
         user: action.user
       }
     }
     case REGISTRATION_FAILED: {
       return {
         ...state,
-        authRequest: false,
-        authFailed: true,
+        request: false,
+        error: true,
       }
     }
     case LOGIN_REQUEST: {
       return {
         ...state,
-        authRequest: true
+        request: true
       }
     }
     case LOGIN_SUCCESS: {
       return {
         ...state,
-        authRequest: false,
-        authFailed: false,
+        request: false,
+        error: false,
         user: action.user
       }
     }
     case LOGIN_FAILED: {
       return {
         ...state,
-        authRequest: false,
-        authFailed: true,
+        request: false,
+        error: true,
       }
     }
     case LOGOUT_REQUEST: {
       return {
         ...state,
-        authRequest: true
+        request: true
       }
     }
     case LOGOUT_SUCCESS: {
       return {
         ...state,
-        authRequest: false,
-        authFailed: false,
+        request: false,
+        error: false,
         user: null
       }
     }
     case LOGOUT_FAILED: {
       return {
         ...state,
-        authRequest: false,
-        authFailed: true,
+        request: false,
+        error: true,
       }
     }
     case GET_USER_REQUEST: {
       return {
         ...state,
-        authRequest: true
+        request: true
       }
     }
     case GET_USER_SUCCESS: {
       return {
         ...state,
-        authRequest: false,
-        authFailed: false,
+        request: false,
+        error: false,
         user: action.user
       }
     }
     case GET_USER_FAILED: {
       return {
         ...state,
-        authRequest: false,
-        authFailed: true,
+        request: false,
+        error: true,
       }
     }
     case UPDATE_USER_REQUEST: {
       return {
         ...state,
-        authRequest: true
+        request: true
       }
     }
     case UPDATE_USER_SUCCESS: {
       return {
         ...state,
-        authRequest: false,
-        authFailed: false,
+        request: false,
+        error: false,
         user: action.user
       }
     }
     case UPDATE_USER_FAILED: {
       return {
         ...state,
-        authRequest: false,
-        authFailed: true,
+        request: false,
+        error: true,
       }
     }
     case UPDATE_PWD_REQUEST: {
       return {
         ...state,
-        authRequest: true,
+        request: true,
         pwdResetRequested: true
       }
     }
     case UPDATE_PWD_SUCCESS: {
       return {
         ...state,
-        authRequest: false,
-        authFailed: false,
+        request: false,
+        error: false,
       }
     }
     case UPDATE_PWD_FAILED: {
       return {
         ...state,
-        authRequest: false,
-        authFailed: true,
+        request: false,
+        error: true,
       }
     }
     case SUBMIT_PWD_REQUEST: {
       return {
         ...state,
-        authRequest: true,
+        request: true,
         pwdSubmitSuccess: false
       }
     }
     case SUBMIT_PWD_SUCCESS: {
       return {
         ...state,
-        authRequest: false,
-        authFailed: false,
+        request: false,
+        error: false,
         pwdSubmitSuccess: true,
       }
     }
     case SUBMIT_PWD_FAILED: {
       return {
         ...state,
-        authRequest: false,
-        authFailed: true,
+        request: false,
+        error: true,
         pwdSubmitSuccess: false
       }
     }
     case UPDATE_TOKEN_REQUEST: {
       return {
         ...state,
-        authRequest: true
+        request: true
       }
     }
     case UPDATE_TOKEN_SUCCESS: {
       return {
         ...state,
-        authRequest: false,
-        authFailed: false
+        request: false,
+        error: false
       }
     }
     case UPDATE_TOKEN_FAILED: {
       return {
         ...state,
-        authRequest: false,
-        authFailed: true,
+        request: false,
+        error: true,
       }
     }
-    // case SET_PASSWORD: {
-    //   return {
-    //     ...state,
-    //     password: action.password
-    //   }
-    // }
+
     default: {
       return state;
     }

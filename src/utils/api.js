@@ -87,12 +87,11 @@ export const getUser = async () => { //getUserRequest
 };
 
 export const patchUser = async ({ name, email, password }) => { //updateUserRequest
-  const accessToken = getCookie("accessToken");
   const res = await fetch(`${config.authUrl}/user`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      authorization: "Bearer " + accessToken,
+      authorization: "Bearer " + getCookie("accessToken"),
     },
     body: JSON.stringify({ name, email, password }),
   });

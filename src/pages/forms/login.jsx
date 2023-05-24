@@ -1,61 +1,63 @@
 import styles from './forms.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { loginUser } from '../../services/actions/user';
 
 export const LoginPage = () => {
+  const navigate = useNavigate()
+  const {location} = useLocation()
+  const [value, setValue] = useState({});
 
-  const [form, setValue] = useState({});
-
-  const onChange = e => {
-    setValue({ ...form, [e.target.name]: e.target.value });
+  const onChange = evt => {
+    setValue({ ...value, [evt.target.name]: evt.target.value });
   };
 
   const dispatch = useDispatch();
 
-  const submitLogin = (e) => {
-    e.preventDefault();
-
-    dispatch(loginUser(form));
+  const onSubmitLogin = (evt) => {
+    evt.preventDefault();
+    dispatch(loginUser(value))
+  //  return <Navigate to={location.from} />
+  //  navigate('/profile')
   }
 
   return (
     <form
-    onSubmit={submitLogin}
+    onSubmit={onSubmitLogin}
     className={styles.form}>
       <h1 className="text text_type_main-medium text_color_primary pb-6">
         Вход
       </h1>
       <EmailInput
-        value={form?.email || ''}
-        name="email"
-       onChange={onChange}
-        extraClass="pb-6"
+        value={value.email || ''}
+        name='email'
+        onChange={onChange}
+        extraClass='pb-6'
       />
       <PasswordInput
-        value={form?.password || ''}
-        name="password"
+        value={value.password || ''}
+        name='password'
         onChange={onChange}
-        extraClass="pb-6"
+        extraClass='pb-6'
       />
       <Button
-      htmlType="submit"
-      size="medium"
+      htmlType='submit'
+      size='large'
       // disabled={fillings.length <= 0 || !bun}
       >
         Войти
       </Button>
-      <p className="text text_type_main-default text_color_inactive pt-20">
+      <p className='text text_type_main-default text_color_inactive pt-20'>
         Вы - новый пользователь?
-        <Link to="/register" className="text text_type_main-default pl-2">
+        <Link to="/register" className={`${styles.link} text text_type_main-default pl-2`}>
           Зарегистрироваться
         </Link>
       </p>
-      <p className="text text_type_main-default text_color_inactive pt-4">
+      <p className='text text_type_main-default text_color_inactive pt-4'>
         Забыли пароль?
-        <Link to="/forgot-password" className="text text_type_main-default pl-2">
+        <Link to="/forgot-password" className={`${styles.link} text text_type_main-default pl-2`}>
           Восстановить пароль
         </Link>
       </p>

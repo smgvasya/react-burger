@@ -16,3 +16,18 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.containertab {
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+}
+
+.navtab {
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  text-decoration: none;
+}

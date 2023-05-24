@@ -11,6 +11,7 @@
   filter: drop-shadow(15px 16px 58px rgba(76, 76, 255, 0.5));
 }
 
-link {
+.link {
   color: var(--colors-interface-accent);
 }
+

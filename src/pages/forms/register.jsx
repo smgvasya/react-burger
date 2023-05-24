@@ -30,7 +30,7 @@ export const RegisterPage = () => {
         Регистрация
       </h1>
       <Input
-        value={form?.name || ''}
+        value={form.name || ''}
         name="name"
         placeholder="Имя"
         type="text"
@@ -38,13 +38,13 @@ export const RegisterPage = () => {
         extraClass="pb-6"
       />
       <EmailInput
-        value={form?.email || ''}
+        value={form.email || ''}
         name="email"
        onChange={onChange}
         extraClass="pb-6"
       />
       <PasswordInput
-        value={form?.password || ''}
+        value={form.password || ''}
         name="password"
         onChange={onChange}
         extraClass="pb-6"
@@ -58,7 +58,7 @@ export const RegisterPage = () => {
       </Button>
       <p className="text text_type_main-default text_color_inactive pt-20">
         Уже зарегистрированы?
-        <Link to="/login" className="text text_type_main-default pl-2">
+        <Link to="/login" className={`${styles.link} text text_type_main-default pl-2`}>
           Войти
         </Link>
       </p>

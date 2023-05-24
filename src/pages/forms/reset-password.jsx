@@ -47,14 +47,14 @@ export const ResetPasswordPage = () => {
     >
       <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
       <PasswordInput
-        value={form?.password || ''}
+        value={form.password || ''}
         name="password"
         placeholder="Введите новый пароль"
         onChange={onChange}
         extraClass="pb-6"
       />
       <Input
-        value={form?.token || ''}
+        value={form.token || ''}
         type="text"
         name="token"
         placeholder="Введите код из письма"
@@ -70,7 +70,7 @@ export const ResetPasswordPage = () => {
       </Button>
       <p className="text text_type_main-default text_color_inactive pt-20">
         Вспомнили пароль?
-        <Link to="/login" className="text text_type_main-default pl-2">
+        <Link to="/login" className={`${styles.link} text text_type_main-default pl-2`}>
           Войти
         </Link>
       </p>

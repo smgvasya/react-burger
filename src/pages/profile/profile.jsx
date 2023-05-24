@@ -10,70 +10,15 @@ import { useEffect } from 'react';
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const ProfileTab = ({description, onLogout}) => {
-
-  const commonClassName = `${styles.link} text text_type_main-medium pt-4 pb-4 `;
-  const activeClassName = "text_color_primary";
-  const inactiveClassName = "text_color_inactive"
-
-  return (
-    <div className={`${styles.container} ml-5 mr-15`}>
-      <nav className={`${styles.nav}`}>
-        <NavLink
-          to="/profile"
-          end
-          className = {({ isActive }) =>
-            (commonClassName +
-              (isActive ? activeClassName : inactiveClassName))
-          }
-        >
-          Профиль
-        </NavLink>
-        <NavLink
-          to="/profile/orders"
-          className = {({ isActive }) =>
-            (commonClassName +
-              (isActive ? activeClassName : inactiveClassName))
-          }
-        >
-          История заказов
-        </NavLink>
-        <NavLink
-          to="/login"
-          onClick={onLogout}
-          className = {({ isActive }) =>
-            (commonClassName +
-              (isActive ? activeClassName : inactiveClassName))
-          }
-        >
-          Выход
-        </NavLink>
-      </nav>
-      <p className="text text_type_main-default text_color_inactive pt-20">
-        {description}
-      </p>
-    </div>
-  );
-}
-
-ProfileTab.propTypes = {
-  description: PropTypes.string.isRequired,
-};
-
-
-export default ProfileTab;
-
 
 export const ProfilePage = () => {
 
-  const description = "В этом разделе вы можете изменить свои персональные данные";
-
-  const userInfo = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state.auth.user);
   const password = useSelector((state) => state.auth.password);
 
   const formInit = {
-    name: userInfo?.name || '',
-    email: userInfo?.email || '',
+    name: user.name || '',
+    email: user.email || '',
   };
 
   const [form, setForm] = useState(formInit);
@@ -85,13 +30,13 @@ export const ProfilePage = () => {
 
 
   useEffect(() => {
-    if (userInfo && password) {
-      setForm({name: userInfo.name, email: userInfo.email});
-    } else if (userInfo) {
-      setForm({name: userInfo.name, email: userInfo.email});
+    if (user && password) {
+      setForm({name: user.name, email: user.email});
+    } else if (user) {
+      setForm({name: user.name, email: user.email});
     } else
       setForm(formInit);
-  }, [userInfo]);
+  }, [user]);
 
   const onChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -113,12 +58,44 @@ export const ProfilePage = () => {
     e.preventDefault();
     dispatch(logoutUser(refreshToken));
   }
-
+  const swithActiveColor = ({ isActive }) => ({
+    color: !isActive ? "#8585AD" : '#F2F2F3'
+    ,
+  })
 
   return (
     <div className={`${styles.container}`}>
-      <ProfileTab description={description} onLogout={handleLogout}/>
-      {userInfo && (<form onSubmit={handleSubmit} className={styles.form}>
+    <div className={`${styles.containertab} ml-5 mr-15`}>
+      <nav className={`${styles.navtab}`}>
+        <NavLink
+          to="/profile"
+          end
+          className={`text text_type_main-medium pt-4 pb-4 ${styles.link}`}
+          style={swithActiveColor}
+        >
+          Профиль
+        </NavLink>
+        <NavLink
+          to="/profile/orders"
+          className={`text text_type_main-medium pt-4 pb-4 ${styles.link}`}
+          style={swithActiveColor}
+        >
+          История заказов
+        </NavLink>
+        <NavLink
+          to="/login"
+          onClick={handleLogout}
+          className={`text text_type_main-medium pt-4 pb-4 ${styles.link}`}
+          style={swithActiveColor}
+        >
+          Выход
+        </NavLink>
+      </nav>
+      <p className="text text_type_main-default text_color_inactive pt-20">
+        В этом разделе вы можете изменить свои персональные данные
+      </p>
+    </div>
+      {user && (<form onSubmit={handleSubmit} className={styles.form}>
         <Input
           type="text"
           placeholder="Имя"
@@ -156,29 +133,3 @@ export const ProfilePage = () => {
     </div>
   )
 }
-
-
-// const password = useSelector((state) => state.auth.password);
-
-//   const formInit = {
-//     name: userInfo?.name || '',
-//     email: userInfo?.email || '',
-//     password: password || '******'
-//   };
-
-//   const [form, setForm] = useState(formInit);
-//   const [isChanged, setIsChanged] = useState(false);
-
-//   const refreshToken = getCookie("refreshToken");
-
-//   const dispatch = useDispatch();
-
-
-//   useEffect(() => {
-//     if (userInfo && password) {
-//       setForm({name: userInfo.name, email: userInfo.email, password: password});
-//     } else if (userInfo) {
-//       setForm({name: userInfo.name, email: userInfo.email, password: "******"});
-//     } else
-//       setForm(formInit);
-//   }, [userInfo, password]);

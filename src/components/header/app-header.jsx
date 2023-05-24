@@ -29,11 +29,11 @@ const AppHeader = () => {
           </NavLink>
 
           <NavLink
-            to="/orders"
+            to="/feed"
             className={`pt-4 pr-5 pb-4 pl-5 ${styles.link}`}
             style={swithActiveColor}
           >
-            <ListIcon type={pathname === "/orders" ? "primary" : "secondary"} />
+            <ListIcon type={pathname === "/feed" ? "primary" : "secondary"} />
             <span className="pl-2 text text_type_main-default">
               Лента заказов
             </span>

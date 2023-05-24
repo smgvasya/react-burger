@@ -1,14 +1,14 @@
 import styles from './forms.module.css';
-import { Link, useLocation, useNavigate, Navigate } from 'react-router-dom';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { Link, useLocation, useNavigate} from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { loginUser } from '../../services/actions/user';
 
 export const LoginPage = () => {
   const navigate = useNavigate()
-  const {location} = useLocation()
   const [value, setValue] = useState({});
+  const user = useSelector((state) => state.auth.user);
 
   const onChange = evt => {
     setValue({ ...value, [evt.target.name]: evt.target.value });
@@ -19,9 +19,13 @@ export const LoginPage = () => {
   const onSubmitLogin = (evt) => {
     evt.preventDefault();
     dispatch(loginUser(value))
-  //  return <Navigate to={location.from} />
-  //  navigate('/profile')
   }
+
+  useEffect(() => {
+    if (user) {
+      navigate("/profile");
+    }
+  }, [navigate, user])
 
   return (
     <form

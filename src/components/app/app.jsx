@@ -39,19 +39,10 @@ const App = () => {
         <Route path="register" element={<RegisterPage />} />
         <Route path="reset-password" element={<ResetPasswordPage />} />
         <Route path="forgot-password" element={<ForgotPasswordPage />} />
-        {/* <Route path="profile" element={<ProfilePage />} /> */}
-        <Route
-          path="profile/*"
-          element={<ProtectedRouteElement element={<ProfilePage />} />}
-        >
-          <Route
-            path="profile/orders"
-            element={<ProtectedRouteElement element={<ProfileOrders />} />}
-          />
-          <Route
-            path="profile/orders:id"
-            element={<ProtectedRouteElement element={<ProfileOrders />} />}
-          />
+        <Route element={<ProtectedRouteElement />}>
+          <Route path="profile/*" element={<ProfilePage />} />
+          <Route path="profile/orders" element={<ProfileOrders />} />
+          <Route path="profile/orders:id" element={<ProfileOrders />} />
         </Route>
         <Route path="*" element={<NotFound404 />} />
       </Routes>

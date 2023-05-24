@@ -44,8 +44,6 @@ export const UPDATE_TOKEN_REQUEST = "UPDATE_TOKEN_REQUEST";
 export const UPDATE_TOKEN_SUCCESS = "UPDATE_TOKEN_SUCCESS";
 export const UPDATE_TOKEN_FAILED = "UPDATE_TOKEN_FAILED";
 
-// export const SET_PASSWORD = 'SET_PASSWORD';
-
 export const registrationUser = ({ name, email, password }) => {
   return function (dispatch) {
     dispatch({

@@ -1,36 +1,35 @@
-import { Navigate, useLocation} from 'react-router-dom';
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getUserInfo } from '../services/actions/user';
-import { getCookie } from '../utils/cookie';
-import PropTypes from 'prop-types';
+import { Navigate, useLocation, Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserInfo } from "../services/actions/user";
+import { getCookie } from "../utils/cookie";
+import PropTypes from "prop-types";
 
-const ProtectedRouteElement = ({element}) => {
-
-  const {request, user} = useSelector((state) => state.auth);
- const refreshToken = getCookie("refreshToken");
- const accessToken = getCookie("accessToken");
+const ProtectedRouteElement = () => {
+  const { request, user } = useSelector((state) => state.auth);
+  const refreshToken = getCookie("refreshToken");
+  const accessToken = getCookie("accessToken");
   const location = useLocation();
-  // const { state, pathname} = useLocation();
+  const [isRequestSent, setRequestSent] = useState(false);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!user) {
       dispatch(getUserInfo());
-    }
-  }, [dispatch, user]);
+      setRequestSent(true);
+  }, [dispatch]);
 
-  if (request) {
+  if (request || !isRequestSent ) {
     return null;
   }
 
-  return user ? element : <Navigate to="/login" replace={false} />;
-}
-
+  return user ?  <Outlet/> : (
+    <Navigate to="/login" replace state={{ from: location }} />
+  );
+};
 
 ProtectedRouteElement.propTypes = {
-  element: PropTypes.element.isRequired
-}
+  element: PropTypes.element.isRequired,
+};
 
 export default ProtectedRouteElement;

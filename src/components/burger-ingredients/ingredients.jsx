@@ -7,7 +7,7 @@ import IngredientBlock from "./ingredient-block";
 
 import PropTypes from "prop-types";
 
-const Ingredients = ({ title, getData, id, type }) => {
+const Ingredients = ({ title, id, type }) => {
   const ingredients = useSelector((state) => state.ingredients.data);
 
   const content = useMemo(
@@ -26,9 +26,7 @@ const Ingredients = ({ title, getData, id, type }) => {
             type={type}
             items={item}
             key={item._id}
-            onClick={() => {
-              getData(item);
-            }}
+
           />
         ))}
       </ul>
@@ -39,7 +37,6 @@ const Ingredients = ({ title, getData, id, type }) => {
 Ingredients.propTypes = {
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  getData: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
 };
 

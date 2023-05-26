@@ -30,7 +30,6 @@ export const ResetPasswordPage = () => {
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
-
     dispatch(submitPassword(form));
   }
 

@@ -20,16 +20,17 @@ const testRes = (res) => {
   return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 };
 
-export const getIngredientsList = async () => {  //getIngredientsRequest
+export const getIngredientsList = async () => {
   const res = await fetch(`${config.baseUrl}/ingredients`, {
     headers: {
       "Content-Type": "application/json",
+      authorization: '',
     },
   });
   return testRes(res);
 };
 
-export const postOrder = async (arrayId) => { //placeOrderRequest
+export const postOrder = async (arrayId) => {
   const res = await fetch(`${config.baseUrl}/orders`, {
     method: "POST",
     headers: {
@@ -43,7 +44,7 @@ export const postOrder = async (arrayId) => { //placeOrderRequest
   return testRes(res);
 };
 
-export const postRegister = async (name, email, password) => { //registerRequest
+export const postRegister = async (name, email, password) => {
   const res = await fetch(`${config.authUrl}/register`, {
     method: "POST",
     headers: {
@@ -54,7 +55,7 @@ export const postRegister = async (name, email, password) => { //registerRequest
   return testRes(res);
 };
 
-export const postLogin = async (email, password) => { //loginRequest
+export const postLogin = async (email, password) => {
   const res = await fetch(`${config.authUrl}/login`, {
     method: "POST",
     headers: {
@@ -65,7 +66,7 @@ export const postLogin = async (email, password) => { //loginRequest
   return testRes(res);
 };
 
-export const postLogout = async (refreshToken) => { //logoutRequest
+export const postLogout = async (refreshToken) => {
   const res = await fetch(`${config.authUrl}/logout`, {
     method: "POST",
     headers: {
@@ -76,7 +77,7 @@ export const postLogout = async (refreshToken) => { //logoutRequest
   return testRes(res);
 };
 
-export const getUser = async () => { //getUserRequest
+export const getUser = async () => {
   const res = await fetch(`${config.authUrl}/user`, {
     headers: {
       "Content-Type": "application/json",
@@ -86,7 +87,7 @@ export const getUser = async () => { //getUserRequest
   return testRes(res);
 };
 
-export const patchUser = async ({ name, email, password }) => { //updateUserRequest
+export const patchUser = async ({ name, email, password }) => {
   const res = await fetch(`${config.authUrl}/user`, {
     method: "PATCH",
     headers: {
@@ -98,7 +99,7 @@ export const patchUser = async ({ name, email, password }) => { //updateUserRequ
   return testRes(res);
 };
 
-export const postPasswordReset = async ({ email }) => { //pwdResetRequest
+export const postPasswordReset = async ({ email }) => {
   const res = await fetch(`${config.baseUrl}/password-reset`, {
     method: "POST",
     headers: {
@@ -109,7 +110,7 @@ export const postPasswordReset = async ({ email }) => { //pwdResetRequest
   return testRes(res);
 };
 
-export const postPasswordChange = async ({ password, token }) => { //pwdSubmitRequest
+export const postPasswordChange = async ({ password, token }) => {
   const res = await fetch(`${config.baseUrl}/password-reset/reset`, {
     method: "POST",
     headers: {
@@ -120,7 +121,7 @@ export const postPasswordChange = async ({ password, token }) => { //pwdSubmitRe
   return testRes(res);
 };
 
-export const postRefreshToken = async ({ refreshToken }) => { //updateTokenRequest
+export const postRefreshToken = async ({ refreshToken }) => {
   const res = await fetch(`${config.authUrl}/token`, {
     method: "POST",
     headers: {

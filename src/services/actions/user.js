@@ -124,7 +124,6 @@ export const getUserInfo = () => {
       type: GET_USER_REQUEST,
     });
     getUser()
-      // .then((res) => res.json()) возможно будет нужно
       .then((res) => {
         if (res.success) {
           dispatch({
@@ -148,7 +147,6 @@ export const updateUserInfo = ({ name, email, password }) => {
       type: UPDATE_USER_REQUEST,
     });
     patchUser({ name, email, password })
-      // .then(res => res.json()) возможно будет нужно
       .then((res) => {
         if (res.success) {
           dispatch({
@@ -179,11 +177,6 @@ export const updatePassword = ({ email }) => {
           });
       }
 
-    //   if (res.success) {
-    //     return data.history.replace({ pathname: "/reset-password" });
-    // }
-    // return null;
-
     })
     .catch(res => {
       dispatch({
@@ -206,13 +199,6 @@ export const submitPassword = ({ password, token }) => {
           dispatch({
             type: SUBMIT_PWD_SUCCESS,
           });
-
-        //   .then((res) => {
-        //     if (!res.success) {
-        //         return null;
-        //     }
-        // })
-
       }
     })
     .catch(res => {

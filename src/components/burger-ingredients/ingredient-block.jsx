@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import styles from "./burger-ingredients.module.css";
 import {
@@ -11,8 +12,17 @@ import {
 import { ingredientsPropTypes } from "../../utils/propTypes";
 import PropTypes from "prop-types";
 
-const IngredientBlock = ({ items, onClick, type }) => {
+const IngredientBlock = ({ items, type }) => {
   const { bun, fillings } = useSelector((state) => state.burgerConstructor);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const onClick = (item) => {
+    navigate(`/ingredients/${items._id}`, {
+      state: { ingredient: item, background: location},
+    });
+  }
 
   const [{ opacity }, dragRef] = useDrag({
     type: "item",
@@ -39,7 +49,7 @@ const IngredientBlock = ({ items, onClick, type }) => {
         className={`mr-1 ${styles.item}`}
         type={type}
         key={items._id}
-        onClick={onClick}
+        onClick={() => onClick(items)}
       >
         {countIngredient !== 0 && (
           <Counter count={countIngredient} size="default" extraClass="m-1" />
@@ -70,7 +80,6 @@ const IngredientBlock = ({ items, onClick, type }) => {
 
 IngredientBlock.propTypes = {
   type: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
   items: ingredientsPropTypes.isRequired,
 };
 

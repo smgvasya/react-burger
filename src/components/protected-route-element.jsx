@@ -1,12 +1,13 @@
-import { Navigate, useLocation, Outlet } from "react-router-dom";
+import { Route, Navigate, useLocation, Outlet} from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserInfo } from "../services/actions/user";
-import PropTypes from "prop-types";
+import { getCookie } from '../utils/cookie';
+
 
 const ProtectedRouteElement = () => {
   const { request, user } = useSelector((state) => state.auth);
-  const location = useLocation();
+  const {location} = useLocation();
   const [isAuth, setAuth] = useState(false);
 
   const dispatch = useDispatch();
@@ -23,10 +24,6 @@ const ProtectedRouteElement = () => {
   return user ?  <Outlet/> : (
     <Navigate to="/login" replace state={{ from: location }} />
   );
-};
-
-ProtectedRouteElement.propTypes = {
-  element: PropTypes.element.isRequired,
 };
 
 export default ProtectedRouteElement;

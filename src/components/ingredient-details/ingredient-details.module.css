@@ -4,6 +4,9 @@
   justify-content: center;
   align-items: center;
 }
+.text{
+  padding-left: 40px;
+}
 
 .list {
   display: grid;

@@ -1,29 +1,37 @@
 import styles from "./forms.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { updatePassword } from "../../services/actions/user";
+import { getCookie } from '../../utils/cookie';
 
 export const ForgotPasswordPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const refreshToken = getCookie("refreshToken");
+  const user = useSelector((state) => state.auth.user);
 
-  const [form, setValue] = useState({});
+  const [form, setForm] = useState({});
 
   const onChange = (e) => {
-    setValue({ ...form, [e.target.name]: e.target.value });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handlePasswordUpdate = (e) => {
     e.preventDefault();
-
     dispatch(updatePassword(form));
     navigate("/reset-password");
   };
+
+  useEffect(() => {
+    if (user || refreshToken) {
+      navigate("/profile");
+    }
+  }, [navigate, refreshToken, user])
 
   return (
     <>
@@ -32,7 +40,7 @@ export const ForgotPasswordPage = () => {
           Восстановление пароля
         </h1>
         <EmailInput
-          value={form?.email || ""}
+          value={form.email || ""}
           name="email"
           onChange={onChange}
           extraClass="pb-6"
@@ -40,7 +48,6 @@ export const ForgotPasswordPage = () => {
         <Button
           htmlType="submit"
           size="medium"
-          // disabled={fillings.length <= 0 || !bun}
         >
           Восстановить
         </Button>

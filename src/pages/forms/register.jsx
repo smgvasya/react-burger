@@ -1,11 +1,15 @@
 import styles from './forms.module.css';
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { registrationUser } from '../../services/actions/user';
+import { getCookie } from '../../utils/cookie';
 
 export const RegisterPage = () => {
+  const navigate = useNavigate()
+  const  user  = useSelector((state) => state.auth.user);
+  const refreshToken = getCookie("refreshToken");
 
   const [form, setValue] = useState({});
 
@@ -20,6 +24,12 @@ export const RegisterPage = () => {
 
     dispatch(registrationUser(form));
   }
+
+  useEffect(() => {
+    if (user || refreshToken) {
+      navigate("/profile");
+    }
+  }, [navigate, refreshToken, user])
 
   return (
     <form

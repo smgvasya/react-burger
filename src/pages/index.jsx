@@ -6,6 +6,7 @@ import { ProfilePage } from './profile/profile';
 import { NotFound404 } from './errors/not-found-404';
 import { HomePage } from './home/home';
 import { ProfileOrders } from './profile/profile-orders';
+import { IngredientPage } from './ingredient';
 
 
 export {
@@ -17,4 +18,5 @@ export {
   NotFound404,
   HomePage,
   ProfileOrders,
+  IngredientPage,
 };

@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 
 
 import { NavLink } from "react-router-dom";
-import PropTypes from "prop-types";
+
 
 
 export const ProfilePage = () => {
@@ -16,12 +16,13 @@ export const ProfilePage = () => {
   const user = useSelector((state) => state.auth.user);
   const password = useSelector((state) => state.auth.password);
 
-  const formInit = {
+  const displayInfo = {
     name: user.name || '',
     email: user.email || '',
+    password: user.password || '******',
   };
 
-  const [form, setForm] = useState(formInit);
+  const [form, setForm] = useState(displayInfo);
   const [isChanged, setIsChanged] = useState(false);
 
   const refreshToken = getCookie("refreshToken");
@@ -31,11 +32,11 @@ export const ProfilePage = () => {
 
   useEffect(() => {
     if (user && password) {
-      setForm({name: user.name, email: user.email});
+      setForm({name: user.name, email: user.email, password: password});
     } else if (user) {
-      setForm({name: user.name, email: user.email});
+      setForm({name: user.name, email: user.email, password: "******"});
     } else
-      setForm(formInit);
+      setForm(displayInfo);
   }, [user]);
 
   const onChange = e => {
@@ -44,7 +45,7 @@ export const ProfilePage = () => {
   };
 
   const handleCancel = () => {
-    setForm(formInit);
+    setForm(displayInfo);
     setIsChanged(false);
   };
 
@@ -54,7 +55,7 @@ export const ProfilePage = () => {
     setIsChanged(false);
   };
 
-  const handleLogout = (e) => {
+  const makeOut = (e) => {
     e.preventDefault();
     dispatch(logoutUser(refreshToken));
   }
@@ -84,7 +85,7 @@ export const ProfilePage = () => {
         </NavLink>
         <NavLink
           to="/login"
-          onClick={handleLogout}
+          onClick={makeOut}
           className={`text text_type_main-medium pt-4 pb-4 ${styles.link}`}
           style={swithActiveColor}
         >
@@ -121,11 +122,11 @@ export const ProfilePage = () => {
           icon="EditIcon"
           extraClass={styles.input}
         />
-        { isChanged && <div className={`mt-6 mr-4 ${styles.handlers}`}>
+        { isChanged && <div className={`mt-6 mr-4 ${styles.buttons}`}>
           <Button size="medium" htmlType="button" type="secondary" onClick={handleCancel}>
             Отмена
           </Button>
-          <Button htmlType="submit" size="medium">
+          <Button htmlType="submit" size="medium" type="primary">
             Сохранить
           </Button>
         </div>}

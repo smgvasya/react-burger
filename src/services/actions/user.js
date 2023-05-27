@@ -12,15 +12,15 @@ import {
 
 import { setCookie, deleteCookie, getCookie } from "../../utils/cookie";
 
-export const REGISTRATION_REQUEST = "REGISTRATION_REQUEST"; //RegisterPage
+export const REGISTRATION_REQUEST = "REGISTRATION_REQUEST";
 export const REGISTRATION_SUCCESS = "REGISTRATION_SUCCESS";
 export const REGISTRATION_FAILED = "REGISTRATION_FAILED";
 
-export const LOGIN_REQUEST = "LOGIN_REQUEST"; //LoginPage
+export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILED = "LOGIN_FAILED";
 
-export const LOGOUT_REQUEST = "LOGOUT_REQUEST"; //ProfilePage
+export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGOUT_FAILED = "LOGOUT_FAILED";
 
@@ -28,15 +28,15 @@ export const GET_USER_REQUEST = "GET_USER_REQUEST";
 export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
 export const GET_USER_FAILED = "GET_USER_FAILED";
 
-export const UPDATE_USER_REQUEST = "UPDATE_USER_REQUEST"; //ProfilePage
+export const UPDATE_USER_REQUEST = "UPDATE_USER_REQUEST";
 export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
 export const UPDATE_USER_FAILED = "UPDATE_USER_FAILED";
 
-export const UPDATE_PWD_REQUEST = "UPDATE_PWD_REQUEST"; //ForgotPasswordPage
+export const UPDATE_PWD_REQUEST = "UPDATE_PWD_REQUEST";
 export const UPDATE_PWD_SUCCESS = "UPDATE_PWD_SUCCESS";
 export const UPDATE_PWD_FAILED = "UPDATE_PWD_FAILED";
 
-export const SUBMIT_PWD_REQUEST = "SUBMIT_PWD_REQUEST"; //ResetPasswordPage
+export const SUBMIT_PWD_REQUEST = "SUBMIT_PWD_REQUEST";
 export const SUBMIT_PWD_SUCCESS = "SUBMIT_PWD_SUCCESS";
 export const SUBMIT_PWD_FAILED = "SUBMIT_PWD_FAILED";
 

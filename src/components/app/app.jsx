@@ -93,7 +93,8 @@ const App = () => {
             </ProtectedRouteElement>
           }
         />
-        <Route path="ingredients/:id" element={ <IngredientPage />} />
+
+        <Route path="ingredients/:id" element={<IngredientPage />} />
         <Route path="*" element={<NotFound404 />} />
       </Routes>
       {background && (

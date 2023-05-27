@@ -24,7 +24,7 @@ const BurgerConstructor = () => {
   const { bun, fillings } = useSelector((state) => state.burgerConstructor);
   const orderOpen = useSelector((state) => state.order.openModal);
   const orderNumber = useSelector((state) => state.order.data);
-  const { pathname, location } = useLocation;
+  const location = useLocation;
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   const handleCloseModal = () => {

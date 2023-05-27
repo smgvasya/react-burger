@@ -3,15 +3,12 @@ import {
   Route,
   useLocation,
   useNavigate,
-  Navigate,
 } from "react-router-dom";
 import AppHeader from "../header/app-header";
 import { ProtectedRouteElement } from "../protected-route-element";
 import Modal from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { getCookie } from "../../utils/cookie";
+
 import {
   LoginPage,
   RegisterPage,
@@ -26,17 +23,23 @@ import {
 
 const App = () => {
   const location = useLocation();
+
+const background = location.state?.background;
+
   const navigate = useNavigate();
-  const background = location.state?.background;
+
   const stepBack = () => {
-    navigate("/");
+    navigate(-1);
   };
 
   return (
     <>
       <AppHeader />
       <Routes location={background || location}>
+
         <Route path="/" element={<HomePage />} />
+
+
         <Route
           path="login"
           element={
@@ -93,8 +96,7 @@ const App = () => {
             </ProtectedRouteElement>
           }
         />
-
-        <Route path="ingredients/:id" element={<IngredientPage />} />
+        <Route path="/ingredients/:id" element={location.state?.background && <IngredientPage /> } />
         <Route path="*" element={<NotFound404 />} />
       </Routes>
       {background && (
@@ -103,7 +105,7 @@ const App = () => {
             path="ingredients/:id"
             element={
               <Modal onClose={stepBack}>
-                <IngredientDetails />
+                <IngredientDetails  />
               </Modal>
             }
           />

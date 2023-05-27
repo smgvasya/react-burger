@@ -124,6 +124,7 @@ export const getUserInfo = () => {
       type: GET_USER_REQUEST,
     });
     getUser()
+    // .then((res) => res.json())
       .then((res) => {
         if (res.success) {
           dispatch({
@@ -186,7 +187,6 @@ export const updatePassword = ({ email }) => {
     });
   };
 }
-
 
 export const submitPassword = ({ password, token }) => {
   return function(dispatch) {

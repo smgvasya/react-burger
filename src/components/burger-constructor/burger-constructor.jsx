@@ -17,12 +17,16 @@ import { getOrder, orderClose } from "../../services/actions/order-details";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 
+import { useNavigate, useLocation } from "react-router-dom";
+
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
   const { bun, fillings } = useSelector((state) => state.burgerConstructor);
   const orderOpen = useSelector((state) => state.order.openModal);
   const orderNumber = useSelector((state) => state.order.data);
-
+  const { pathname, location } = useLocation;
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
   const handleCloseModal = () => {
     dispatch(orderClose());
   };
@@ -43,12 +47,14 @@ const BurgerConstructor = () => {
 
   const handleMakeOrder = () => {
     const arrayId = [bun._id, ...fillings.map((item) => item._id), bun._id];
-    dispatch(getOrder(arrayId));
+    user ? dispatch(getOrder(arrayId)) : navigate("/login", {state: {from: location}})
   };
 
   const onDelete = (id) => {
     dispatch(deleteIngredient(id));
   };
+
+
 
   return (
     <section className={`${styles.section} mt-25 `}>

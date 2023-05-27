@@ -1,15 +1,20 @@
 import styles from "./ingredient-details.module.css";
 import { useParams, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 
 export const IngredientDetails = () => {
-  const {data} = useSelector((state) => state.ingredients);
+  const { data } = useSelector((state) => state.ingredients);
   const { id } = useParams();
-  const item = data.find((item) => item._id === id);
+  const item = useMemo(() => {
+    if (data.length === 0) {
+      return undefined;
+    }
+    data.find((item) => item._id === id);
+  }, [data, id]);
 
-  return item &&(
-
+  return (
+    item && (
       <>
         <h1 className={`${styles.text} text text_type_main-large pt-10`}>
           Детали ингредиента
@@ -56,6 +61,6 @@ export const IngredientDetails = () => {
           </ul>
         </div>
       </>
-
+    )
   );
 };

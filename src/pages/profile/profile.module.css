@@ -1,18 +1,14 @@
-.container {
-  display: flex;
+.section {
   padding-top: 120px;
-  width: 480px;
-  padding-left: 60px;
-  display: flex;
-  flex-direction: column;
+  max-width: 1280px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 340px 480px;
+  column-gap: 60px;
   align-items: center;
 }
 
-.form {
-  max-width: 480px;
-}
-
-.input {
+.input input {
   color: #8585ad;
 }
 
@@ -21,10 +17,9 @@
   justify-content: flex-end;
 }
 
-.containertab {
+.container {
   display: flex;
   flex-direction: column;
-  max-width: 320px;
 }
 
 .navtab {

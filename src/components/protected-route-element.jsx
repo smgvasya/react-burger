@@ -1,29 +1,41 @@
-import { Route, Navigate, useLocation, Outlet} from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserInfo } from "../services/actions/user";
-import { getCookie } from '../utils/cookie';
+import { getCookie } from "../utils/cookie";
+import PropTypes from "prop-types";
 
-
-const ProtectedRouteElement = () => {
-  const { request, user } = useSelector((state) => state.auth);
-  const {location} = useLocation();
-  const [isAuth, setAuth] = useState(false);
-
+export function ProtectedRouteElement({ children, anonymous = false }) {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const request = useSelector((state) => state.auth.request);
+  const user = useSelector((state) => state.auth.user);
+  const location = useLocation();
   const dispatch = useDispatch();
+  const refreshToken = getCookie("refreshToken");
+  const from = location.state?.from?.pathmame || "/";
 
   useEffect(() => {
+    if (!user && refreshToken) {
       dispatch(getUserInfo());
-      setAuth(true);
-  }, [dispatch]);
+    }
+  }, [refreshToken, user, dispatch]);
 
-  if (request || !isAuth ) {
+  if (request) {
     return null;
   }
+  if (anonymous && isLoggedIn) {
+    return <Navigate to={from} />;
+  }
 
-  return user ?  <Outlet/> : (
-    <Navigate to="/login" replace state={{ from: location }} />
-  );
+  if (!anonymous && !isLoggedIn) {
+    return <Navigate to="/login" state={{ from: location }} />;
+  }
+
+  return children;
+}
+
+
+ProtectedRouteElement.propTypes = {
+  children: PropTypes.node.isRequired,
+  anonymous: PropTypes.bool.isRequired,
 };
-
-export default ProtectedRouteElement;

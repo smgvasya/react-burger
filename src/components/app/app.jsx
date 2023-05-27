@@ -6,9 +6,9 @@ import {
   Navigate,
 } from "react-router-dom";
 import AppHeader from "../header/app-header";
-import ProtectedRouteElement from "../protected-route-element";
+import { ProtectedRouteElement } from "../protected-route-element";
 import Modal from "../modal/modal";
-import {IngredientDetails} from "../ingredient-details/ingredient-details";
+import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getCookie } from "../../utils/cookie";
@@ -29,7 +29,7 @@ const App = () => {
   const navigate = useNavigate();
   const background = location.state?.background;
   const stepBack = () => {
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -37,21 +37,67 @@ const App = () => {
       <AppHeader />
       <Routes location={background || location}>
         <Route path="/" element={<HomePage />} />
-
-        <Route path="login" element={<LoginPage />} />
-        <Route path="register" element={<RegisterPage />} />
-        <Route path="reset-password" element={<ResetPasswordPage />} />
-        <Route path="forgot-password" element={<ForgotPasswordPage />} />
-        <Route element={<ProtectedRouteElement />}>
-          <Route path="profile/*" element={<ProfilePage />} />
-          <Route path="profile/orders" element={<ProfileOrders />} />
-          <Route path="profile/orders:id" element={<ProfileOrders />} />
-        </Route>
-        <Route path="ingredients/:id" element={<IngredientPage />}/>
+        <Route
+          path="login"
+          element={
+            <ProtectedRouteElement anonymous={true}>
+              <LoginPage />
+            </ProtectedRouteElement>
+          }
+        />
+        <Route
+          path="register"
+          element={
+            <ProtectedRouteElement anonymous={true}>
+              <RegisterPage />
+            </ProtectedRouteElement>
+          }
+        />
+        <Route
+          path="reset-password"
+          element={
+            <ProtectedRouteElement anonymous={true}>
+              <ResetPasswordPage />
+            </ProtectedRouteElement>
+          }
+        />
+        <Route
+          path="forgot-password"
+          element={
+            <ProtectedRouteElement anonymous={true}>
+              <ForgotPasswordPage />
+            </ProtectedRouteElement>
+          }
+        />
+        <Route
+          path="profile/*"
+          element={
+            <ProtectedRouteElement anonymous={false}>
+              <ProfilePage />
+            </ProtectedRouteElement>
+          }
+        />
+        <Route
+          path="profile/orders"
+          element={
+            <ProtectedRouteElement anonymous={false}>
+              <ProfileOrders />
+            </ProtectedRouteElement>
+          }
+        />
+        <Route
+          path="profile/orders:id"
+          element={
+            <ProtectedRouteElement anonymous={false}>
+              <ProfileOrders />
+            </ProtectedRouteElement>
+          }
+        />
+        <Route path="ingredients/:id" element={ <IngredientPage />} />
         <Route path="*" element={<NotFound404 />} />
       </Routes>
-      <Routes>
-        {background && (
+      {background && (
+        <Routes>
           <Route
             path="ingredients/:id"
             element={
@@ -60,8 +106,8 @@ const App = () => {
               </Modal>
             }
           />
-        )}
-      </Routes>
+        </Routes>
+      )}
     </>
   );
 };

@@ -19,23 +19,22 @@ export const ProfilePage = () => {
   const dispatch = useDispatch();
   const [isChanged, setIsChanged] = useState(false);
 
-  const [form, setForm] = useState({
+
+const initUserInfo = {
     name: user.name || "",
     email: user.email || "",
-    password: password || "******",
-  });
+    password: "",
+  }
+
+  const [form, setForm] = useState(initUserInfo);
 
   useEffect(() => {
     if (user && password) {
       setForm({ name: user.name, email: user.email, password: password });
     } else if (user) {
-      setForm({ name: user.name, email: user.email, password: "******" });
+      setForm({ name: user.name, email: user.email, password: "" });
     } else
-      setForm({
-        name: user.name || "",
-        email: user.email || "",
-        password: password || "******",
-      });
+      setForm(initUserInfo);
   }, [user]);
 
   const onChange = (e) => {
@@ -44,11 +43,7 @@ export const ProfilePage = () => {
   };
 
   const handleCancel = () => {
-    setForm({
-      name: user.name || "",
-      email: user.email || "",
-      password: password || "******",
-    });
+    setForm(initUserInfo);
     setIsChanged(false);
   };
 

@@ -1,16 +1,5 @@
 import { getCookie } from "./cookie";
 
-// "https://norma.nomoreparties.space/api/ingredients"
-// "https://norma.nomoreparties.space/api/orders"
-// "https://norma.nomoreparties.space/api/password-reset"
-// "https://norma.nomoreparties.space/api/password-reset/reset"
-
-// "https://norma.nomoreparties.space/api/auth/register"
-// "https://norma.nomoreparties.space/api/auth/login"
-// "https://norma.nomoreparties.space/api/auth/user"
-// "https://norma.nomoreparties.space/api/auth/logout"
-// "https://norma.nomoreparties.space/api/auth/token"
-
 const config = {
   baseUrl: "https://norma.nomoreparties.space/api",
   authUrl: "https://norma.nomoreparties.space/api/auth",
@@ -24,7 +13,6 @@ export const getIngredientsList = async () => {
   const res = await fetch(`${config.baseUrl}/ingredients`, {
     headers: {
       "Content-Type": "application/json",
-      authorization: '',
     },
   });
   return testRes(res);

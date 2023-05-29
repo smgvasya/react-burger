@@ -1,7 +1,7 @@
 import styles from "./forms.module.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   EmailInput,
   PasswordInput,
@@ -10,6 +10,7 @@ import {
 import { loginUser } from "../../services/actions/user";
 
 export const LoginPage = () => {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const [value, setValue] = useState({});
   const dispatch = useDispatch();
 
@@ -43,7 +44,6 @@ export const LoginPage = () => {
       <Button
         htmlType="submit"
         size="large"
-        // disabled={fillings.length <= 0 || !bun}
       >
         Войти
       </Button>

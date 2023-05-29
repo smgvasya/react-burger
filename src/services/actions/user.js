@@ -124,7 +124,6 @@ export const getUserInfo = () => {
       type: GET_USER_REQUEST,
     });
     getUser()
-    // .then((res) => res.json())
       .then((res) => {
         if (res.success) {
           dispatch({

@@ -3,15 +3,30 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 180px;
-}
-
-.text {
-  text-shadow: 0px 0px 35px rgb(76 76 255);
-  filter: drop-shadow(15px 16px 58px rgba(76, 76, 255, 0.5));
+  padding-top: 176px;
 }
 
 .link {
   color: var(--colors-interface-accent);
 }
 
+.img {
+  position: absolute;
+  top: 390px;
+  left: 980px;
+  background-image: url(../../images/rescue-team.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  min-height: 84px;
+  width: 89px;
+  filter: drop-shadow(15px 16px 58px rgba(76, 76, 255, 0.5));
+}
+
+.planet {
+  background-image: url(../../images/1618230378278989.png);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: calc(100vh - 500px);
+    width: 100%;
+}

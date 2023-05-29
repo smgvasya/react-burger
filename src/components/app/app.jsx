@@ -1,9 +1,4 @@
-import {
-  Routes,
-  Route,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import AppHeader from "../header/app-header";
 import { ProtectedRouteElement } from "../protected-route-element";
 import Modal from "../modal/modal";
@@ -24,7 +19,7 @@ import {
 const App = () => {
   const location = useLocation();
 
-const background = location.state?.background;
+  const background = location.state && location.state.background;
 
   const navigate = useNavigate();
 
@@ -36,9 +31,7 @@ const background = location.state?.background;
     <>
       <AppHeader />
       <Routes location={background || location}>
-
         <Route path="/" element={<HomePage />} />
-
 
         <Route
           path="login"
@@ -88,15 +81,7 @@ const background = location.state?.background;
             </ProtectedRouteElement>
           }
         />
-        <Route
-          path="profile/orders:id"
-          element={
-            <ProtectedRouteElement anonymous={false}>
-              <ProfileOrders />
-            </ProtectedRouteElement>
-          }
-        />
-        <Route path="/ingredients/:id" element={location.state?.background && <IngredientPage /> } />
+        <Route path="ingredients/:id" element={<IngredientPage />} />
         <Route path="*" element={<NotFound404 />} />
       </Routes>
       {background && (
@@ -105,7 +90,7 @@ const background = location.state?.background;
             path="ingredients/:id"
             element={
               <Modal onClose={stepBack}>
-                <IngredientDetails  />
+                <IngredientDetails />
               </Modal>
             }
           />

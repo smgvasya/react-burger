@@ -12,7 +12,7 @@ export function ProtectedRouteElement({ children, anonymous = false }) {
   const location = useLocation();
   const dispatch = useDispatch();
   const refreshToken = getCookie("refreshToken");
-  const from = location.state?.from?.pathmame || "/";
+  const from = location.state?.from || "/";
 
   useEffect(() => {
     if (!user && refreshToken) {

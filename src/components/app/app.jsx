@@ -3,7 +3,7 @@ import AppHeader from "../header/app-header";
 import { ProtectedRouteElement } from "../protected-route-element";
 import Modal from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
-
+import { useSelector, useDispatch } from "react-redux";
 import {
   LoginPage,
   RegisterPage,
@@ -15,17 +15,33 @@ import {
   ProfileOrders,
   IngredientPage,
 } from "../../pages";
+import { useEffect } from "react";
+import { updateToken } from "../../services/actions/user";
+import { getIngredients } from "../../services/actions/burger-ingredients";
+import { getCookie } from "../../utils/cookie";
 
 const App = () => {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const location = useLocation();
+  const refreshToken = getCookie("refreshToken");
+  const dispatch = useDispatch();
 
   const background = location.state && location.state.background;
+  // const background = location.state && location.state.modal;
 
   const navigate = useNavigate();
 
   const stepBack = () => {
     navigate(-1);
   };
+
+  // useEffect(() => {
+  //   !isLoggedIn && refreshToken && dispatchEvent(updateToken(refreshToken));
+  // }, [isLoggedIn, refreshToken]);
+
+  // useEffect(() => {
+  //   dispatch(getIngredients());
+  // }, [dispatch]);
 
   return (
     <>

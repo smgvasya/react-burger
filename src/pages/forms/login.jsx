@@ -10,7 +10,7 @@ import {
 import { loginUser } from "../../services/actions/user";
 
 export const LoginPage = () => {
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  // const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const [value, setValue] = useState({});
   const dispatch = useDispatch();
 

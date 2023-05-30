@@ -1,4 +1,4 @@
-import { getCookie } from "./cookie";
+import { getCookie, setCookie } from "./cookie";
 
 const config = {
   baseUrl: "https://norma.nomoreparties.space/api",
@@ -6,20 +6,21 @@ const config = {
 };
 
 const testRes = (res) => {
-  return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
 export const getIngredientsList = async () => {
   const res = await fetch(`${config.baseUrl}/ingredients`, {
     headers: {
       "Content-Type": "application/json",
+      authorization: "",
     },
   });
   return testRes(res);
 };
 
-export const postOrder = async (arrayId) => {
-  const res = await fetch(`${config.baseUrl}/orders`, {
+export const postOrder = (arrayId) => {
+  return fetchWithRefresh(`${config.baseUrl}/orders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -29,7 +30,6 @@ export const postOrder = async (arrayId) => {
       ingredients: arrayId,
     }),
   });
-  return testRes(res);
 };
 
 export const postRegister = async (name, email, password) => {
@@ -65,18 +65,16 @@ export const postLogout = async (refreshToken) => {
   return testRes(res);
 };
 
-export const getUser = async () => {
-  const res = await fetch(`${config.authUrl}/user`, {
+export const getUser = () => {
+  return fetchWithRefresh(`${config.authUrl}/user`, {
     headers: {
       "Content-Type": "application/json",
       authorization: "Bearer " + getCookie("accessToken"),
     },
   });
-  return testRes(res);
 };
-
-export const patchUser = async ({ name, email, password }) => {
-  const res = await fetch(`${config.authUrl}/user`, {
+export const patchUser = ({ name, email, password }) => {
+  return fetchWithRefresh(`${config.authUrl}/user`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -84,7 +82,6 @@ export const patchUser = async ({ name, email, password }) => {
     },
     body: JSON.stringify({ name, email, password }),
   });
-  return testRes(res);
 };
 
 export const postPasswordReset = async ({ email }) => {
@@ -109,13 +106,31 @@ export const postPasswordChange = async ({ password, token }) => {
   return testRes(res);
 };
 
-export const postRefreshToken = async ({ refreshToken }) => {
+export const postRefreshToken = async () => {
   const res = await fetch(`${config.authUrl}/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ token: refreshToken }),
+    body: JSON.stringify({ token: getCookie("refreshToken") }),
   });
   return testRes(res);
+};
+
+export const fetchWithRefresh = async (url, options) => {
+  try {
+    const res = await fetch(url, options);
+    return await testRes(res);
+  } catch (err) {
+    if (err.message === "jwt expired") {
+      const refreshData = await postRefreshToken();
+      setCookie("refreshToken", refreshData.refreshToken);
+      setCookie("accessToken", refreshData.accessToken.split("Bearer ")[1]);
+      options.headers.authorization = refreshData.accessToken;
+      const res = await fetch(url, options);
+      return await testRes(res);
+    } else {
+      return Promise.reject(err);
+    }
+  }
 };

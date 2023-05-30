@@ -6,11 +6,9 @@ import {
   patchUser,
   postPasswordReset,
   postPasswordChange,
-  postRefreshToken,
 } from "../../utils/api";
 
-
-import { setCookie, deleteCookie, getCookie } from "../../utils/cookie";
+import { setCookie, deleteCookie } from "../../utils/cookie";
 
 export const REGISTRATION_REQUEST = "REGISTRATION_REQUEST";
 export const REGISTRATION_SUCCESS = "REGISTRATION_SUCCESS";
@@ -165,72 +163,45 @@ export const updateUserInfo = ({ name, email, password }) => {
 };
 
 export const updatePassword = ({ email }) => {
-  return function(dispatch) {
+  return function (dispatch) {
     dispatch({
-      type: UPDATE_PWD_REQUEST
+      type: UPDATE_PWD_REQUEST,
     });
     postPasswordReset({ email })
-      .then(res => {
+      .then((res) => {
         if (res && res.success) {
           dispatch({
             type: UPDATE_PWD_SUCCESS,
           });
-      }
-
-    })
-    .catch(res => {
-      dispatch({
-        type: UPDATE_PWD_FAILED
+        }
+      })
+      .catch((res) => {
+        dispatch({
+          type: UPDATE_PWD_FAILED,
+        });
+        console.log(`Ошибка при отправке пароля: ${res}`);
       });
-      console.log(`Ошибка при отправке пароля: ${res}`);
-    });
   };
-}
+};
 
 export const submitPassword = ({ password, token }) => {
-  return function(dispatch) {
+  return function (dispatch) {
     dispatch({
-      type: SUBMIT_PWD_REQUEST
+      type: SUBMIT_PWD_REQUEST,
     });
     postPasswordChange({ password, token })
-      .then(res => {
+      .then((res) => {
         if (res && res.success) {
           dispatch({
             type: SUBMIT_PWD_SUCCESS,
           });
-      }
-    })
-    .catch(res => {
-      dispatch({
-        type: SUBMIT_PWD_FAILED
-      });
-      console.log(`Ошибка обновления пароля: ${res}`);
-    });
-  };
-}
-
-export const updateToken = () => {
-  return function(dispatch) {
-    dispatch({
-      type: UPDATE_TOKEN_REQUEST
-    });
-    const refreshToken = getCookie("refreshToken");
-    postRefreshToken(refreshToken)
-      .then(res => {
-        if (res && res.success) {
-          setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
-          setCookie("refreshToken", res.refreshToken);
-          dispatch({
-            type: UPDATE_TOKEN_SUCCESS,
-          });
-
         }
       })
-    .catch(res => {
-      dispatch({
-        type: UPDATE_TOKEN_FAILED
+      .catch((res) => {
+        dispatch({
+          type: SUBMIT_PWD_FAILED,
+        });
+        console.log(`Ошибка обновления пароля: ${res}`);
       });
-      console.log(`Ошибка обновления токена: ${res}`);
-    });
   };
-}
+};

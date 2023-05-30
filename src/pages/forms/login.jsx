@@ -10,7 +10,6 @@ import {
 import { loginUser } from "../../services/actions/user";
 
 export const LoginPage = () => {
-  // const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const [value, setValue] = useState({});
   const dispatch = useDispatch();
 
@@ -41,10 +40,7 @@ export const LoginPage = () => {
         onChange={onChange}
         extraClass="pb-6"
       />
-      <Button
-        htmlType="submit"
-        size="large"
-      >
+      <Button htmlType="submit" size="large">
         Войти
       </Button>
       <p className="text text_type_main-default text_color_inactive pt-20">

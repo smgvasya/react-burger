@@ -7,7 +7,7 @@ import { NotFound404 } from './errors/not-found-404';
 import { HomePage } from './home/home';
 import { ProfileOrders } from './profile/profile-orders';
 import { IngredientPage } from './ingredient';
-
+import { FeedPage } from './feed/feed-page';
 
 export {
   LoginPage,
@@ -19,4 +19,5 @@ export {
   HomePage,
   ProfileOrders,
   IngredientPage,
+  FeedPage,
 };

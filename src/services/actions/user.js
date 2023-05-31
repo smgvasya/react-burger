@@ -6,9 +6,10 @@ import {
   patchUser,
   postPasswordReset,
   postPasswordChange,
+  postRefreshToken,
 } from "../../utils/api";
 
-import { setCookie, deleteCookie } from "../../utils/cookie";
+import { setCookie, deleteCookie, getCookie } from "../../utils/cookie";
 
 export const REGISTRATION_REQUEST = "REGISTRATION_REQUEST";
 export const REGISTRATION_SUCCESS = "REGISTRATION_SUCCESS";
@@ -205,3 +206,29 @@ export const submitPassword = ({ password, token }) => {
       });
   };
 };
+
+export const updateToken = () => {
+  return function(dispatch) {
+    dispatch({
+      type: UPDATE_TOKEN_REQUEST
+    });
+    const refreshToken = getCookie("refreshToken");
+    postRefreshToken(refreshToken)
+      .then(res => {
+        if (res && res.success) {
+          setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
+          setCookie("refreshToken", res.refreshToken);
+          dispatch({
+            type: UPDATE_TOKEN_SUCCESS,
+          });
+
+        }
+      })
+    .catch(res => {
+      dispatch({
+        type: UPDATE_TOKEN_FAILED
+      });
+      console.log(`Ошибка обновления токена: ${res}`);
+    });
+  };
+}

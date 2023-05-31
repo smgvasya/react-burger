@@ -1,5 +1,6 @@
 import styles from './feed-page.module.css';
-
+import { FeedOrderInfo } from '../../components/feed-order-info/feed-order-info';
+import { FeedOrder } from '../../components/feed-order/feed-order';
 
 export const FeedPage = () => {
 

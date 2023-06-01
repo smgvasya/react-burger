@@ -25,10 +25,10 @@ export const FeedPage = () => {
 
   return (
     <section className={styles.main}>
-          {/* <div className={styles.container}> */}
+          <div className={styles.container}>
             <FeedOrderInfo />
             <FeedOrder />
-          {/* </div> */}
+          </div>
     </section>
   );
 };

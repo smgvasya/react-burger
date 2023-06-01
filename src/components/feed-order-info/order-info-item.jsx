@@ -7,24 +7,37 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { OrderInfoIngredient } from "./order-info-ingredient";
+
 export const OrderInfoItem = ({ order }) => {
   const location = useLocation();
   const ingredients = useSelector((state) => state.ingredients.data);
 
-
   const status = {
     created: "Создан",
-    pending: "Готовится",
     done: "Выполнен",
+    pending: "Готовится",
   };
 
-  const ingredientsInOrder = ingredients
-    .filter((item) => order.ingredients.includes(item.info._id))
-    .map((item) => item.info);
+  const orderIngredients = () => {
+    const elements = [];
+    order.ingredients.forEach((ingredientId) => {
+      ingredients.forEach((ingredient) => {
+        if (ingredient._id === ingredientId) {
+          elements.push(ingredient);
+        }
+      });
+    });
+    return elements;
+  };
 
-  const totalPrice = useMemo(() => {
-    return ingredientsInOrder.reduce((acc, item) => acc + item.price, 0);
-  }, [ingredientsInOrder]);
+  // const ingredientsInOrder = ingredients
+  //   .filter((item) => order.ingredients.includes(item.info._id))
+  //   .map((item) => item.info);
+
+  // const totalPrice = useMemo(() => {
+  //   return ingredientsInOrder.reduce((acc, item) => acc + item.price, 0);
+  // }, [ingredientsInOrder]);
 
   return (
     <Link
@@ -48,18 +61,13 @@ export const OrderInfoItem = ({ order }) => {
       </p>
 
       <div className={`${styles.ingredientsInfo}`}>
-        {/* <ul className={styles.orderIngredients}>
-          <li></li>
-        </ul> */}
-        <span
-          className={`${styles.totalPrice} text text_type_digits-medium`}
-        >
-          {totalPrice}
+        <OrderInfoIngredient ingredients={orderIngredients} />
+
+        <span className={`${styles.totalPrice} text text_type_digits-medium`}>
+          {333}
           <CurrencyIcon type="primary" />
         </span>
       </div>
-
-
     </Link>
   );
 };

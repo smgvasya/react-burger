@@ -1,0 +1,29 @@
+.ordersStatus {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+}
+
+
+.ordersStatusList {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 154px;
+  flex-wrap: wrap;
+}
+
+.ordersInfo {
+  display: flex;
+  flex-direction: column;
+  margin-top:100px;
+  gap: 60px;
+}
+
+.orderNumber_done {
+  color: #00CCCC;
+}
+

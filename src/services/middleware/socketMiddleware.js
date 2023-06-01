@@ -23,14 +23,13 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       }
 
       if (type === wsInitUser) {
-        const accessToken = getCookie("accessToken");
-        socket = new WebSocket(`${wsUrl}?token=${accessToken}`);
+        socket = new WebSocket(`${wsUrl}?token=${getCookie("accessToken")}`);
       }
 
       if (socket) {
         socket.onopen = (event) => {
           dispatch({ type: onOpen, payload: event });
-          console.log(`Соединение открыто`);
+          console.log(`Соединение установлено`);
         };
 
         socket.onerror = (event) => {

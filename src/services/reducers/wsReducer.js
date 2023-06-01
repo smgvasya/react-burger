@@ -3,11 +3,12 @@ import {
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
-} from '../actions/wsActions';
+  WS_GET_MESSAGE_USER,
+} from "../actions/wsActions";
 
 const initialState = {
   wsConnected: false,
-  ordersAll: [],
+  orders: [],
   ordersUser: [],
   total: null,
   totalToday: null,
@@ -18,31 +19,57 @@ export const wsReducer = (state = initialState, action) => {
     case WS_CONNECTION_SUCCESS:
       return {
         ...state,
-        wsConnected: true
+        wsConnected: true,
       };
 
     case WS_CONNECTION_ERROR:
       return {
         ...state,
-        wsConnected: false
+        wsConnected: false,
       };
 
     case WS_CONNECTION_CLOSED:
       return {
         ...state,
-        wsConnected: false
+        wsConnected: false,
       };
+
+    // case WS_GET_USER_DATA:
+    //   return {
+    //     ...state,
+    //     ordersUser: action.payload,
+    //     total: action.payload.total,
+    //     totalToday: action.payload.totalToday,
+    //   };
 
     case WS_GET_MESSAGE:
       return {
         ...state,
-        ordersAll: action.payload.orders,
-        // ordersUser: action.payload.orders,
+        orders: action.payload.orders,
         total: action.payload.total,
         totalToday: action.payload.totalToday,
       };
-
     default:
       return state;
   }
 };
+
+// if (action.serverType === 'orders') {
+//   return {
+//     ...state,
+//     data: action.payload,
+//     error: null,
+//   };
+// } else {
+//   return state;
+// }
+
+// if (action.serverType === 'user') {
+//   return {
+//     ...state,
+//     data: action.payload,
+//     error: null,
+//   };
+// } else {
+//   return state;
+// }

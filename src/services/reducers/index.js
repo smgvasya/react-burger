@@ -1,16 +1,16 @@
 import { combineReducers } from "redux";
 import { ingredientReducer } from "./burger-ingredients";
 import { constructorReducer } from "./burger-constructor";
-import { ingredientDetailsReducer } from "./ingredient-details";
 import { orderReducer } from "./order-details";
 import { tabReducer } from "./tabs-ingredients";
-import { authReducer } from './user';
+import { authReducer } from "./user";
+import { wsReducer } from "./wsReducer";
 
 export const rootReducer = combineReducers({
   ingredients: ingredientReducer,
   burgerConstructor: constructorReducer,
-  ingredientDetails: ingredientDetailsReducer,
   order: orderReducer,
   tab: tabReducer,
   auth: authReducer,
+  wsOrders: wsReducer,
 });

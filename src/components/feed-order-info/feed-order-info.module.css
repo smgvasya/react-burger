@@ -1,0 +1,107 @@
+.container {
+  max-width: 600px;
+  box-sizing: border-box;
+}
+
+.ordersScroll {
+  display: flex;
+  flex-direction: column;
+  height: 812px;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0 8px 0 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.ordersScroll::-webkit-scrollbar {
+  width: 8px;
+  height: 812px;
+
+}
+.ordersScroll::-webkit-scrollbar-track {
+  background: #2f2f37;
+  margin-bottom: 60px;
+}
+
+.ordersScroll::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+  height: 640px;
+}
+
+
+.orderInfoItem {
+  box-sizing: border-box;
+  padding: 24px;
+  max-width: 844px;
+  width: 100%;
+  border-radius: 40px;
+  background-color: #1C1C21;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-decoration: none;
+  color: white;
+}
+
+
+.info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ingredientsInfo {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.totalPrice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* далее нет */
+
+.orderIngredients {
+  list-style-type: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.orderIngredientsItem {
+  width: 64px;
+  height: 64px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  border: 2px solid #801AB2;
+  background-color: #131316;
+}
+
+.orderIngredientsItem_last {
+  position: relative;
+
+}
+
+.remain {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background-color: rgba(28, 28, 33, 0.6);
+  border-radius: 50%;
+}
+
+.orderIngredientsItem:not(:first-of-type) {
+  margin-left: -16px;
+}
+

@@ -1,7 +1,7 @@
 import styles from "./feed-order.module.css";
 
-import { useEffect, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
 
 export const FeedOrder = () => {
   const orders = useSelector((state) => state.wsOrders.orders);

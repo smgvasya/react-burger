@@ -34,13 +34,11 @@ export const wsReducer = (state = initialState, action) => {
         wsConnected: false,
       };
 
-    // case WS_GET_USER_DATA:
-    //   return {
-    //     ...state,
-    //     ordersUser: action.payload,
-    //     total: action.payload.total,
-    //     totalToday: action.payload.totalToday,
-    //   };
+    case WS_GET_MESSAGE_USER:
+      return {
+        ...state,
+        ordersUser: action.payload.ordersUser,
+      };
 
     case WS_GET_MESSAGE:
       return {

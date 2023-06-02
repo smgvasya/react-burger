@@ -1,12 +1,8 @@
-.container {
-  max-width: 600px;
-  box-sizing: border-box;
-}
-
 .ordersScroll {
   display: flex;
   flex-direction: column;
   height: 812px;
+  max-width: 754px;
   gap: 16px;
   list-style: none;
   margin: 0;

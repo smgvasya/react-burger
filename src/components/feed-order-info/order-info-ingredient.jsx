@@ -1,14 +1,7 @@
 import styles from "./feed-order-info.module.css";
-import {
-  CurrencyIcon,
-  FormattedDate,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useLocation } from "react-router-dom";
-import { useEffect, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-export const OrderIngredient = ({ id, orderIndex, index, length }) => {
-  const location = useLocation();
+export const OrderIngredient = ({ id, index, length }) => {
   const ingredients = useSelector((state) => state.ingredients.data);
 
   const ingredient = ingredients.find((item) => item._id === id);

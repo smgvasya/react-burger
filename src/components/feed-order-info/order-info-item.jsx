@@ -4,16 +4,23 @@ import {
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { OrderIngredient, OrderIngredients } from "./order-info-ingredient";
 
 export const OrderInfoItem = ({ order }) => {
   const location = useLocation();
+  const ingredients = useSelector((state) => state.ingredients.data);
 
   const status = {
     created: "Создан",
-    done: "Выполнен",
     pending: "Готовится",
+    done: "Выполнен",
   };
+
+  const totalPrice = order.ingredients.reduce(
+    (acc, id) => acc + ingredients.find((item) => item._id === id).price,
+    0
+  );
 
   return (
     <Link
@@ -59,7 +66,7 @@ export const OrderInfoItem = ({ order }) => {
         </div>
 
         <span className={`${styles.totalPrice} text text_type_digits-medium`}>
-          {333}
+          {totalPrice}
           <CurrencyIcon type="primary" />
         </span>
       </div>

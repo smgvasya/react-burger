@@ -1,18 +1,24 @@
 import styles from "./feed-order-info.module.css";
 import { useSelector } from "react-redux";
 import { OrderInfoItem } from "./order-info-item";
+import { Link, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 export const FeedOrderInfo = () => {
+  const location = useLocation();
   const orders = useSelector((state) => state.wsOrders.orders);
+  const userLocation = location.pathname === "/profile/orders"
+    ? true
+    : false;
+  const rightOrder = [...orders].reverse();
+
+  const ordersDirection = userLocation ? rightOrder : orders;
 
   return (
-    <div className={styles.container}>
-      <h1 className="text text_type_main-large pb-5 mt-10">Лента заказов</h1>
       <div className={styles.ordersScroll}>
-        {orders.map((order) => (
+        {ordersDirection.map((order) => (
           <OrderInfoItem order={order} key={order._id} />
         ))}
       </div>
-    </div>
   );
 };

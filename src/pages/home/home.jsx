@@ -11,11 +11,6 @@ import BurgerConstructor from "../../components/burger-constructor/burger-constr
 import { useDispatch } from "react-redux";
 
 export const HomePage = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
 
   return (
     <main className={styles.main}>

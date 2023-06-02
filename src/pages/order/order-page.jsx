@@ -1,26 +1,35 @@
-import styles from './order-page.module.css';
-import { BurgerIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { FeedOrderInfo } from '../../components/feed-order-info/feed-order-info';
-import { FeedOrder } from '../../components/feed-order/feed-order';
-import { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
+import styles from "./order-page.module.css";
+import { useLocation } from "react-router-dom";
+import { useEffect, useDispatch } from "react";
 import {
   wsConnectStart,
+  wsConnectStartUser,
   wsConnectClosed,
-} from '../../services/actions/wsActions';
+} from "../../services/actions/wsActions";
+import { FeedDetails } from "../../components/feed-details/feed-details ";
 
 export const OrderPage = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
-  const ordersAll = useSelector(state => state.wsOrders.ordersAll);
-  const total = useSelector(state => state.wsOrders.total);
-  const totalToday = useSelector(state => state.wsOrders.getTotalToday);
+  // const ordersAll = useSelector((state) => state.wsOrders.ordersAll);
+  // const total = useSelector((state) => state.wsOrders.total);
+  // const totalToday = useSelector((state) => state.wsOrders.getTotalToday);
 
+  useEffect(() => {
+    if (location.pathname.includes("/profile")) {
+      dispatch(wsConnectStartUser());
+    } else {
+      dispatch(wsConnectStart());
+    }
+    return () => {
+      dispatch(wsConnectClosed());
+    };
+  }, [dispatch, location.pathname]);
 
   return (
     <section className={styles.main}>
-
+      <FeedDetails />
     </section>
   );
 };

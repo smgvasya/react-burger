@@ -8,6 +8,7 @@ import { HomePage } from './home/home';
 import { ProfileOrders } from './profile/profile-orders';
 import { IngredientPage } from './ingredient';
 import { FeedPage } from './feed/feed-page';
+import { OrderPage } from './order/order-page'
 
 export {
   LoginPage,
@@ -20,4 +21,5 @@ export {
   ProfileOrders,
   IngredientPage,
   FeedPage,
+  OrderPage,
 };

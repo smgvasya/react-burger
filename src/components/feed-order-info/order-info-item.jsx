@@ -4,40 +4,16 @@ import {
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation } from "react-router-dom";
-import { useEffect, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
-import { OrderInfoIngredient } from "./order-info-ingredient";
+import { OrderIngredient, OrderIngredients } from "./order-info-ingredient";
 
 export const OrderInfoItem = ({ order }) => {
   const location = useLocation();
-  const ingredients = useSelector((state) => state.ingredients.data);
 
   const status = {
     created: "Создан",
     done: "Выполнен",
     pending: "Готовится",
   };
-
-  const orderIngredients = () => {
-    const elements = [];
-    order.ingredients.forEach((ingredientId) => {
-      ingredients.forEach((ingredient) => {
-        if (ingredient._id === ingredientId) {
-          elements.push(ingredient);
-        }
-      });
-    });
-    return elements;
-  };
-
-  // const ingredientsInOrder = ingredients
-  //   .filter((item) => order.ingredients.includes(item.info._id))
-  //   .map((item) => item.info);
-
-  // const totalPrice = useMemo(() => {
-  //   return ingredientsInOrder.reduce((acc, item) => acc + item.price, 0);
-  // }, [ingredientsInOrder]);
 
   return (
     <Link
@@ -56,12 +32,31 @@ export const OrderInfoItem = ({ order }) => {
       </div>
       <h2 className="text text_type_main-medium">{order.name}</h2>
 
-      <p className={`text text_type_main-default status`}>
+      <p
+        className={`text text_type_main-default ${
+          order.status === "done" && styles.orderNumberDone
+        }`}
+      >
         {status[order.status]}
       </p>
 
       <div className={`${styles.ingredientsInfo}`}>
-        <OrderInfoIngredient ingredients={orderIngredients} />
+        <div className={styles.orderIngredients}>
+          {order.ingredients.slice(0, 6).map((id, index) => {
+            if (index === 5) {
+              return (
+                <OrderIngredient
+                  key={index}
+                  id={id}
+                  index={index}
+                  length={order.ingredients.length}
+                />
+              );
+            } else if (index < 5) {
+              return <OrderIngredients key={index} id={id} index={index} />;
+            }
+          })}
+        </div>
 
         <span className={`${styles.totalPrice} text text_type_digits-medium`}>
           {333}

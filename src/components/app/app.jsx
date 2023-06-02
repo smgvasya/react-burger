@@ -13,8 +13,13 @@ import {
   HomePage,
   ProfileOrders,
   IngredientPage,
-  FeedPage
+  FeedPage,
+  OrderPage,
 } from "../../pages";
+
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getIngredients } from "../../services/actions/burger-ingredients";
 
 const App = () => {
   const location = useLocation();
@@ -27,13 +32,18 @@ const App = () => {
     navigate(-1);
   };
 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch]);
+
   return (
     <>
       <AppHeader />
       <Routes location={background || location}>
         <Route path="/" element={<HomePage />} />
         <Route path="/feed" element={<FeedPage />} />
-        {/* <Route path="/feed/:id" element={<OrderPage />} /> */}
+        <Route path="/feed/:id" element={<OrderPage />} />
         <Route
           path="login"
           element={
@@ -82,6 +92,14 @@ const App = () => {
             </ProtectedRouteElement>
           }
         />
+        {/* <Route
+          path="/profile/orders/:id"
+          element={
+            <ProtectedRouteElement anonymous={false}>
+              <ProfileOrders />
+            </ProtectedRouteElement>
+          }
+        /> */}
         <Route path="ingredients/:id" element={<IngredientPage />} />
         <Route path="*" element={<NotFound404 />} />
       </Routes>
@@ -93,6 +111,24 @@ const App = () => {
               <Modal onClose={stepBack}>
                 <IngredientDetails />
               </Modal>
+            }
+          />
+          <Route
+            path="feed/:id"
+            element={
+              <Modal onClose={stepBack}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="profile/orders/:id"
+            element={
+              <ProtectedRouteElement anonymous={false}>
+                <Modal onClose={stepBack}>
+                  <IngredientDetails />
+                </Modal>
+              </ProtectedRouteElement>
             }
           />
         </Routes>

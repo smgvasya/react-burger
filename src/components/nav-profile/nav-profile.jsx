@@ -17,35 +17,35 @@ export const NavProfile = () => {
   });
 
   return (
-      <div className={`${styles.container} pl-5`}>
-        <nav className={`${styles.navtab}`}>
-          <NavLink
-            to="/profile"
-            end
-            className={`text text_type_main-medium pt-4 pb-4 ${styles.link}`}
-            style={swithActiveColor}
-          >
-            Профиль
-          </NavLink>
-          <NavLink
-            to="/profile/orders"
-            className={`text text_type_main-medium pt-4 pb-4 ${styles.link}`}
-            style={swithActiveColor}
-          >
-            История заказов
-          </NavLink>
-          <NavLink
-            to="/login"
-            onClick={handleOut}
-            className={`text text_type_main-medium pt-4 pb-20 ${styles.link}`}
-            style={swithActiveColor}
-          >
-            Выход
-          </NavLink>
-        </nav>
-        <p className="text text_type_main-default text_color_inactive">
-          В этом разделе вы можете изменить свои персональные данные
-        </p>
-      </div>
+    <div className={`${styles.container} pl-5`}>
+      <nav className={`${styles.navtab}`}>
+        <NavLink
+          to="/profile"
+          end
+          className={`text text_type_main-medium pt-4 pb-4 ${styles.link}`}
+          style={swithActiveColor}
+        >
+          Профиль
+        </NavLink>
+        <NavLink
+          to="/profile/orders"
+          className={`text text_type_main-medium pt-4 pb-4 ${styles.link}`}
+          style={swithActiveColor}
+        >
+          История заказов
+        </NavLink>
+        <NavLink
+          to="/login"
+          onClick={handleOut}
+          className={`text text_type_main-medium pt-4 pb-20 ${styles.link}`}
+          style={swithActiveColor}
+        >
+          Выход
+        </NavLink>
+      </nav>
+      <p className="text text_type_main-default text_color_inactive">
+        В этом разделе вы можете изменить свои персональные данные
+      </p>
+    </div>
   );
 };

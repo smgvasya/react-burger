@@ -1,7 +1,6 @@
-.main{
+.main {
   box-sizing: border-box;
   display: flex;
   justify-content: center;
-  padding: 120px;
-
+  padding: 80px;
 }

@@ -21,14 +21,14 @@
 }
 
 .ingredientsList::-webkit-scrollbar-track {
-  background-color: #2F2F37;
+  background-color: #2f2f37;
 }
 
 .ingredientsList::-webkit-scrollbar-thumb {
-  background-color: #8585AD;
+  background-color: #8585ad;
 }
 
-.ingredientsItem{
+.ingredientsItem {
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 16px;
@@ -42,7 +42,7 @@
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 50%;
-  border: 2px solid #801AB2;
+  border: 2px solid #801ab2;
   background-color: #131316;
 }
 

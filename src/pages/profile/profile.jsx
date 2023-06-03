@@ -9,7 +9,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { updateUserInfo } from "../../services/actions/user";
 import { useEffect } from "react";
-import { NavProfile } from "../../components/nav-profile/nav-profile"
+import { NavProfile } from "../../components/nav-profile/nav-profile";
 
 export const ProfilePage = () => {
   const user = useSelector((state) => state.auth.user);
@@ -17,12 +17,11 @@ export const ProfilePage = () => {
   const dispatch = useDispatch();
   const [isChanged, setIsChanged] = useState(false);
 
-
-const initUserInfo = {
+  const initUserInfo = {
     name: user.name || "",
     email: user.email || "",
     password: "",
-  }
+  };
 
   const [form, setForm] = useState(initUserInfo);
 
@@ -31,8 +30,7 @@ const initUserInfo = {
       setForm({ name: user.name, email: user.email, password: password });
     } else if (user) {
       setForm({ name: user.name, email: user.email, password: "" });
-    } else
-      setForm(initUserInfo);
+    } else setForm(initUserInfo);
   }, [user]);
 
   const onChange = (e) => {
@@ -51,10 +49,9 @@ const initUserInfo = {
     setIsChanged(false);
   };
 
-
   return (
     <section className={`${styles.section}`}>
-      <NavProfile/>
+      <NavProfile />
       {user && (
         <form onSubmit={handleSubmit}>
           <Input

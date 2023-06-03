@@ -1,6 +1,7 @@
 import styles from "./feed-details.module.css";
 import { useSelector } from "react-redux";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
 
 export const FeedDetailsImg = ({ id, count }) => {
   const ingredients = useSelector((state) => state.ingredients.data);
@@ -20,4 +21,9 @@ export const FeedDetailsImg = ({ id, count }) => {
       </div>
     </>
   );
+};
+
+FeedDetailsImg.propTypes = {
+  id: PropTypes.node.isRequired,
+  count: PropTypes.node.isRequired,
 };

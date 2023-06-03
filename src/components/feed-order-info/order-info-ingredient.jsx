@@ -1,5 +1,6 @@
 import styles from "./feed-order-info.module.css";
 import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 export const OrderIngredient = ({ id, index, length }) => {
   const ingredients = useSelector((state) => state.ingredients.data);
@@ -24,6 +25,12 @@ export const OrderIngredient = ({ id, index, length }) => {
   );
 };
 
+OrderIngredient.propTypes = {
+  id: PropTypes.node.isRequired,
+  length: PropTypes.node.isRequired,
+  index: PropTypes.node.isRequired,
+};
+
 export const OrderIngredients = ({ id, index }) => {
   const ingredients = useSelector((state) => state.ingredients.data);
 
@@ -39,4 +46,9 @@ export const OrderIngredients = ({ id, index }) => {
       title={ingredient.name}
     ></div>
   );
+};
+
+OrderIngredients.propTypes = {
+  id: PropTypes.node.isRequired,
+  index: PropTypes.node.isRequired,
 };

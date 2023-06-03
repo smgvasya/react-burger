@@ -15,7 +15,6 @@
 .ordersScroll::-webkit-scrollbar {
   width: 8px;
   height: 812px;
-
 }
 .ordersScroll::-webkit-scrollbar-track {
   background: #2f2f37;
@@ -27,21 +26,19 @@
   height: 640px;
 }
 
-
 .orderInfoItem {
   box-sizing: border-box;
   padding: 24px;
   max-width: 844px;
   width: 100%;
   border-radius: 40px;
-  background-color: #1C1C21;
+  background-color: #1c1c21;
   display: flex;
   flex-direction: column;
   gap: 24px;
   text-decoration: none;
   color: white;
 }
-
 
 .info {
   display: flex;
@@ -95,4 +92,3 @@
 .ingredients:not(:first-of-type) {
   margin-left: -16px;
 }
-

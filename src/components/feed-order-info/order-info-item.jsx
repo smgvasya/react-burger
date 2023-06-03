@@ -6,6 +6,7 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { OrderIngredient, OrderIngredients } from "./order-info-ingredient";
+import PropTypes from "prop-types";
 
 export const OrderInfoItem = ({ order }) => {
   const location = useLocation();
@@ -70,4 +71,8 @@ export const OrderInfoItem = ({ order }) => {
       </div>
     </Link>
   );
+};
+
+OrderInfoItem.propTypes = {
+  order: PropTypes.object.isRequired,
 };

@@ -1,7 +1,5 @@
 import styles from "./feed-details.module.css";
-import { useLocation, matchPath } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import {
   CurrencyIcon,
   FormattedDate,
@@ -9,16 +7,7 @@ import {
 import { useParams } from "react-router-dom";
 import { FeedDetailsImg } from "./feed-details-img";
 
-import {
-  wsConnectStart,
-  wsConnectStartUser,
-  wsConnectClosed,
-} from "../../services/actions/wsActions";
-
 export const FeedDetails = () => {
-  const dispatch = useDispatch();
-  const location = useLocation();
-
   const ingredients = useSelector((state) => state.ingredients.data);
   const { orders } = useSelector((state) => state.wsOrders);
   const { id } = useParams();
@@ -27,19 +16,11 @@ export const FeedDetails = () => {
   const uniqueSet = new Set(currentOrder?.ingredients);
   const uniqueList = Array.from(uniqueSet);
 
-  // console.log(uniqueSet);
-
   const status = {
     created: "Создан",
     done: "Выполнен",
     pending: "Готовится",
   };
-
-  // console.log(ingredients)
-  // console.log(orders)
-  // console.log(orders.ingredients)
-  // console.log(currentOrder)
-  // console.log(currentOrder.ingredients);
 
   const counter = currentOrder?.ingredients.reduce((acc, id) => {
     acc[id] = (acc[id] || 0) + 1;

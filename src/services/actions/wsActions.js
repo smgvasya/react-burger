@@ -5,7 +5,7 @@ export const WS_CONNECTION_ERROR = 'WS_CONNECTION_ERROR';
 export const WS_CONNECTION_CLOSED = 'WS_CONNECTION_CLOSED';
 export const WS_GET_MESSAGE = 'WS_GET_DATA';
 export const WS_GET_MESSAGE_USER = 'WS_GET_MESSAGE_USER';
-export const WS_SEND_DATA = 'WS_SEND_MESSAGE';
+export const WS_SEND_MESSAGE = 'WS_SEND_MESSAGE';
 
 
 export const wsConnectStart = () => {
@@ -38,13 +38,6 @@ export const wsConnectClosed = () => {
   };
 };
 
-// export const wsGetMessageUser = (message) => {
-//   return {
-//     type: WS_GET_MESSAGE_USER,
-//     payload: message,
-//   };
-// };
-
 export const wsGetMessage = (message) => {
   return {
     type: WS_GET_MESSAGE,
@@ -52,10 +45,3 @@ export const wsGetMessage = (message) => {
   };
 };
 
-
-// export const wsSendMessage = message => {
-//   return {
-//     type: WS_SEND_MESSAGE,
-//     payload: message,
-//   };
-// };

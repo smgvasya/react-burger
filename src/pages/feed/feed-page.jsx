@@ -13,10 +13,6 @@ import {
 export const FeedPage = () => {
   const dispatch = useDispatch();
 
-  const orders = useSelector((state) => state.wsOrders.orders);
-  const total = useSelector((state) => state.wsOrders.total);
-  const totalToday = useSelector((state) => state.wsOrders.getTotalToday);
-
   useEffect(() => {
     dispatch(wsConnectStart());
     return () => dispatch(wsConnectClosed());

@@ -23,7 +23,8 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       }
 
       if (type === wsInitUser) {
-        socket = new WebSocket(`${wsUrl}?token=${getCookie("accessToken")}`);
+        const accessToken = getCookie("accessToken");
+        socket = new WebSocket(`${wsUrl}?token=${accessToken}`);
       }
 
       if (socket) {
@@ -34,7 +35,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
 
         socket.onerror = (event) => {
           dispatch({ type: onError, payload: event });
-          console.log(`Ошибка ${event.message}`);
+          console.log(`Ошибка! ${event.message}`);
         };
 
         socket.onmessage = (event) => {

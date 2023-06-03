@@ -3,6 +3,7 @@ import AppHeader from "../header/app-header";
 import { ProtectedRouteElement } from "../protected-route-element";
 import Modal from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
+import { FeedDetails } from "../feed-details/feed-details ";
 import {
   LoginPage,
   RegisterPage,
@@ -23,16 +24,15 @@ import { getIngredients } from "../../services/actions/burger-ingredients";
 
 const App = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const background = location.state && location.state.background;
-
-  const navigate = useNavigate();
 
   const stepBack = () => {
     navigate(-1);
   };
 
-  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
@@ -42,8 +42,9 @@ const App = () => {
       <AppHeader />
       <Routes location={background || location}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/feed" element={<FeedPage />} />
-        <Route path="/feed/:id" element={<OrderPage />} />
+        <Route path="feed/:id" element={<OrderPage />} />
+        <Route path="feed" element={<FeedPage />} />
+
         <Route
           path="login"
           element={
@@ -92,14 +93,14 @@ const App = () => {
             </ProtectedRouteElement>
           }
         />
-        {/* <Route
+        <Route
           path="/profile/orders/:id"
           element={
             <ProtectedRouteElement anonymous={false}>
-              <ProfileOrders />
+              <OrderPage />
             </ProtectedRouteElement>
           }
-        /> */}
+        />
         <Route path="ingredients/:id" element={<IngredientPage />} />
         <Route path="*" element={<NotFound404 />} />
       </Routes>
@@ -117,7 +118,7 @@ const App = () => {
             path="feed/:id"
             element={
               <Modal onClose={stepBack}>
-                <IngredientDetails />
+                <FeedDetails />
               </Modal>
             }
           />
@@ -126,7 +127,7 @@ const App = () => {
             element={
               <ProtectedRouteElement anonymous={false}>
                 <Modal onClose={stepBack}>
-                  <IngredientDetails />
+                  <FeedDetails />
                 </Modal>
               </ProtectedRouteElement>
             }
@@ -138,3 +139,41 @@ const App = () => {
 };
 
 export default App;
+
+// eslint-disable-next-line no-lone-blocks
+{
+  /* <Routes>
+        {background && (
+          <Route
+            path="ingredients/:id"
+            element={
+              <Modal onClose={stepBack}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+        )}
+        {background && (
+          <Route
+            path="feed/:id"
+            element={
+              <Modal onClose={stepBack}>
+                <FeedDetails />
+              </Modal>
+            }
+          />
+        )}
+        {background && (
+          <Route
+            path="profile/orders/:id"
+            element={
+              <ProtectedRouteElement anonymous={false}>
+                <Modal onClose={stepBack}>
+                  <FeedDetails />
+                </Modal>
+              </ProtectedRouteElement>
+            }
+          />
+        )}
+      </Routes> */
+}

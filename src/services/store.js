@@ -9,7 +9,7 @@ import {
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
-  WS_SEND_DATA,
+  WS_SEND_MESSAGE,
 } from "./actions/wsActions";
 
 const composeEnhancers =
@@ -26,7 +26,7 @@ const wsActions = {
   onError: WS_CONNECTION_ERROR,
   onClose: WS_CONNECTION_CLOSED,
   onMessage: WS_GET_MESSAGE,
-  wsSendUser: WS_SEND_DATA,
+  wsSendUser: WS_SEND_MESSAGE,
 };
 
 const enhancer = composeEnhancers(

@@ -24,10 +24,8 @@ export const OrderInfoItem = ({ order }) => {
 
   return (
     <Link
-      to={{
-        pathname: `${location.pathname}/${order._id}`,
-        state: { background: location },
-      }}
+      to={`${location.pathname}/${order._id}`}
+      state={{ background: location }}
       className={styles.orderInfoItem}
     >
       <div className={styles.info}>

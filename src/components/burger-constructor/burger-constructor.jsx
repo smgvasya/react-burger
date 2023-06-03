@@ -48,7 +48,6 @@ const BurgerConstructor = () => {
   const handleMakeOrder = () => {
     const arrayId = [bun._id, ...fillings.map((item) => item._id), bun._id];
     user ? dispatch(getOrder(arrayId)) : navigate("/login",  {state: {from: location}})
-
   };
 
   const onDelete = (id) => {

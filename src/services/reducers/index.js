@@ -5,6 +5,7 @@ import { orderReducer } from "./order-details";
 import { tabReducer } from "./tabs-ingredients";
 import { authReducer } from "./user";
 import { wsReducer } from "./wsReducer";
+import { wsReducerUser } from "./wsReducerUser";
 
 export const rootReducer = combineReducers({
   ingredients: ingredientReducer,
@@ -13,4 +14,5 @@ export const rootReducer = combineReducers({
   tab: tabReducer,
   auth: authReducer,
   wsOrders: wsReducer,
+  wsOrdersUser: wsReducerUser,
 });

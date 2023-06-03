@@ -7,11 +7,10 @@ export const socketMiddleware = (wsUrl, wsActions) => {
 
     return (next) => (action) => {
       const { dispatch } = store;
-      const { type, payload } = action;
+      const { type  } = action;
       const {
         wsInit,
         wsInitUser,
-        wsSendUser,
         onOpen,
         onClose,
         onError,
@@ -67,10 +66,10 @@ export const socketMiddleware = (wsUrl, wsActions) => {
           dispatch({ type: onClose, payload: event });
         };
 
-        if (type === wsSendUser) {
-          const message = payload;
-          socket.send(JSON.stringify(message));
+        if (type === onClose ) {
+          socket.close();
         }
+
       }
 
       next(action);

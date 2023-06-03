@@ -6,14 +6,14 @@ import { useLocation } from "react-router-dom";
 export const FeedOrderInfo = () => {
   const location = useLocation();
   const orders = useSelector((state) => state.wsOrders.orders);
-  const userLocation = location.pathname === "/profile/orders" ? true : false;
-  const rightOrder = [...orders].reverse();
+  const ordersUser = useSelector((state) => state.wsOrdersUser.orders);
+  const userLocation = location.pathname.includes("/profile") ? true : false;
+  const ordersState = userLocation ? [...ordersUser].reverse() : orders;
 
-  const ordersDirection = userLocation ? rightOrder : orders;
-
+  // console.log(ordersUser)
   return (
     <div className={styles.ordersScroll}>
-      {ordersDirection.map((order) => (
+      {ordersState.map((order) => (
         <OrderInfoItem order={order} key={order._id} />
       ))}
     </div>

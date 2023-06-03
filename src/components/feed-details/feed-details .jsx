@@ -4,15 +4,24 @@ import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
+import { useEffect, useMemo } from "react";
 import { FeedDetailsImg } from "./feed-details-img";
 
 export const FeedDetails = () => {
-  const ingredients = useSelector((state) => state.ingredients.data);
-  const { orders } = useSelector((state) => state.wsOrders);
+  const location = useLocation();
   const { id } = useParams();
+  const ingredients = useSelector((state) => state.ingredients.data);
+  const orders = useSelector((state) => state.wsOrders.orders);
+  const ordersUser = useSelector((state) => state.wsOrdersUser.orders);
 
-  const currentOrder = orders.find((item) => item._id === id);
+  const userLocation = location.pathname.includes("rofile/orders")
+    ? true
+    : false;
+  const ordersState = userLocation ? ordersUser : orders;
+
+  const currentOrder = ordersState.find((item) => item._id === id);
+
   const uniqueSet = new Set(currentOrder?.ingredients);
   const uniqueList = Array.from(uniqueSet);
 
@@ -22,14 +31,22 @@ export const FeedDetails = () => {
     pending: "Готовится",
   };
 
-  const counter = currentOrder?.ingredients.reduce((acc, id) => {
-    acc[id] = (acc[id] || 0) + 1;
-    return acc;
-  }, {});
+  const counter = useMemo(
+    () =>
+      currentOrder?.ingredients.reduce((acc, id) => {
+        acc[id] = (acc[id] || 0) + 1;
+        return acc;
+      }, {}),
+    [currentOrder?.ingredients]
+  );
 
-  const totalPrice = currentOrder?.ingredients.reduce(
-    (acc, id) => acc + ingredients.find((item) => item._id === id).price,
-    0
+  const totalPrice = useMemo(
+    () =>
+      currentOrder?.ingredients.reduce(
+        (acc, id) => acc + ingredients.find((item) => item._id === id).price,
+        0
+      ),
+    [currentOrder?.ingredients, ingredients]
   );
 
   return (

@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
   wsConnectStartUser,
-  wsConnectClosed,
-} from "../../services/actions/wsActions";
+  wsConnectClosedUser,
+} from "../../services/actions/wsActionsUser";
 import { FeedOrderInfo } from "../../components/feed-order-info/feed-order-info";
 import { NavProfile } from "../../components/nav-profile/nav-profile";
 
@@ -14,7 +14,7 @@ export const ProfileOrders = () => {
   useEffect(() => {
     dispatch(wsConnectStartUser());
     return () => {
-      dispatch(wsConnectClosed());
+      dispatch(wsConnectClosedUser());
     };
   }, [dispatch]);
 

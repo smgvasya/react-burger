@@ -4,20 +4,29 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
   wsConnectStart,
-  wsConnectStartUser,
   wsConnectClosed,
 } from "../../services/actions/wsActions";
+import {
+  wsConnectStartUser,
+  wsConnectClosedUser,
+} from "../../services/actions/wsActionsUser";
 import { FeedDetails } from "../../components/feed-details/feed-details ";
 
 export const OrderPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const wsConnected = (store) => store.wsOrders.wsConnected;
 
   useEffect(() => {
-    if (location.pathname.includes("/profile")) {
+    if (location.pathname.includes("profile/orders")) {
       dispatch(wsConnectStartUser());
-    } else {
+    }
+    return () => {
+      dispatch(wsConnectClosedUser());
+    };
+  }, [dispatch, location.pathname]);
+
+  useEffect(() => {
+    if (location.pathname.includes("/feed")) {
       dispatch(wsConnectStart());
     }
     return () => {
@@ -26,10 +35,8 @@ export const OrderPage = () => {
   }, [dispatch, location.pathname]);
 
   return (
-    wsConnected && (
-      <section className={styles.main}>
-        <FeedDetails />
-      </section>
-    )
+    <section className={styles.main}>
+      <FeedDetails />
+    </section>
   );
 };

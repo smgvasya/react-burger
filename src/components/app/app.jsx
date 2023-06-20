@@ -4,6 +4,20 @@ import { ProtectedRouteElement } from "../protected-route-element";
 import Modal from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { FeedDetails } from "../feed-details/feed-details ";
+
+import {
+  HOME,
+  INGREDIENTS,
+  FEED,
+  LOGIN,
+  REGISTRATION,
+  FORGOT_PSW,
+  UPDATE_PSW,
+  PROFILE,
+  ORDERS_PROFILE,
+  ERROR,
+} from "../../utils/constants";
+
 import {
   LoginPage,
   RegisterPage,
@@ -21,6 +35,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getIngredients } from "../../services/actions/burger-ingredients";
+import { getUserInfo } from "../../services/actions/user";
 
 const App = () => {
   const location = useLocation();
@@ -35,18 +50,19 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getIngredients());
+    dispatch(getUserInfo());
   }, [dispatch]);
 
   return (
     <>
       <AppHeader />
       <Routes location={background || location}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="feed/:id" element={<OrderPage />} />
-        <Route path="feed" element={<FeedPage />} />
+        <Route path={HOME} element={<HomePage />} />
+        <Route path={`${FEED}/:id`} element={<OrderPage />} />
+        <Route path={FEED} element={<FeedPage />} />
 
         <Route
-          path="login"
+          path={LOGIN}
           element={
             <ProtectedRouteElement anonymous={true}>
               <LoginPage />
@@ -54,7 +70,7 @@ const App = () => {
           }
         />
         <Route
-          path="register"
+          path={REGISTRATION}
           element={
             <ProtectedRouteElement anonymous={true}>
               <RegisterPage />
@@ -62,7 +78,7 @@ const App = () => {
           }
         />
         <Route
-          path="reset-password"
+          path={UPDATE_PSW}
           element={
             <ProtectedRouteElement anonymous={true}>
               <ResetPasswordPage />
@@ -70,7 +86,7 @@ const App = () => {
           }
         />
         <Route
-          path="forgot-password"
+          path={FORGOT_PSW}
           element={
             <ProtectedRouteElement anonymous={true}>
               <ForgotPasswordPage />
@@ -78,7 +94,7 @@ const App = () => {
           }
         />
         <Route
-          path="profile/*"
+          path={PROFILE}
           element={
             <ProtectedRouteElement anonymous={false}>
               <ProfilePage />
@@ -86,7 +102,7 @@ const App = () => {
           }
         />
         <Route
-          path="profile/orders"
+          path={ORDERS_PROFILE}
           element={
             <ProtectedRouteElement anonymous={false}>
               <ProfileOrders />
@@ -94,20 +110,20 @@ const App = () => {
           }
         />
         <Route
-          path="/profile/orders/:id"
+          path={`${ORDERS_PROFILE}/:id`}
           element={
             <ProtectedRouteElement anonymous={false}>
               <OrderPage />
             </ProtectedRouteElement>
           }
         />
-        <Route path="ingredients/:id" element={<IngredientPage />} />
-        <Route path="*" element={<NotFound404 />} />
+        <Route path={`${INGREDIENTS}/:id`} element={<IngredientPage />} />
+        <Route path={ERROR} element={<NotFound404 />} />
       </Routes>
       {background && (
         <Routes>
           <Route
-            path="ingredients/:id"
+            path={`${INGREDIENTS}/:id`}
             element={
               <Modal onClose={stepBack}>
                 <IngredientDetails />
@@ -115,7 +131,7 @@ const App = () => {
             }
           />
           <Route
-            path="feed/:id"
+            path={`${FEED}/:id`}
             element={
               <Modal onClose={stepBack}>
                 <FeedDetails />
@@ -123,7 +139,7 @@ const App = () => {
             }
           />
           <Route
-            path="profile/orders/:id"
+            path={`${ORDERS_PROFILE}/:id`}
             element={
               <ProtectedRouteElement anonymous={false}>
                 <Modal onClose={stepBack}>

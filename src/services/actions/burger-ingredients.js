@@ -24,3 +24,4 @@ export const ingredientSuccess = (data) => ({
 export const ingredientError = () => ({
   type: GET_INGREDIENTS_ERROR,
 });
+

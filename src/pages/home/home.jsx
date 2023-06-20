@@ -10,10 +10,11 @@ import { useSelector } from "react-redux";
 
 export const HomePage = () => {
   const loading = useSelector((state) => state.ingredients.loaded);
+  const loadingOrder = useSelector((state) => state.order.loaded);
 
   return (
     <main className={styles.main}>
-      {loading ? (
+      {loading || loadingOrder ? (
         <Loader />
       ) : (
         <DndProvider backend={HTML5Backend}>

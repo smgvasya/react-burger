@@ -2,6 +2,7 @@ import {
   INGREDIENT_CONSTRUCTOR_ADD,
   INGREDIENT_CONSTRUCTOR_REORDER,
   INGREDIENT_CONSTRUCTOR_DELETE,
+  INGREDIENT_CONSTRUCTOR_RESET,
 } from "../actions/burger-constructor";
 
 const initialState = {
@@ -39,6 +40,13 @@ export const constructorReducer = (state = initialState, action) => {
         ),
       };
     }
+    case INGREDIENT_CONSTRUCTOR_RESET: {
+      return {
+        fillings: [],
+        bun: null,
+      };
+    }
+
     default: {
       return state;
     }

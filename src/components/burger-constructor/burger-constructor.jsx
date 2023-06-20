@@ -11,6 +11,7 @@ import IngredientsConstructor from "./ingredients-constructor";
 import {
   addIngredient,
   deleteIngredient,
+  resetIngredient,
 } from "../../services/actions/burger-constructor";
 import { getOrder, orderClose } from "../../services/actions/order-details";
 
@@ -27,8 +28,10 @@ const BurgerConstructor = () => {
   const location = useLocation;
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
+
   const handleCloseModal = () => {
     dispatch(orderClose());
+    dispatch(resetIngredient());
   };
 
   const totalPrice = useMemo(() => {

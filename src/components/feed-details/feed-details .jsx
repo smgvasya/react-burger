@@ -7,6 +7,7 @@ import {
 import { useParams, useLocation } from "react-router-dom";
 import { useEffect, useMemo } from "react";
 import { FeedDetailsImg } from "./feed-details-img";
+import { status } from "../../utils/constants";
 
 export const FeedDetails = () => {
   const location = useLocation();
@@ -15,7 +16,7 @@ export const FeedDetails = () => {
   const orders = useSelector((state) => state.wsOrders.orders);
   const ordersUser = useSelector((state) => state.wsOrdersUser.orders);
 
-  const userLocation = location.pathname.includes("rofile/orders")
+  const userLocation = location.pathname.includes("profile/orders")
     ? true
     : false;
   const ordersState = userLocation ? ordersUser : orders;
@@ -25,16 +26,10 @@ export const FeedDetails = () => {
   const uniqueSet = new Set(currentOrder?.ingredients);
   const uniqueList = Array.from(uniqueSet);
 
-  const status = {
-    created: "Создан",
-    done: "Выполнен",
-    pending: "Готовится",
-  };
-
   const counter = useMemo(
     () =>
       currentOrder?.ingredients.reduce((acc, id) => {
-        acc[id] = (acc[id] || 0) + 1;
+        acc[id] = Object.hasOwn(acc, id) ? acc[id] + 1 : 1;
         return acc;
       }, {}),
     [currentOrder?.ingredients]

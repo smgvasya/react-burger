@@ -6,17 +6,12 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { OrderIngredient, OrderIngredients } from "./order-info-ingredient";
+import { status } from "../../utils/constants";
 import PropTypes from "prop-types";
 
 export const OrderInfoItem = ({ order }) => {
   const location = useLocation();
   const ingredients = useSelector((state) => state.ingredients.data);
-
-  const status = {
-    created: "Создан",
-    pending: "Готовится",
-    done: "Выполнен",
-  };
 
   const totalPrice = order.ingredients.reduce(
     (acc, id) => acc + ingredients.find((item) => item._id === id).price,

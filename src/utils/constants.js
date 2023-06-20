@@ -9,6 +9,12 @@ const PROFILE = "profile";
 const ORDERS_PROFILE = "profile/orders";
 const ERROR = "*";
 
+const status = {
+  created: "Создан",
+  done: "Выполнен",
+  pending: "Готовится",
+};
+
 export {
   HOME,
   INGREDIENTS,
@@ -20,4 +26,5 @@ export {
   PROFILE,
   ORDERS_PROFILE,
   ERROR,
+  status,
 };

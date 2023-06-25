@@ -1,4 +1,9 @@
 import { getIngredientsList } from "../../utils/api";
+// import {
+//   GET_INGREDIENTS_REQUEST,
+//   GET_INGREDIENTS_SUCCESS,
+//   GET_INGREDIENTS_ERROR,
+// } from "../constants/burger-ingredients";
 
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";

@@ -5,7 +5,7 @@ import {
   ORDER_DETAILS_SUCCESS,
   ORDER_DETAILS_ERROR,
   ORDER_DETAILS_CLOSE,
-} from "../constants/order-details";
+} from "../types/constants/order-details";
 
 import { OrderTypes } from "../types/types";
 import { AppDispatch, AppThunk } from "../types/index";

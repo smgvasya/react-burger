@@ -4,7 +4,7 @@ import {
   INGREDIENT_CONSTRUCTOR_REORDER,
   INGREDIENT_CONSTRUCTOR_DELETE,
   INGREDIENT_CONSTRUCTOR_RESET,
-} from "../constants/burger-constructor";
+} from "../types/constants/burger-constructor";
 
 import { IngredientTypes } from "../types/types";
 

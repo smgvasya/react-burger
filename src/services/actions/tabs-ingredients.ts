@@ -1,4 +1,4 @@
-import { SET_TAB } from "../constants/tabs-ingredients";
+import { SET_TAB } from "../types/constants/tabs-ingredients";
 
 export type SetTabAction = {
   readonly type: typeof  SET_TAB;

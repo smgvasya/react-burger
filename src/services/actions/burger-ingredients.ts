@@ -3,7 +3,7 @@ import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_ERROR,
-} from "../constants/burger-ingredients";
+} from "../types/constants/burger-ingredients";
 
 import { IngredientTypes } from "../types/types";
 import { AppDispatch, AppThunk } from "../types/index";

@@ -14,7 +14,7 @@ export type GetIngredientsRequestType = {
 
 export type GetIngredientsSuccessType = {
   readonly type: typeof GET_INGREDIENTS_SUCCESS;
-  readonly payload: Array<IngredientTypes>;
+  readonly payload: IngredientTypes[];
 };
 
 export type GetIngredientsErrorType = {
@@ -38,7 +38,7 @@ export const ingredientRequest = () => ({
   type: GET_INGREDIENTS_REQUEST,
 });
 
-export const ingredientSuccess = (data: IngredientTypes) => ({
+export const ingredientSuccess = (data: IngredientTypes[]) => ({
   type: GET_INGREDIENTS_SUCCESS,
   payload: data,
 });

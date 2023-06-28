@@ -1,11 +1,12 @@
 import { getCookie } from "../../utils/cookie";
 import { updateToken } from "../actions/user";
+import { MiddlewareAPI } from "redux";
 
-export const socketMiddleware = (wsUrl, wsActions) => {
-  return (store) => {
-    let socket = null;
+export const socketMiddleware =
+  (wsUrl: string, wsActions: any) => (store: MiddlewareAPI) => {
+    let socket: WebSocket | null = null;
 
-    return (next) => (action) => {
+    return (next: any) => (action: { type: string }) => {
       const { dispatch } = store;
       const { type } = action;
       const { wsInit, wsInitUser, onOpen, onClose, onError, onMessage } =
@@ -21,17 +22,16 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       }
 
       if (socket) {
-        socket.onopen = (event) => {
+        socket.onopen = (event: Event) => {
           dispatch({ type: onOpen, payload: event });
           console.log(`Соединение установлено`);
         };
 
-        socket.onerror = (event) => {
+        socket.onerror = (event: Event) => {
           dispatch({ type: onError, payload: event });
-          console.log(`Ошибка! ${event.message}`);
         };
 
-        socket.onmessage = (event) => {
+        socket.onmessage = (event: MessageEvent) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
@@ -41,14 +41,9 @@ export const socketMiddleware = (wsUrl, wsActions) => {
               restParsedData.message === "Invalid or missing token" ||
               restParsedData.message === "jwt expired"
             ) {
-              socket.close();
-              return updateToken(dispatch)
-                .then(() => {
-                  dispatch({ type: wsInitUser });
-                })
-                .catch((err) => {
-                  console.log(`Ошибка подключения: ${err}`);
-                });
+              socket?.close();
+              updateToken(dispatch);
+              dispatch({ type: wsInitUser });
             } else {
               dispatch({ type: onError });
             }
@@ -68,4 +63,3 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       next(action);
     };
   };
-};

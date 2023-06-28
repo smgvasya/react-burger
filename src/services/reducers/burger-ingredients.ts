@@ -2,21 +2,33 @@ import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_ERROR,
-} from "../actions/burger-ingredients.js";
+} from "../types/constants/burger-ingredients";
 
-const initialState = {
-  data: [],
-  loaded: false,
-  error: null,
+import { IngredientsActions } from "../actions/burger-ingredients";
+import { IngredientTypes } from "../types/types";
+
+type InitialStateType = {
+  data: IngredientTypes[];
+  loaded: boolean;
+  error: boolean;
 };
 
-export const ingredientReducer = (state = initialState, action) => {
+const initialState: InitialStateType = {
+  data: [],
+  loaded: false,
+  error: false,
+};
+
+export const ingredientReducer = (
+  state = initialState,
+  action: IngredientsActions
+) => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {
         ...state,
         loaded: true,
-        error: null,
+        error: false,
       };
     }
     case GET_INGREDIENTS_SUCCESS: {
@@ -24,7 +36,7 @@ export const ingredientReducer = (state = initialState, action) => {
         ...state,
         data: action.payload,
         loaded: false,
-        error: null,
+        error: false,
       };
     }
     case GET_INGREDIENTS_ERROR: {

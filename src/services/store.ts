@@ -8,18 +8,24 @@ import {
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
-} from "./actions/wsActions";
+} from "./types/constants/wsActions";
 import {
   WS_CONNECTION_START_USER,
   WS_CONNECTION_SUCCESS_USER,
   WS_CONNECTION_ERROR_USER,
   WS_CONNECTION_CLOSED_USER,
   WS_GET_MESSAGE_USER,
-} from "./actions/wsActionsUser";
+} from "./types/constants/wsActionsUser";
+
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
 
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : compose;
 
 const wsUrl = "wss://norma.nomoreparties.space/orders";
@@ -41,7 +47,11 @@ const wsActionsUser = {
 };
 
 const enhancer = composeEnhancers(
-  applyMiddleware(thunk, socketMiddleware(wsUrl, wsActions), socketMiddleware(wsUrl, wsActionsUser))
+  applyMiddleware(
+    thunk,
+    socketMiddleware(wsUrl, wsActions),
+    socketMiddleware(wsUrl, wsActionsUser)
+  )
 );
 
 export const store = createStore(rootReducer, enhancer);

@@ -3,14 +3,22 @@ import {
   INGREDIENT_CONSTRUCTOR_REORDER,
   INGREDIENT_CONSTRUCTOR_DELETE,
   INGREDIENT_CONSTRUCTOR_RESET,
-} from "../actions/burger-constructor";
+} from "../types/constants/burger-constructor";
 
-const initialState = {
+import { ConstructorActions } from '../actions/burger-constructor';
+import { IngredientTypes } from "../types/types";
+
+type InitialStateType = {
+  fillings: IngredientTypes[];
+  bun: IngredientTypes | null;
+};
+
+const initialState: InitialStateType = {
   fillings: [],
   bun: null,
 };
 
-export const constructorReducer = (state = initialState, action) => {
+export const constructorReducer = (state = initialState, action: ConstructorActions) => {
   switch (action.type) {
     case INGREDIENT_CONSTRUCTOR_ADD: {
       if (action.payload.type !== "bun") {

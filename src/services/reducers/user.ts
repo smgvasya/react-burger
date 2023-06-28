@@ -23,9 +23,22 @@ import {
   UPDATE_TOKEN_REQUEST,
   UPDATE_TOKEN_SUCCESS,
   UPDATE_TOKEN_FAILED,
-} from "../actions/user";
+} from "../types/constants/user";
 
-const initialState = {
+import { UserTypes } from "../types/types";
+import { UserActions } from "../actions/user";
+
+type InitialStateType = {
+  user?: UserTypes | null;
+  password?: string | null;
+  request: boolean;
+  error: boolean;
+  pwdResetRequested: boolean;
+  pwdSubmitSuccess: boolean;
+  isLoggedIn: boolean;
+};
+
+const initialState: InitialStateType = {
   user: null,
   password: null,
   request: false,
@@ -35,7 +48,7 @@ const initialState = {
   isLoggedIn: false,
 };
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action: UserActions) => {
   switch (action.type) {
     case REGISTRATION_REQUEST: {
       return {

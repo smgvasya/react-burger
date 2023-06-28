@@ -12,21 +12,27 @@ export type IngredientTypes = {
   readonly image_large: string;
   readonly __v: number;
   id?: string;
-}
+};
 
 export type OrderTypes = {
   readonly number: number;
   readonly status: string;
   readonly createdAt: string;
   readonly _id: string;
-  readonly owner: User;
+  readonly owner: UserTypes;
   readonly price: number;
   readonly ingredients: IngredientTypes;
   readonly name?: string;
   id?: string;
 };
 
-export type User = {
+export type UserTypes = {
   email: string;
   name: string;
-}
+};
+
+export type WsActionsTypes = {
+  orders: OrderTypes[];
+  total?: number | null;
+  totalToday?: number | null;
+};

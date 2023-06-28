@@ -7,7 +7,6 @@ import {
   ORDER_DETAILS_CLOSE,
 } from "../types/constants/order-details";
 
-import { OrderTypes } from "../types/types";
 import { AppDispatch, AppThunk } from "../types/index";
 
 export type OrderDetailsRequest = {

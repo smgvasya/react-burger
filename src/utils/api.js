@@ -106,13 +106,13 @@ export const postPasswordChange = async ({ password, token }) => {
   return testRes(res);
 };
 
-export const postRefreshToken = async () => {
+export const postRefreshToken = async (refreshToken) => {
   const res = await fetch(`${config.authUrl}/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ token: getCookie("refreshToken") }),
+    body: JSON.stringify({ token: refreshToken }),
   });
   return testRes(res);
 };

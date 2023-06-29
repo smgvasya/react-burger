@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
-
+import { useDispatch, useSelector } from "../../services/types/hooks";
 import styles from "./burger-constructor.module.css";
 import {
   DragIcon,
@@ -9,31 +8,35 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { reorderIngredient } from "../../services/actions/burger-constructor";
 
-import { ingredientsPropTypes } from "../../utils/propTypes";
-import PropTypes from "prop-types";
+import {IngredientTypes} from "../../services/types/types"
 
-const IngredientsConstructor = ({ item, index, handleClose }) => {
+type PropsType = {
+  item: IngredientTypes;
+  index: number;
+  handleClose: Function
+}
+
+const IngredientsConstructor = ({ item, index, handleClose }: PropsType) => {
   const dispatch = useDispatch();
-  const ref = useRef(null);
+  const ref = useRef<HTMLLIElement>(null);
 
-  const [{ handlerId }, drop] = useDrop({
+  const [, drop] = useDrop({
     accept: "ingredient",
-    collect(monitor) {
-      return {
-        handlerId: monitor.getHandlerId(),
-      };
-    },
-    hover(item, monitor) {
+    // collect(monitor) {
+    //   return {
+    //     handlerId: monitor.getHandlerId(),
+    //   };
+    // },
+    hover(item: { index: number }, monitor) {
       const dragIndex = item.index;
       const hoverIndex = index;
       if (dragIndex === hoverIndex) {
         return;
       }
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const hoverMiddleY = hoverBoundingRect ? (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2 : 0;
       const clientOffset = monitor.getClientOffset();
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      const hoverClientY = (clientOffset && hoverBoundingRect) ? clientOffset.y - hoverBoundingRect.top : 0;
 
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return;
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) return;
@@ -41,6 +44,9 @@ const IngredientsConstructor = ({ item, index, handleClose }) => {
       dispatch(reorderIngredient(dragIndex, hoverIndex));
       item.index = hoverIndex;
     },
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
   });
   const [{ isDragging }, drag] = useDrag({
     type: "ingredient",
@@ -59,7 +65,7 @@ const IngredientsConstructor = ({ item, index, handleClose }) => {
       <li
         className={`${styles.list} mb-4 mr-2`}
         style={{ opacity }}
-        data-handler-id={handlerId}
+        // data-handler-id={handlerId}
         ref={ref}
       >
         <DragIcon type="primary" />
@@ -68,17 +74,12 @@ const IngredientsConstructor = ({ item, index, handleClose }) => {
           text={item.name}
           price={item.price}
           thumbnail={item.image}
-          handleClose={handleClose}
+          handleClose={() => handleClose(item.id)}
         />
       </li>
     </>
   );
 };
 
-IngredientsConstructor.propTypes = {
-  index: PropTypes.number.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  item: ingredientsPropTypes.isRequired,
-};
 
 export default IngredientsConstructor;

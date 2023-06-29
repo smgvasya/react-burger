@@ -7,7 +7,7 @@ import {
   ORDER_DETAILS_CLOSE,
 } from "../types/constants/order-details";
 
-import { AppDispatch, AppThunk } from "../types/index";
+import { AppDispatch } from "../types/index";
 
 export type OrderDetailsRequest = {
   readonly type: typeof ORDER_DETAILS_REQUEST;
@@ -32,14 +32,13 @@ export type OrderActions =
   | OrderDetailsError
   | OrderDetailsClose;
 
-export const getOrder: AppThunk =
-  (arrayId: string[]) => (dispatch: AppDispatch) => {
-    dispatch(orderRequest());
+export const getOrder = (arrayId: object) => (dispatch: AppDispatch) => {
+  dispatch(orderRequest());
 
-    postOrder(arrayId)
-      .then((res) => dispatch(orderSuccess(res.order.number)))
-      .catch(() => dispatch(orderError()));
-  };
+  postOrder(arrayId)
+    .then((res) => dispatch(orderSuccess(res.order.number)))
+    .catch(() => dispatch(orderError()));
+};
 
 export const orderRequest = (): OrderDetailsRequest => ({
   type: ORDER_DETAILS_REQUEST,

@@ -1,7 +1,8 @@
 import { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/types/hooks";
 import { useDrop } from "react-dnd";
-import styles from "./burger-constructor.module.css";
+import styles from './burger-constructor.module.css';
+import {IngredientTypes} from "../../services/types/types"
 import {
   CurrencyIcon,
   Button,
@@ -23,8 +24,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
   const { bun, fillings } = useSelector((state) => state.burgerConstructor);
+
   const orderOpen = useSelector((state) => state.order.openModal);
   const orderNumber = useSelector((state) => state.order.data);
+
   const location = useLocation;
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
@@ -43,19 +46,19 @@ const BurgerConstructor = () => {
 
   const [, dropTarget] = useDrop(() => ({
     accept: "item",
-    drop: (item) => {
+    drop: (item: IngredientTypes) => {
       dispatch(addIngredient(item));
     },
   }));
 
   const handleMakeOrder = () => {
-    const arrayId = [bun._id, ...fillings.map((item) => item._id), bun._id];
+    const arrayId = [bun?._id, ...fillings.map((item) => item._id), bun?._id];
     user
       ? dispatch(getOrder(arrayId))
       : navigate("/login", { state: { from: location } });
   };
 
-  const onDelete = (id) => {
+  const onDelete = (id: string) => {
     dispatch(deleteIngredient(id));
   };
 
@@ -87,7 +90,7 @@ const BurgerConstructor = () => {
                 item={item}
                 index={index}
                 key={item.id}
-                handleClose={() => onDelete(item.id)}
+                handleClose={onDelete}
               />
             ))}
           </ul>

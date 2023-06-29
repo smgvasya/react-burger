@@ -26,19 +26,23 @@ export type IngredientsActions =
   | GetIngredientsSuccessType
   | GetIngredientsErrorType;
 
-export const getIngredients: AppThunk = () => (dispatch: AppDispatch) => {
-  dispatch(ingredientRequest());
 
-  getIngredientsList()
-    .then((res) => dispatch(ingredientSuccess(res.data)))
-    .catch(() => dispatch(ingredientError()));
-};
+
+  export const getIngredients = () => {
+    return function(dispatch: AppDispatch) {
+    dispatch(ingredientRequest());
+
+    getIngredientsList()
+      .then((res) => dispatch(ingredientSuccess(res.data)))
+      .catch(() => dispatch(ingredientError()));
+  }};
+
 
 export const ingredientRequest = () => ({
   type: GET_INGREDIENTS_REQUEST,
 });
 
-export const ingredientSuccess = (data: IngredientTypes[]) => ({
+export const ingredientSuccess = (data: IngredientTypes[]): GetIngredientsSuccessType => ({
   type: GET_INGREDIENTS_SUCCESS,
   payload: data,
 });

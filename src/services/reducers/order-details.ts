@@ -8,20 +8,20 @@ import {
 import { OrderActions } from "../actions/order-details";
 
 type InitialStateType = {
-  data: number[];
+  data: number;
   loaded: boolean;
   error: boolean;
   openModal: boolean;
 };
 
 const initialState: InitialStateType = {
-  data: [],
+  data: 0,
   loaded: false,
   error: false,
   openModal: false,
 };
 
-export const orderReducer = (state = initialState, action: OrderActions) => {
+export const orderReducer = (state = initialState, action: OrderActions): InitialStateType => {
   switch (action.type) {
     case ORDER_DETAILS_REQUEST: {
       return {

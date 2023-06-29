@@ -32,7 +32,7 @@ import {
   OrderPage,
 } from "../../pages";
 
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/types/hooks";
 import { useEffect } from "react";
 import { getIngredients } from "../../services/actions/burger-ingredients";
 import { getUserInfo } from "../../services/actions/user";

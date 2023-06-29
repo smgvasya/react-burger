@@ -10,7 +10,13 @@ import {
 } from "../../utils/api";
 
 import { setCookie, deleteCookie, getCookie } from "../../utils/cookie";
-import { UserTypes } from "../types/types";
+import {
+  UserTypes,
+  UserFormTypes,
+  LoginFormTypes,
+  UpdatePwdFormTypes,
+  submitPwdTypes,
+} from "../types/types";
 import { AppDispatch, AppThunk } from "../types/index";
 
 import {
@@ -40,14 +46,13 @@ import {
   UPDATE_TOKEN_FAILED,
 } from "../types/constants/user";
 
-
 export type RegistrationRequestType = {
   readonly type: typeof REGISTRATION_REQUEST;
 };
 
-export type RegistrationSuccessType  = {
+export type RegistrationSuccessType = {
   readonly type: typeof REGISTRATION_SUCCESS;
-  readonly user: UserTypes
+  readonly user: UserTypes;
 };
 
 export type RegistrationFailedType = {
@@ -60,7 +65,7 @@ export type LoginRequestType = {
 
 export type LoginSuccessType = {
   readonly type: typeof LOGIN_SUCCESS;
-  readonly user: UserTypes
+  readonly user: UserTypes;
 };
 
 export type LoginFailedType = {
@@ -85,8 +90,8 @@ export type GetUserRequestType = {
 
 export type GetUserSuccessType = {
   readonly type: typeof GET_USER_SUCCESS;
-  readonly user: UserTypes
-}
+  readonly user: UserTypes;
+};
 
 export type GetUserFailedType = {
   readonly type: typeof GET_USER_FAILED;
@@ -98,7 +103,7 @@ export type UpdateUserRequestType = {
 
 export type UpdateUserSuccessType = {
   readonly type: typeof UPDATE_USER_SUCCESS;
-  readonly user: UserTypes
+  readonly user: UserTypes;
 };
 
 export type UpdateUserFailedType = {
@@ -142,37 +147,37 @@ export type UpdateTokenFailedType = {
 };
 
 export type UserActions =
-| RegistrationRequestType
-| RegistrationSuccessType
-| RegistrationFailedType
-| LoginRequestType
-| LoginSuccessType
-| LoginFailedType
-| LogoutRequestType
-| LogoutSuccessType
-| LogoutFailedType
-| GetUserRequestType
-| GetUserSuccessType
-| GetUserFailedType
-| UpdateUserRequestType
-| UpdateUserSuccessType
-| UpdateUserFailedType
-| UpdatePwdRequestType
-| UpdatePwdSuccessType
-| UpdatePwdFailedType
-| SubmitPwdRequestType
-| SubmitPwdSuccessType
-| SubmitPwdFailedType
-| UpdateTokenRequestType
-| UpdateTokenSuccessType
-| UpdateTokenFailedType;
+  | RegistrationRequestType
+  | RegistrationSuccessType
+  | RegistrationFailedType
+  | LoginRequestType
+  | LoginSuccessType
+  | LoginFailedType
+  | LogoutRequestType
+  | LogoutSuccessType
+  | LogoutFailedType
+  | GetUserRequestType
+  | GetUserSuccessType
+  | GetUserFailedType
+  | UpdateUserRequestType
+  | UpdateUserSuccessType
+  | UpdateUserFailedType
+  | UpdatePwdRequestType
+  | UpdatePwdSuccessType
+  | UpdatePwdFailedType
+  | SubmitPwdRequestType
+  | SubmitPwdSuccessType
+  | SubmitPwdFailedType
+  | UpdateTokenRequestType
+  | UpdateTokenSuccessType
+  | UpdateTokenFailedType;
 
-export const registrationUser: AppThunk = ( name: string, email: string, password: string ) => {
+export const registrationUser = ({ name, email, password }: UserFormTypes) => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: REGISTRATION_REQUEST,
     });
-    postRegister(name, email, password)
+    postRegister({ name, email, password })
       .then((res) => {
         if (res && res.success) {
           setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
@@ -192,7 +197,7 @@ export const registrationUser: AppThunk = ( name: string, email: string, passwor
   };
 };
 
-export const loginUser: AppThunk = ( email: string, password: string ) => {
+export const loginUser = ({ email, password }: LoginFormTypes) => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: LOGIN_REQUEST,
@@ -264,7 +269,7 @@ export const getUserInfo = () => {
   };
 };
 
-export const updateUserInfo: AppThunk = (name: string, email: string, password: string ) => {
+export const updateUserInfo = ({ name, email, password }: UserFormTypes) => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: UPDATE_USER_REQUEST,
@@ -287,12 +292,12 @@ export const updateUserInfo: AppThunk = (name: string, email: string, password: 
   };
 };
 
-export const updatePassword: AppThunk = ( email: string ) => {
+export const updatePassword = (email: string) => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: UPDATE_PWD_REQUEST,
     });
-    postPasswordReset({ email })
+    postPasswordReset(email)
       .then((res) => {
         if (res && res.success) {
           dispatch({
@@ -309,7 +314,7 @@ export const updatePassword: AppThunk = ( email: string ) => {
   };
 };
 
-export const submitPassword: AppThunk = ( password: string, token: string ) => {
+export const submitPassword = ({ password, token }: submitPwdTypes) => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: SUBMIT_PWD_REQUEST,
@@ -333,25 +338,211 @@ export const submitPassword: AppThunk = ( password: string, token: string ) => {
 
 export const updateToken = (dispatch: AppDispatch) => {
   dispatch({
-    type: UPDATE_TOKEN_REQUEST
+    type: UPDATE_TOKEN_REQUEST,
   });
-    const refreshToken = getCookie("refreshToken");
-    postRefreshToken(refreshToken)
-      .then(res => {
-        if (res && res.success) {
-          setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
-          setCookie("refreshToken", res.refreshToken);
-          dispatch({
-            type: UPDATE_TOKEN_SUCCESS,
-          });
-
-        }
-      })
-    .catch(res => {
+  postRefreshToken()
+    .then((res) => {
+      if (res && res.success) {
+        setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
+        setCookie("refreshToken", res.refreshToken);
+        dispatch({
+          type: UPDATE_TOKEN_SUCCESS,
+        });
+      }
+    })
+    .catch((res) => {
       dispatch({
-        type: UPDATE_TOKEN_FAILED
+        type: UPDATE_TOKEN_FAILED,
       });
       console.log(`Ошибка обновления токена: ${res}`);
     });
-  };
+};
 
+// export const registrationUser = ( {name, email, password}: UserForm ) => {
+//   return function (dispatch: AppDispatch) {
+//     dispatch({
+//       type: REGISTRATION_REQUEST,
+//     });
+//     postRegister({name, email, password})
+//       .then((res) => {
+//         if (res && res.success) {
+//           setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
+//           setCookie("refreshToken", res.refreshToken);
+//           dispatch({
+//             type: REGISTRATION_SUCCESS,
+//             user: res.user,
+//           });
+//         }
+//       })
+//       .catch((res) => {
+//         dispatch({
+//           type: REGISTRATION_FAILED,
+//         });
+//         console.log(`Ошибка регистрации: ${res}`);
+//       });
+//   };
+// };
+
+// export const loginUser: AppThunk = ( email: string, password: string ) => {
+//   return function (dispatch: AppDispatch) {
+//     dispatch({
+//       type: LOGIN_REQUEST,
+//     });
+//     postLogin(email, password)
+//       .then((res) => {
+//         if (res.success) {
+//           setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
+//           setCookie("refreshToken", res.refreshToken);
+//           dispatch({
+//             type: LOGIN_SUCCESS,
+//             user: res.user,
+//           });
+//         }
+//       })
+//       .catch((res) => {
+//         dispatch({
+//           type: LOGIN_FAILED,
+//         });
+//         console.log(`Email или пароль введены не верно: ${res}`);
+//       });
+//   };
+// };
+
+// export const logoutUser = (refreshToken: string) => {
+//   return function (dispatch: AppDispatch) {
+//     dispatch({
+//       type: LOGOUT_REQUEST,
+//     });
+//     postLogout(refreshToken)
+//       .then((res) => {
+//         if (res.success) {
+//           deleteCookie("refreshToken");
+//           deleteCookie("accessToken");
+//           dispatch({
+//             type: LOGOUT_SUCCESS,
+//           });
+//         }
+//       })
+//       .catch((res) => {
+//         dispatch({
+//           type: LOGOUT_FAILED,
+//         });
+//         console.log(`Ошибка выхода: ${res}`);
+//       });
+//   };
+// };
+
+// export const getUserInfo: AppThunk = () => {
+//   return function (dispatch: AppDispatch) {
+//     dispatch({
+//       type: GET_USER_REQUEST,
+//     });
+//     getUser()
+//     //.then(res => res.json())
+//       .then((res) => {
+//         if (res.success) {
+//           dispatch({
+//             type: GET_USER_SUCCESS,
+//             user: res.user,
+//           });
+//         }
+//       })
+//       .catch((res) => {
+//         dispatch({
+//           type: GET_USER_FAILED,
+//         });
+//         console.log(`Ошибка авторизации: ${res}`);
+//       });
+//   };
+// };
+
+// export const updateUserInfo: AppThunk = (name: string, email: string, password: string ) => {
+//   return function (dispatch: AppDispatch) {
+//     dispatch({
+//       type: UPDATE_USER_REQUEST,
+//     });
+//     patchUser( name, email, password )
+//       .then((res) => {
+//         if (res.success) {
+//           dispatch({
+//             type: UPDATE_USER_SUCCESS,
+//             user: res.user,
+//           });
+//         }
+//       })
+//       .catch((res) => {
+//         dispatch({
+//           type: UPDATE_USER_FAILED,
+//         });
+//         console.log(`Ошибка: ${res}`);
+//       });
+//   };
+// };
+
+// export const updatePassword: AppThunk = ( email: string ) => {
+//   return function (dispatch: AppDispatch) {
+//     dispatch({
+//       type: UPDATE_PWD_REQUEST,
+//     });
+//     postPasswordReset({ email })
+//       .then((res) => {
+//         if (res && res.success) {
+//           dispatch({
+//             type: UPDATE_PWD_SUCCESS,
+//           });
+//         }
+//       })
+//       .catch((res) => {
+//         dispatch({
+//           type: UPDATE_PWD_FAILED,
+//         });
+//         console.log(`Ошибка при отправке пароля: ${res}`);
+//       });
+//   };
+// };
+
+// export const submitPassword: AppThunk = ( password: string, token: string ) => {
+//   return function (dispatch: AppDispatch) {
+//     dispatch({
+//       type: SUBMIT_PWD_REQUEST,
+//     });
+//     postPasswordChange({ password, token })
+//       .then((res) => {
+//         if (res && res.success) {
+//           dispatch({
+//             type: SUBMIT_PWD_SUCCESS,
+//           });
+//         }
+//       })
+//       .catch((res) => {
+//         dispatch({
+//           type: SUBMIT_PWD_FAILED,
+//         });
+//         console.log(`Ошибка обновления пароля: ${res}`);
+//       });
+//   };
+// };
+
+// export const updateToken = (dispatch: AppDispatch) => {
+//   dispatch({
+//     type: UPDATE_TOKEN_REQUEST
+//   });
+//     const refreshToken = getCookie("refreshToken");
+//     postRefreshToken(refreshToken)
+//       .then(res => {
+//         if (res && res.success) {
+//           setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
+//           setCookie("refreshToken", res.refreshToken);
+//           dispatch({
+//             type: UPDATE_TOKEN_SUCCESS,
+//           });
+
+//         }
+//       })
+//     .catch(res => {
+//       dispatch({
+//         type: UPDATE_TOKEN_FAILED
+//       });
+//       console.log(`Ошибка обновления токена: ${res}`);
+//     });
+//   };

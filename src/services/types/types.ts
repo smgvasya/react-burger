@@ -12,18 +12,18 @@ export type IngredientTypes = {
   readonly image_large: string;
   readonly __v: number;
   id?: string;
+  qty?: number
 };
 
 export type OrderTypes = {
   readonly number: number;
   readonly status: string;
   readonly createdAt: string;
+  readonly updatedAt: string;
   readonly _id: string;
   readonly owner: UserTypes;
-  readonly price: number;
-  readonly ingredients: IngredientTypes;
-  readonly name?: string;
-  id?: string;
+  readonly ingredients: string[];
+  readonly name: string;
 };
 
 export type UserTypes = {
@@ -31,8 +31,34 @@ export type UserTypes = {
   name: string;
 };
 
+export type UserFormTypes = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+export type LoginFormTypes = {
+  email: string;
+  password: string;
+};
+
+export type UpdatePwdFormTypes = {
+  email: string;
+};
+
+export type submitPwdTypes = {
+  token: string;
+  password: string;
+};
+
 export type WsActionsTypes = {
   orders: OrderTypes[];
-  total?: number | null;
-  totalToday?: number | null;
+  total: number | null;
+  totalToday: number | null;
+};
+
+export type TokenTypes = {
+  success: boolean;
+  accessToken: string;
+  refreshToken: string;
 };

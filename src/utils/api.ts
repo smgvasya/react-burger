@@ -1,12 +1,15 @@
 import { getCookie, setCookie } from "./cookie";
+import { UserFormTypes, submitPwdTypes } from "../services/types/types";
 
 const config = {
   baseUrl: "https://norma.nomoreparties.space/api",
   authUrl: "https://norma.nomoreparties.space/api/auth",
 };
 
-const testRes = (res) => {
-  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+const testRes = (res: Response) => {
+  return res.ok
+    ? res.json()
+    : res.json().then((err: Response) => Promise.reject(err));
 };
 
 export const getIngredientsList = async () => {
@@ -19,7 +22,7 @@ export const getIngredientsList = async () => {
   return testRes(res);
 };
 
-export const postOrder = (arrayId) => {
+export const postOrder = (arrayId: object) => {
   return fetchWithRefresh(`${config.baseUrl}/orders`, {
     method: "POST",
     headers: {
@@ -32,7 +35,11 @@ export const postOrder = (arrayId) => {
   });
 };
 
-export const postRegister = async (name, email, password) => {
+export const postRegister = async ({
+  name,
+  email,
+  password,
+}: UserFormTypes) => {
   const res = await fetch(`${config.authUrl}/register`, {
     method: "POST",
     headers: {
@@ -43,7 +50,7 @@ export const postRegister = async (name, email, password) => {
   return testRes(res);
 };
 
-export const postLogin = async (email, password) => {
+export const postLogin = async (email: string, password: string) => {
   const res = await fetch(`${config.authUrl}/login`, {
     method: "POST",
     headers: {
@@ -54,7 +61,7 @@ export const postLogin = async (email, password) => {
   return testRes(res);
 };
 
-export const postLogout = async (refreshToken) => {
+export const postLogout = async (refreshToken: string) => {
   const res = await fetch(`${config.authUrl}/logout`, {
     method: "POST",
     headers: {
@@ -73,7 +80,7 @@ export const getUser = () => {
     },
   });
 };
-export const patchUser = ({ name, email, password }) => {
+export const patchUser = ({ name, email, password }: UserFormTypes) => {
   return fetchWithRefresh(`${config.authUrl}/user`, {
     method: "PATCH",
     headers: {
@@ -84,18 +91,21 @@ export const patchUser = ({ name, email, password }) => {
   });
 };
 
-export const postPasswordReset = async ({ email }) => {
+export const postPasswordReset = async (email: string) => {
   const res = await fetch(`${config.baseUrl}/password-reset`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email }),
+    body: JSON.stringify(email),
   });
   return testRes(res);
 };
 
-export const postPasswordChange = async ({ password, token }) => {
+export const postPasswordChange = async ({
+  password,
+  token,
+}: submitPwdTypes) => {
   const res = await fetch(`${config.baseUrl}/password-reset/reset`, {
     method: "POST",
     headers: {
@@ -106,27 +116,33 @@ export const postPasswordChange = async ({ password, token }) => {
   return testRes(res);
 };
 
-export const postRefreshToken = async (refreshToken) => {
+export const postRefreshToken = async () => {
   const res = await fetch(`${config.authUrl}/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ token: refreshToken }),
+    body: JSON.stringify({ token: getCookie("refreshToken") }),
   });
   return testRes(res);
 };
 
-export const fetchWithRefresh = async (url, options) => {
+export const fetchWithRefresh = async (url: string, options?: RequestInit) => {
   try {
     const res = await fetch(url, options);
     return await testRes(res);
-  } catch (err) {
+  } catch (err: any) {
     if (err.message === "jwt expired") {
       const refreshData = await postRefreshToken();
+
       setCookie("refreshToken", refreshData.refreshToken);
       setCookie("accessToken", refreshData.accessToken.split("Bearer ")[1]);
-      options.headers.authorization = refreshData.accessToken;
+
+      (options?.headers as Headers).set(
+        "Authorization",
+        refreshData.accessToken
+      );
+
       const res = await fetch(url, options);
       return await testRes(res);
     } else {

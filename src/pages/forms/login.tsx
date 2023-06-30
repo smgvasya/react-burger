@@ -1,7 +1,8 @@
 import styles from "./forms.module.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "../../services/types/hooks";
+import { SyntheticEvent, ChangeEvent } from "react";
 import {
   EmailInput,
   PasswordInput,
@@ -9,15 +10,15 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { loginUser } from "../../services/actions/user";
 
-export const LoginPage = () => {
-  const [value, setValue] = useState({});
+export const LoginPage: React.FC = () => {
+  const [value, setValue] = useState({ email: '', password: '', });
   const dispatch = useDispatch();
 
-  const onChange = (evt) => {
+  const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setValue({ ...value, [evt.target.name]: evt.target.value });
   };
 
-  const onSubmitLogin = (evt) => {
+  const onSubmitLogin = (evt: SyntheticEvent) => {
     evt.preventDefault();
 
     dispatch(loginUser(value));
@@ -29,13 +30,13 @@ export const LoginPage = () => {
         Вход
       </h1>
       <EmailInput
-        value={value.email || ""}
+        value={value.email}
         name="email"
         onChange={onChange}
         extraClass="pb-6"
       />
       <PasswordInput
-        value={value.password || ""}
+        value={value.password}
         name="password"
         onChange={onChange}
         extraClass="pb-6"

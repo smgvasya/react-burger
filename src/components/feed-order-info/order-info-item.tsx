@@ -1,20 +1,26 @@
+import React from "react";
 import styles from "./feed-order-info.module.css";
 import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/types/hooks";
 import { OrderIngredient, OrderIngredients } from "./order-info-ingredient";
 import { status } from "../../utils/constants";
-import PropTypes from "prop-types";
 
-export const OrderInfoItem = ({ order }) => {
+import { OrderTypes } from "../../services/types/types";
+type TPropsType = {
+  order: OrderTypes;
+};
+
+export const OrderInfoItem: React.FC<TPropsType> = ({ order }) => {
   const location = useLocation();
   const ingredients = useSelector((state) => state.ingredients.data);
 
   const totalPrice = order.ingredients.reduce(
-    (acc, id) => acc + ingredients.find((item) => item._id === id).price,
+    (acc, id) =>
+      acc + (ingredients.find((item) => item._id === id)?.price ?? 0),
     0
   );
 
@@ -66,8 +72,4 @@ export const OrderInfoItem = ({ order }) => {
       </div>
     </Link>
   );
-};
-
-OrderInfoItem.propTypes = {
-  order: PropTypes.object.isRequired,
 };

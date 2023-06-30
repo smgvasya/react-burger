@@ -1,17 +1,22 @@
+import React from "react";
 import styles from "./feed-details.module.css";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/types/hooks";
 import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useParams, useLocation } from "react-router-dom";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { FeedDetailsImg } from "./feed-details-img";
 import { status } from "../../utils/constants";
 
-export const FeedDetails = () => {
+type dynamicKeysObject = {
+  [key: string | number]: number;
+};
+
+export const FeedDetails: React.FC = () => {
   const location = useLocation();
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const ingredients = useSelector((state) => state.ingredients.data);
   const orders = useSelector((state) => state.wsOrders.orders);
   const ordersUser = useSelector((state) => state.wsOrdersUser.orders);
@@ -26,26 +31,31 @@ export const FeedDetails = () => {
   const uniqueSet = new Set(currentOrder?.ingredients);
   const uniqueList = Array.from(uniqueSet);
 
+  const totalPrice = useMemo(
+    () =>
+      currentOrder?.ingredients.reduce(
+        (acc, id) =>
+          acc + (ingredients.find((item) => item._id === id)?.price ?? 0),
+        0
+      ),
+    [currentOrder?.ingredients, ingredients]
+  );
+
   const counter = useMemo(
     () =>
-      currentOrder?.ingredients.reduce((acc, id) => {
+      currentOrder?.ingredients.reduce((acc: dynamicKeysObject, id) => {
         acc[id] = Object.hasOwn(acc, id) ? acc[id] + 1 : 1;
         return acc;
       }, {}),
     [currentOrder?.ingredients]
   );
 
-  const totalPrice = useMemo(
-    () =>
-      currentOrder?.ingredients.reduce(
-        (acc, id) => acc + ingredients.find((item) => item._id === id).price,
-        0
-      ),
-    [currentOrder?.ingredients, ingredients]
-  );
+  if (counter === undefined || currentOrder === undefined) {
+    return null;
+  }
 
   return (
-    currentOrder && (
+    <>
       <div className={styles.feedOrderDetails}>
         <p className="text text_type_digits-default">{`#${currentOrder.number}`}</p>
         <div className="p-5" />
@@ -85,6 +95,6 @@ export const FeedDetails = () => {
           </p>
         </div>
       </div>
-    )
+    </>
   );
 };

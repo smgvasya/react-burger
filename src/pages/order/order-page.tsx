@@ -1,7 +1,7 @@
 import styles from "./order-page.module.css";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/types/hooks";
 import {
   wsConnectStart,
   wsConnectClosed,
@@ -12,7 +12,7 @@ import {
 } from "../../services/actions/wsActionsUser";
 import { FeedDetails } from "../../components/feed-details/feed-details ";
 
-export const OrderPage = () => {
+export const OrderPage: React.FC = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 

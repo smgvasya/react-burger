@@ -1,17 +1,17 @@
 import React from "react";
 import styles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/types/hooks";
 import { activeTab } from "../../services/actions/tabs-ingredients";
 
-const IngredientsTabs = () => {
+const IngredientsTabs: React.FC = () => {
   const dispatch = useDispatch();
 
   const currentTab = useSelector((state) => state.tab.currentTab);
 
-  const handleTabClick = (id) => {
+  const handleTabClick = (id: string) => {
     dispatch(activeTab(id));
-    const item = document.getElementById(id);
+    const item = document.getElementById(id) as HTMLElement;
     item.scrollIntoView({ behavior: "smooth" });
   };
   return (

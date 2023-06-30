@@ -1,13 +1,17 @@
+import React from "react";
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/types/hooks";
 import styles from "./burger-ingredients.module.css";
 
 import IngredientBlock from "./ingredient-block";
 
+type TPropsType = {
+  title: string;
+  type: string;
+  id: string;
+};
 
-import PropTypes from "prop-types";
-
-const Ingredients = ({ title, id, type }) => {
+const Ingredients: React.FC<TPropsType>  = ({ title, id, type }) => {
   const ingredients = useSelector((state) => state.ingredients.data);
 
   const content = useMemo(
@@ -22,22 +26,11 @@ const Ingredients = ({ title, id, type }) => {
       </h2>
       <ul className={styles.list}>
         {content.map((item) => (
-          <IngredientBlock
-            type={type}
-            items={item}
-            key={item._id}
-
-          />
+          <IngredientBlock type={type} items={item} key={item._id} />
         ))}
       </ul>
     </>
   );
-};
-
-Ingredients.propTypes = {
-  title: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
 };
 
 export default Ingredients;

@@ -1,7 +1,7 @@
 import styles from "./not-found-404.module.css";
 import { Link } from "react-router-dom";
 
-export const NotFound404 = () => {
+export const NotFound404: React.FC = () => {
   return (
     <div className={styles.container}>
       <h1 className='text text_type_digits-large'>

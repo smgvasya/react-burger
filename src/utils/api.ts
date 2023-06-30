@@ -1,5 +1,5 @@
 import { getCookie, setCookie } from "./cookie";
-import { UserFormTypes, submitPwdTypes } from "../services/types/types";
+import { UserFormTypes, submitPwdTypes, LoginFormTypes, UpdatePwdFormTypes } from "../services/types/types";
 
 const config = {
   baseUrl: "https://norma.nomoreparties.space/api",
@@ -50,7 +50,7 @@ export const postRegister = async ({
   return testRes(res);
 };
 
-export const postLogin = async (email: string, password: string) => {
+export const postLogin = async ({email, password}: LoginFormTypes) => {
   const res = await fetch(`${config.authUrl}/login`, {
     method: "POST",
     headers: {
@@ -91,13 +91,13 @@ export const patchUser = ({ name, email, password }: UserFormTypes) => {
   });
 };
 
-export const postPasswordReset = async (email: string) => {
+export const postPasswordReset = async ({email}: UpdatePwdFormTypes) => {
   const res = await fetch(`${config.baseUrl}/password-reset`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(email),
+    body: JSON.stringify({email}),
   });
   return testRes(res);
 };

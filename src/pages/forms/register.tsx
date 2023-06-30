@@ -1,7 +1,8 @@
 import styles from "./forms.module.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/types/hooks";
+import { SyntheticEvent, ChangeEvent } from "react";
 import {
   Input,
   EmailInput,
@@ -10,16 +11,15 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { registrationUser } from "../../services/actions/user";
 
-export const RegisterPage = () => {
-  const [form, setValue] = useState({});
+export const RegisterPage: React.FC = () => {
+  const [form, setValue] = useState({ name: "", email: "", password: "" });
+  const dispatch = useDispatch();
 
-  const onChange = (evt) => {
+  const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [evt.target.name]: evt.target.value });
   };
 
-  const dispatch = useDispatch();
-
-  const submitRegistration = (evt) => {
+  const submitRegistration = (evt: SyntheticEvent) => {
     evt.preventDefault();
     dispatch(registrationUser(form));
   };
@@ -30,7 +30,7 @@ export const RegisterPage = () => {
         Регистрация
       </h1>
       <Input
-        value={form.name || ""}
+        value={form.name}
         name="name"
         placeholder="Имя"
         type="text"
@@ -38,13 +38,13 @@ export const RegisterPage = () => {
         extraClass="pb-6"
       />
       <EmailInput
-        value={form.email || ""}
+        value={form.email}
         name="email"
         onChange={onChange}
         extraClass="pb-6"
       />
       <PasswordInput
-        value={form.password || ""}
+        value={form.password}
         name="password"
         onChange={onChange}
         extraClass="pb-6"

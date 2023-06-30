@@ -2,20 +2,23 @@ import styles from "./feed-page.module.css";
 import { FeedOrderInfo } from "../../components/feed-order-info/feed-order-info";
 import { FeedOrder } from "../../components/feed-order/feed-order";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/types/hooks";
 
 import {
   wsConnectStart,
   wsConnectClosed,
 } from "../../services/actions/wsActions";
 
-export const FeedPage = () => {
+export const FeedPage: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(wsConnectStart());
-    return () => dispatch(wsConnectClosed());
+    return () => {
+      dispatch(wsConnectClosed());
+    };
   }, [dispatch]);
+
 
   return (
     <section className={styles.main}>

@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 import { useDrag } from "react-dnd";
-import { useSelector } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useSelector } from "../../services/types/hooks";
+import { Link, useLocation } from "react-router-dom";
+import { IngredientTypes } from "../../services/types/types";
 
 import styles from "./burger-ingredients.module.css";
 import {
@@ -9,20 +10,14 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { ingredientsPropTypes } from "../../utils/propTypes";
-import PropTypes from "prop-types";
+type TPropsType = {
+  items: IngredientTypes;
+  type: string;
+};
 
-const IngredientBlock = ({ items, type }) => {
+const IngredientBlock: React.FC<TPropsType> = ({ items, type }) => {
   const { bun, fillings } = useSelector((state) => state.burgerConstructor);
-
-  const navigate = useNavigate();
   const location = useLocation();
-
-  const onClick = (item) => {
-    navigate(`/ingredients/${items._id}`, {
-      state: { ingredient: item, background: location},
-    });
-  }
 
   const [{ opacity }, dragRef] = useDrag({
     type: "item",
@@ -45,11 +40,12 @@ const IngredientBlock = ({ items, type }) => {
 
   return (
     <>
-      <li
+      <Link
+        to={`/ingredients/${items._id}`}
         className={`mr-1 ${styles.item}`}
-        type={type}
+        type={items.type}
         key={items._id}
-        onClick={() => onClick(items)}
+        state={{ background: location }}
       >
         {countIngredient !== 0 && (
           <Counter count={countIngredient} size="default" extraClass="m-1" />
@@ -73,14 +69,9 @@ const IngredientBlock = ({ items, type }) => {
         >
           {items.name}
         </p>
-      </li>
+      </Link>
     </>
   );
-};
-
-IngredientBlock.propTypes = {
-  type: PropTypes.string.isRequired,
-  items: ingredientsPropTypes.isRequired,
 };
 
 export default IngredientBlock;

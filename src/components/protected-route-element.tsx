@@ -1,11 +1,15 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "../services/types/hooks";
 import { getUserInfo } from "../services/actions/user";
 import { getCookie } from "../utils/cookie";
-import PropTypes from "prop-types";
 
-export function ProtectedRouteElement({ children, anonymous = false }) {
+type TPropsType = {
+  children: JSX.Element;
+  anonymous: boolean;
+}
+
+export const ProtectedRouteElement: React.FC<TPropsType> = ({ children, anonymous = false }) => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const request = useSelector((state) => state.auth.request);
   const user = useSelector((state) => state.auth.user);
@@ -34,8 +38,3 @@ export function ProtectedRouteElement({ children, anonymous = false }) {
   return children;
 }
 
-
-ProtectedRouteElement.propTypes = {
-  children: PropTypes.node.isRequired,
-  anonymous: PropTypes.bool.isRequired,
-};

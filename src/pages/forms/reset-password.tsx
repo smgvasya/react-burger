@@ -1,7 +1,8 @@
 import styles from "./forms.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/types/hooks";
+import { SyntheticEvent, ChangeEvent } from "react";
 import {
   PasswordInput,
   Input,
@@ -9,11 +10,12 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { submitPassword } from "../../services/actions/user";
 
-export const ResetPasswordPage = () => {
+export const ResetPasswordPage: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [value, setValue] = useState({});
+  const [value, setValue] = useState({ token: "", password: "" });
+
   const pwdResetRequested = useSelector(
     (state) => state.auth.pwdResetRequested
   );
@@ -25,11 +27,11 @@ export const ResetPasswordPage = () => {
     }
   }, [navigate, pwdResetRequested]);
 
-  const onChange = (evt) => {
+  const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setValue({ ...value, [evt.target.name]: evt.target.value });
   };
 
-  const handlePasswordSubmit = (evt) => {
+  const handlePasswordSubmit = (evt: SyntheticEvent) => {
     evt.preventDefault();
     dispatch(submitPassword(value));
   };
@@ -44,14 +46,14 @@ export const ResetPasswordPage = () => {
     <form onSubmit={handlePasswordSubmit} className={styles.form}>
       <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
       <PasswordInput
-        value={value.password || ""}
+        value={value.password}
         name="password"
         placeholder="Введите новый пароль"
         onChange={onChange}
         extraClass="pb-6"
       />
       <Input
-        value={value.token || ""}
+        value={value.token}
         type="text"
         name="token"
         placeholder="Введите код из письма"

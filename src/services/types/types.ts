@@ -12,7 +12,6 @@ export type IngredientTypes = {
   readonly image_large: string;
   readonly __v: number;
   id?: string;
-  qty?: number
 };
 
 export type OrderTypes = {

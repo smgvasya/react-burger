@@ -1,6 +1,6 @@
 import styles from "./profile.module.css";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/types/hooks";
 import {
   wsConnectStartUser,
   wsConnectClosedUser,
@@ -8,7 +8,7 @@ import {
 import { FeedOrderInfo } from "../../components/feed-order-info/feed-order-info";
 import { NavProfile } from "../../components/nav-profile/nav-profile";
 
-export const ProfileOrders = () => {
+export const ProfileOrders: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {

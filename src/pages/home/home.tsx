@@ -6,9 +6,9 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
 import { Loader } from "../../components/loader/loader";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/types/hooks";
 
-export const HomePage = () => {
+export const HomePage: React.FC = () => {
   const loading = useSelector((state) => state.ingredients.loaded);
   const loadingOrder = useSelector((state) => state.order.loaded);
 

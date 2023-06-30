@@ -1,8 +1,18 @@
+import React from "react";
 import styles from "./feed-order-info.module.css";
-import { useSelector } from "react-redux";
-import PropTypes from "prop-types";
+import { useSelector } from "../../services/types/hooks";
 
-export const OrderIngredient = ({ id, index, length }) => {
+type TPropsType = {
+  id: string;
+  index: number;
+  length: number;
+};
+
+export const OrderIngredient: React.FC<TPropsType> = ({
+  id,
+  index,
+  length,
+}) => {
   const ingredients = useSelector((state) => state.ingredients.data);
 
   const ingredient = ingredients.find((item) => item._id === id);
@@ -12,9 +22,9 @@ export const OrderIngredient = ({ id, index, length }) => {
       className={`${styles.ingredients}`}
       style={{
         zIndex: 6 - index,
-        backgroundImage: `url(${ingredient.image_mobile})`,
+        backgroundImage: `url(${ingredient?.image_mobile})`,
       }}
-      title={ingredient.name}
+      title={ingredient?.name}
     >
       {length - 6 !== 0 && (
         <span className={`text text_type_digits-default ${styles.text}`}>
@@ -25,13 +35,14 @@ export const OrderIngredient = ({ id, index, length }) => {
   );
 };
 
-OrderIngredient.propTypes = {
-  id: PropTypes.node.isRequired,
-  length: PropTypes.node.isRequired,
-  index: PropTypes.node.isRequired,
+type TPropsIngredientsType = {
+  id: string;
+  index: number;
 };
-
-export const OrderIngredients = ({ id, index }) => {
+export const OrderIngredients: React.FC<TPropsIngredientsType> = ({
+  id,
+  index,
+}) => {
   const ingredients = useSelector((state) => state.ingredients.data);
 
   const ingredient = ingredients.find((item) => item._id === id);
@@ -41,14 +52,9 @@ export const OrderIngredients = ({ id, index }) => {
       className={`${styles.ingredients}`}
       style={{
         zIndex: 6 - index,
-        backgroundImage: `url(${ingredient.image_mobile})`,
+        backgroundImage: `url(${ingredient?.image_mobile})`,
       }}
-      title={ingredient.name}
+      title={ingredient?.name}
     ></div>
   );
-};
-
-OrderIngredients.propTypes = {
-  id: PropTypes.node.isRequired,
-  index: PropTypes.node.isRequired,
 };

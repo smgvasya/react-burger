@@ -1,3 +1,4 @@
+import React from "react";
 import { useMemo } from "react";
 import { useDispatch, useSelector } from "../../services/types/hooks";
 import { useDrop } from "react-dnd";
@@ -21,7 +22,7 @@ import OrderDetails from "../order-details/order-details";
 
 import { useNavigate, useLocation } from "react-router-dom";
 
-const BurgerConstructor = () => {
+const BurgerConstructor: React.FC = () => {
   const dispatch = useDispatch();
   const { bun, fillings } = useSelector((state) => state.burgerConstructor);
 

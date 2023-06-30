@@ -9,7 +9,7 @@ const PROFILE: "profile" = "profile";
 const ORDERS_PROFILE: "profile/orders" = "profile/orders";
 const ERROR: "*" = "*";
 
-const status = {
+const status: any = {
   created: "Создан",
   done: "Выполнен",
   pending: "Готовится",

@@ -1,6 +1,7 @@
+import React from "react";
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { useDispatch, useSelector } from "../../services/types/hooks";
+import { useDispatch } from "../../services/types/hooks";
 import styles from "./burger-constructor.module.css";
 import {
   DragIcon,
@@ -10,23 +11,18 @@ import { reorderIngredient } from "../../services/actions/burger-constructor";
 
 import {IngredientTypes} from "../../services/types/types"
 
-type PropsType = {
+type TPropsType = {
   item: IngredientTypes;
   index: number;
-  handleClose: Function
+  handleClose: Function;
 }
 
-const IngredientsConstructor = ({ item, index, handleClose }: PropsType) => {
+const IngredientsConstructor: React.FC<TPropsType> = ({ item, index, handleClose }) => {
   const dispatch = useDispatch();
   const ref = useRef<HTMLLIElement>(null);
 
   const [, drop] = useDrop({
     accept: "ingredient",
-    // collect(monitor) {
-    //   return {
-    //     handlerId: monitor.getHandlerId(),
-    //   };
-    // },
     hover(item: { index: number }, monitor) {
       const dragIndex = item.index;
       const hoverIndex = index;
@@ -65,7 +61,6 @@ const IngredientsConstructor = ({ item, index, handleClose }: PropsType) => {
       <li
         className={`${styles.list} mb-4 mr-2`}
         style={{ opacity }}
-        // data-handler-id={handlerId}
         ref={ref}
       >
         <DragIcon type="primary" />

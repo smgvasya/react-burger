@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/types/hooks";
 import styles from "./burger-ingredients.module.css";
 import IngredientsTabs from "./ingredients-tabs";
 import Ingredients from "./ingredients";
 
 import { activeTab } from "../../services/actions/tabs-ingredients";
 
-const BurgerIngredients = () => {
+const BurgerIngredients: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,13 +16,15 @@ const BurgerIngredients = () => {
       threshold: [0, 0.25, 0.5, 0.75, 1],
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    const callback = (entries: IntersectionObserverEntry[]) => {
       dispatch(activeTab(entries[0].target.id));
-    }, options);
+    };
 
-    const buns = document.getElementById("bun");
-    const sauces = document.getElementById("sauce");
-    const main = document.getElementById("main");
+    const observer = new IntersectionObserver(callback, options);
+
+    const buns = document.getElementById("bun") as HTMLElement;
+    const sauces = document.getElementById("sauce") as HTMLElement;
+    const main = document.getElementById("main") as HTMLElement;
 
     observer.observe(buns);
     observer.observe(sauces);

@@ -1,5 +1,6 @@
 import styles from "./profile.module.css";
-import { useSelector, useDispatch } from "react-redux";
+import { SyntheticEvent, ChangeEvent } from "react";
+import { useDispatch, useSelector } from "../../services/types/hooks";
 import { useState } from "react";
 import {
   Input,
@@ -11,15 +12,15 @@ import { updateUserInfo } from "../../services/actions/user";
 import { useEffect } from "react";
 import { NavProfile } from "../../components/nav-profile/nav-profile";
 
-export const ProfilePage = () => {
+export const ProfilePage: React.FC = () => {
   const user = useSelector((state) => state.auth.user);
   const password = useSelector((state) => state.auth.password);
   const dispatch = useDispatch();
   const [isChanged, setIsChanged] = useState(false);
 
   const initUserInfo = {
-    name: user.name || "",
-    email: user.email || "",
+    name: user?.name || "",
+    email: user?.email || "",
     password: "",
   };
 
@@ -33,7 +34,7 @@ export const ProfilePage = () => {
     } else setForm(initUserInfo);
   }, [user]);
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setIsChanged(true);
   };
@@ -43,7 +44,7 @@ export const ProfilePage = () => {
     setIsChanged(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(updateUserInfo(form));
     setIsChanged(false);
@@ -68,7 +69,6 @@ export const ProfilePage = () => {
             onChange={onChange}
             value={form.email}
             name="email"
-            icon="EditIcon"
             extraClass={`mb-6 ${styles.input}`}
           />
           <PasswordInput

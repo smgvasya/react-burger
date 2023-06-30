@@ -1,5 +1,7 @@
+import React from "react";
 import styles from "./app-header.module.css";
-import { NavLink, useLocation, Link } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+
 import {
   BurgerIcon,
   ListIcon,
@@ -7,12 +9,17 @@ import {
   Logo,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const AppHeader = () => {
+type PropsType = {
+  isActive?: boolean;
+};
+
+const AppHeader: React.FC = () => {
   const { pathname } = useLocation();
 
-  const swithActiveColor = ({ isActive }) => ({
-    color: !isActive && "#8585AD",
-  })
+  const swithActiveColor = ({ isActive }: PropsType) => ({
+    color: isActive ? " #f2f2f3" : "#8585AD",
+  });
+
   return (
     <header className={styles.header}>
       <nav className={styles.navigation}>

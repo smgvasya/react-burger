@@ -1,8 +1,13 @@
+import React from "react";
 import styles from "./order-details.module.css";
 import logo from "../../images/id-order.svg";
 import PropTypes from "prop-types";
 
-const OrderDetails = ({ orderNumber }) => {
+type TPropsType = {
+  orderNumber: number;
+};
+
+const OrderDetails: React.FC<TPropsType> = ({ orderNumber }) => {
   return (
     <div className={`${styles.container} `}>
       <h1 className={`${styles.h1} text text_type_digits-large pt-30 pb-8`}>

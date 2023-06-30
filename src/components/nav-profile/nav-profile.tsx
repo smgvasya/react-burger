@@ -1,18 +1,24 @@
+import React from "react";
 import styles from "./nav-profile.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/types/hooks";
 import { getCookie } from "../../utils/cookie";
 import { logoutUser } from "../../services/actions/user";
 import { NavLink } from "react-router-dom";
+import { SyntheticEvent } from "react";
 
-export const NavProfile = () => {
-  const refreshToken = getCookie("refreshToken");
+type PropsType = {
+  isActive?: boolean;
+};
+
+export const NavProfile: React.FC = () => {
+  const refreshToken = getCookie("refreshToken") as string;
   const dispatch = useDispatch();
 
-  const handleOut = (e) => {
+  const handleOut = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(logoutUser(refreshToken));
   };
-  const swithActiveColor = ({ isActive }) => ({
+  const swithActiveColor = ({ isActive }: PropsType) => ({
     color: !isActive ? "#8585AD" : "#F2F2F3",
   });
 

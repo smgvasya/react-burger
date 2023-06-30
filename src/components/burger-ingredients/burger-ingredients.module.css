@@ -21,6 +21,9 @@
 .item {
   position: relative;
   cursor: pointer;
+  text-decoration: none;
+  color: var(--text-primary-color);
+
 }
 
 .price {

@@ -1,9 +1,10 @@
+import React from "react";
 import styles from "./feed-order.module.css";
 
+import { useSelector } from "../../services/types/hooks";
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
 
-export const FeedOrder = () => {
+export const FeedOrder: React.FC = () => {
   const orders = useSelector((state) => state.wsOrders.orders);
   const total = useSelector((state) => state.wsOrders.total);
   const totalToday = useSelector((state) => state.wsOrders.totalToday);

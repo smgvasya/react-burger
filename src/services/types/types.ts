@@ -61,3 +61,12 @@ export type TokenTypes = {
   accessToken: string;
   refreshToken: string;
 };
+
+export type MiddlewareTypes = {
+  wsInit?: string;
+  wsInitUser?:  string;
+  onOpen: string;
+  onClose: string;
+  onError: string;
+  onMessage: string;
+};

@@ -9,11 +9,12 @@ const IngredientsTabs: React.FC = () => {
 
   const currentTab = useSelector((state) => state.tab.currentTab);
 
-  const handleTabClick = (id: string) => {
-    dispatch(activeTab(id));
-    const item = document.getElementById(id) as HTMLElement;
+  const handleTabClick = (tab: string) => {
+    dispatch(activeTab(tab));
+    const item = document.getElementById(tab) as HTMLElement;
     item.scrollIntoView({ behavior: "smooth" });
   };
+
   return (
     <div className={styles.tabs}>
       <Tab value={"bun"} active={currentTab === "bun"} onClick={handleTabClick}>

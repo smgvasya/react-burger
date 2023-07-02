@@ -10,21 +10,21 @@ const BurgerIngredients: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const options = {
-      root: document.querySelector("#scrollArea"),
-      rootMargin: "0px 0px 150% 0px",
-      threshold: [0, 0.25, 0.5, 0.75, 1],
-    };
-
     const callback = (entries: IntersectionObserverEntry[]) => {
       dispatch(activeTab(entries[0].target.id));
     };
 
+    const options = {
+      root: document.querySelector("#scrollArea"),
+      rootMargin: "0px 0px -90% 0px",
+      threshold: [0, 0.25, 0.5, 0.75, 1],
+    };
+
     const observer = new IntersectionObserver(callback, options);
 
-    const buns = document.getElementById("bun") as HTMLElement;
-    const sauces = document.getElementById("sauce") as HTMLElement;
-    const main = document.getElementById("main") as HTMLElement;
+    const buns = document.querySelector("#bun") as HTMLElement;
+    const sauces = document.querySelector("#sauce") as HTMLElement;
+    const main = document.querySelector("#main") as HTMLElement;
 
     observer.observe(buns);
     observer.observe(sauces);

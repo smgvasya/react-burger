@@ -1,5 +1,10 @@
 import { getCookie, setCookie } from "./cookie";
-import { UserFormTypes, submitPwdTypes, LoginFormTypes, UpdatePwdFormTypes } from "../services/types/types";
+import {
+  UserFormTypes,
+  submitPwdTypes,
+  LoginFormTypes,
+  UpdatePwdFormTypes,
+} from "../services/types/types";
 
 const config = {
   baseUrl: "https://norma.nomoreparties.space/api",
@@ -50,7 +55,7 @@ export const postRegister = async ({
   return testRes(res);
 };
 
-export const postLogin = async ({email, password}: LoginFormTypes) => {
+export const postLogin = async ({ email, password }: LoginFormTypes) => {
   const res = await fetch(`${config.authUrl}/login`, {
     method: "POST",
     headers: {
@@ -91,13 +96,13 @@ export const patchUser = ({ name, email, password }: UserFormTypes) => {
   });
 };
 
-export const postPasswordReset = async ({email}: UpdatePwdFormTypes) => {
+export const postPasswordReset = async ({ email }: UpdatePwdFormTypes) => {
   const res = await fetch(`${config.baseUrl}/password-reset`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({email}),
+    body: JSON.stringify({ email }),
   });
   return testRes(res);
 };
@@ -127,7 +132,7 @@ export const postRefreshToken = async () => {
   return testRes(res);
 };
 
-export const fetchWithRefresh = async (url: string, options?: RequestInit) => {
+export const fetchWithRefresh = async (url: string, options: RequestInit) => {
   try {
     const res = await fetch(url, options);
     return await testRes(res);
@@ -138,7 +143,7 @@ export const fetchWithRefresh = async (url: string, options?: RequestInit) => {
       setCookie("refreshToken", refreshData.refreshToken);
       setCookie("accessToken", refreshData.accessToken.split("Bearer ")[1]);
 
-      (options?.headers as Headers).set(
+      (options.headers as Headers).set(
         "Authorization",
         refreshData.accessToken
       );

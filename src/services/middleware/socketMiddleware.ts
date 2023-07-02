@@ -38,10 +38,7 @@ export const socketMiddleware =
           const { success, ...restParsedData } = parsedData;
 
           if (!success) {
-            if (
-              restParsedData.message === "Invalid or missing token" ||
-              restParsedData.message === "jwt expired"
-            ) {
+            if (restParsedData.message === "Invalid or missing token") {
               socket?.close();
               updateToken(dispatch);
               dispatch({ type: wsInitUser });

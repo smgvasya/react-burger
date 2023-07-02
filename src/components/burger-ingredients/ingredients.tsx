@@ -11,7 +11,7 @@ type TPropsType = {
   id: string;
 };
 
-const Ingredients: React.FC<TPropsType>  = ({ title, id, type }) => {
+const Ingredients: React.FC<TPropsType> = ({ title, id, type }) => {
   const ingredients = useSelector((state) => state.ingredients.data);
 
   const content = useMemo(

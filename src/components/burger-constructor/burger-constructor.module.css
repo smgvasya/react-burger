@@ -1,0 +1,69 @@
+.section {
+  max-width: 600px;
+  box-sizing: border-box;
+}
+
+.ingredients {
+  height: 464px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  list-style: none;
+  padding: 0;
+}
+
+.ingredients::-webkit-scrollbar {
+  width: 8px;
+}
+.ingredients::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.ingredients::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+  height: 292px;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+.list:last-child {
+  margin-bottom: 0;
+}
+
+.order {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-bottom: 52px;
+}
+
+.price {
+  display: flex;
+  gap: 9px;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+}
+
+.icon svg {
+  height: 33px;
+  width: 33px;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  height: 83%;
+  min-width: 500px;
+}
+
+.request {
+  text-align: center;
+  margin: auto;
+}

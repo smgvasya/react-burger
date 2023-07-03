@@ -1,0 +1,18 @@
+.section {
+  padding-top: 120px;
+  max-width: 1280px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 340px 860px;
+  column-gap: 60px;
+  justify-items: center;
+}
+
+.input input {
+  color: #8585ad;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+}

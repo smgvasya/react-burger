@@ -1,0 +1,10 @@
+.form {
+  display: flex;
+  padding-top: 180px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.link {
+  color: var(--colors-interface-accent);
+}

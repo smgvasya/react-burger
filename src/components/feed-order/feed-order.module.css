@@ -1,0 +1,27 @@
+.ordersInfo {
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+  gap: 60px;
+}
+
+.ordersNumberInfo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+}
+
+.ordersNumberList {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  gap: 8px;
+  max-height: 154px;
+  flex-wrap: wrap;
+}
+
+.orderNumberDone {
+  color: var(--colors-interface-success);
+}

@@ -1,0 +1,17 @@
+.main {
+  margin: 40px auto 0;
+  max-width: 1280px;
+  width: 100%;
+}
+
+.containerFeed {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.container {
+  max-width: 600px;
+  box-sizing: border-box;
+}

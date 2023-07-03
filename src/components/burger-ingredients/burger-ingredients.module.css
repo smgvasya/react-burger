@@ -1,0 +1,59 @@
+.section {
+  max-width: 600px;
+  box-sizing: border-box;
+}
+
+.tabs {
+  display: flex;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(auto-fit, 208px);
+  grid-gap: 32px 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.item {
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text-primary-color);
+
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.name {
+  text-align: center;
+  height: 48px;
+}
+
+.ingredient {
+  height: 716px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.ingredient::-webkit-scrollbar {
+  width: 8px;
+  height: 664px;
+}
+.ingredient::-webkit-scrollbar-track {
+  background: #2f2f37;
+  margin-bottom: 52px;
+}
+
+.ingredient::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+  height: 492px;
+}

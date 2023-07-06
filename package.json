@@ -1,7 +1,7 @@
 {
   "name": "react-burger",
   "version": "0.1.0",
-  "homepage": "./",
+  "homepage": "https://smgvasya.github.io/feed",
   "private": true,
   "dependencies": {
     "@redux-devtools/extension": "^3.2.5",

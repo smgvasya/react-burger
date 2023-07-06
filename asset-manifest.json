@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "./static/css/main.22d17c3b.css",
+    "main.js": "./static/js/main.a6be7590.js",
+    "static/media/png": "./static/media/1618230378278989.bba5133608154f1cf407.png",
+    "static/media/rescue-team.png": "./static/media/rescue-team.d396a13ec81e57dd335a.png",
+    "static/media/JetBrainsMono-Bold.woff": "./static/media/JetBrainsMono-Bold.3914674f1cb2335acf26.woff",
+    "static/media/JetBrainsMono-Regular.woff": "./static/media/JetBrainsMono-Regular.f52bee61d00ce995b89f.woff",
+    "static/media/JetBrainsMono-Bold.woff2": "./static/media/JetBrainsMono-Bold.c232d532ea5a5189a278.woff2",
+    "static/media/JetBrainsMono-Regular.woff2": "./static/media/JetBrainsMono-Regular.b60380891bcf2eb241ca.woff2",
+    "static/media/iceland.woff": "./static/media/iceland.77ad7fc2baffd9305538.woff",
+    "static/media/iceland.woff2": "./static/media/iceland.4ae67a017a5ff82bbbb7.woff2",
+    "static/media/id-order.svg": "./static/media/id-order.2022ce2b88cc7b71fc8b9023c521656c.svg",
+    "index.html": "./index.html",
+    "main.22d17c3b.css.map": "./static/css/main.22d17c3b.css.map",
+    "main.a6be7590.js.map": "./static/js/main.a6be7590.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.22d17c3b.css",
+    "static/js/main.a6be7590.js"
+  ]
+}
